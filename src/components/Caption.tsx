@@ -1,49 +1,76 @@
 import React from 'react';
-import {interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
+import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {colors, layout, type} from '../theme';
 import {serif} from '../fonts';
+import type {Word} from '../types';
 
 /**
- * Word-by-word serif subtitle.
- * - spoken words: white, current word: yellow, upcoming: dim grey
+ * Word-by-word serif subtitle with a per-word animation, timed to the speech.
+ * - every word pops in at the exact frame it is spoken: spring scale 0.72→1, rise 26px→0, blur 8px→0, fade in
+ * - the word being spoken is yellow with a soft glow and a small "beat" scale; spoken = white; upcoming = hidden-dim
  * - *word* in the source text => italic keyword
- * - shows ~4 words per chunk, chunks fade in/out softly (no hard cuts)
+ * - ~4 words per chunk; chunk fades out softly when the next one starts (no hard cuts)
+ * Timing: pass `words` (seconds, from Whisper) for exact sync; otherwise words are spread evenly over `duration`.
  */
 export const WORDS_PER_CHUNK = 4;
 
-type Props = {text: string; duration: number};
+type Props = {text: string; duration: number; words?: Word[]};
+type Tok = {text: string; italic: boolean; start: number; end: number}; // seconds, relative to the scene
 
-export const Caption: React.FC<Props> = ({text, duration}) => {
+const tokenize = (text: string, duration: number, words?: Word[]): Tok[] => {
+  const raw = text.split(/\s+/).filter(Boolean);
+  const per = duration / raw.length;
+  return raw.map((r, i) => {
+    const w = words?.[i];
+    return {
+      text: r.replace(/\*/g, ''),
+      italic: /^\*.+\*[.,!?:;]*$/.test(r),
+      start: w ? w.start : i * per,
+      end: w ? w.end : (i + 1) * per,
+    };
+  });
+};
+
+export const Caption: React.FC<Props> = ({text, duration, words}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const tokens = text.split(/\s+/).filter(Boolean).map((raw) => {
-    const italic = /^\*.+\*[.,!?:;]*$/.test(raw);
-    return {text: raw.replace(/\*/g, ''), italic};
-  });
-  const per = (duration * fps) / tokens.length; // frames per word (even split; swap for Whisper timings)
-  const idx = Math.min(tokens.length - 1, Math.floor(frame / per));
+  const t = frame / fps;
+  const toks = tokenize(text, duration, words);
+
+  let idx = 0; // word currently being spoken
+  toks.forEach((k, i) => { if (t >= k.start) idx = i; });
   const chunkStart = Math.floor(idx / WORDS_PER_CHUNK) * WORDS_PER_CHUNK;
-  const chunk = tokens.slice(chunkStart, chunkStart + WORDS_PER_CHUNK);
-  const chunkFrame = frame - chunkStart * per;
-  const opacity = interpolate(chunkFrame, [0, 5], [0, 1], {extrapolateRight: 'clamp'});
-  const y = interpolate(chunkFrame, [0, 6], [14, 0], {extrapolateRight: 'clamp'});
+  const chunk = toks.slice(chunkStart, chunkStart + WORDS_PER_CHUNK);
+  const lastEnd = chunk[chunk.length - 1].end;
+  const out = chunkStart + WORDS_PER_CHUNK < toks.length
+    ? interpolate(t, [lastEnd - 0.12, lastEnd], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
+    : 1;
 
   return (
-    <div
-      style={{
-        position: 'absolute', top: layout.captionTop, left: layout.pad, right: layout.pad,
-        height: layout.captionHeight, display: 'flex', justifyContent: 'center',
-        alignItems: 'center', textAlign: 'center', opacity, transform: `translateY(${y}px)`,
-      }}
-    >
-      <div style={{fontFamily: serif, fontSize: type.caption, lineHeight: 1.15, color: colors.text}}>
+    <div style={{
+      position: 'absolute', top: layout.captionTop, left: layout.pad, right: layout.pad, height: layout.captionHeight,
+      display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', opacity: out,
+    }}>
+      <div style={{fontFamily: serif, fontSize: type.caption, lineHeight: 1.18, color: colors.text}}>
         {chunk.map((w, i) => {
           const g = chunkStart + i;
-          const color = g < idx ? colors.text : g === idx ? colors.accent : colors.dim;
+          const local = frame - Math.round(w.start * fps);
+          const p = spring({frame: local, fps, config: {damping: 14, stiffness: 190, mass: 0.6}});
+          const appear = interpolate(local, [0, 4], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const blur = interpolate(local, [0, 6], [8, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const active = g === idx;
+          const beat = active ? 1 + 0.06 * Math.max(0, 1 - local / 8) : 1;
+          const shown = local >= 0;
           return (
-            <span key={g} style={{color, fontStyle: w.italic ? 'italic' : 'normal', marginRight: '0.28em'}}>
-              {w.text}
-            </span>
+            <span key={g} style={{
+              display: 'inline-block', marginRight: '0.28em',
+              color: active ? colors.accent : colors.text,
+              fontStyle: w.italic ? 'italic' : 'normal',
+              opacity: shown ? appear : 0,
+              transform: `translateY(${(1 - p) * 26}px) scale(${(0.72 + 0.28 * p) * beat})`,
+              filter: `blur(${blur}px)`,
+              textShadow: active ? '0 0 28px rgba(255,214,10,.45)' : 'none',
+            }}>{w.text}</span>
           );
         })}
       </div>

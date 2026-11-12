@@ -6,4 +6,5 @@ export type Scene = {
   duration: number; // seconds
   caption: string; // plain text; wrap *word* to render it italic
   graphic: string; // key into the graphics registry
+  words?: Word[]; // optional exact word timings in seconds, relative to scene start (from Whisper)
 };

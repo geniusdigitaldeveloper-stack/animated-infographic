@@ -17,5 +17,5 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 ## Peraturan gaya (jangan langgar)
 1. Satu warna aksen sahaja: kuning `#ffd60a`. Merah hanya untuk "bayar/dikunci/salah".
 2. Layout tetap: grafik atas, subtitle tengah, kotak muka bawah.
-3. Subtitle serif perkataan-demi-perkataan; *kata kunci* italic.
+3. Subtitle serif perkataan-demi-perkataan; **setiap perkataan beranimasi (pop/rise/blur) tepat pada masa ia disebut**; *kata kunci* italic.
 4. Satu scene = satu idea = satu visual. Tiada cut kasar, guna fade/spring.

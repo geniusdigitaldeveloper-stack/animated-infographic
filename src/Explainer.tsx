@@ -19,7 +19,7 @@ export const Explainer: React.FC<ExplainerProps> = ({faceSrc}) => {
           <Sequence key={s.id} from={from} durationInFrames={d} premountFor={fps}>
             <ChapterPill label={s.chapter} />
             <GraphicSlot>{graphics[s.graphic]()}</GraphicSlot>
-            <Caption text={s.caption} duration={s.duration} />
+            <Caption text={s.caption} duration={s.duration} words={s.words} />
           </Sequence>
         );
         from += d;
