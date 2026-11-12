@@ -1,9 +1,11 @@
 import React from 'react';
 import {Composition} from 'remotion';
-import {Explainer, totalFrames} from './Explainer';
+import {Explainer, ExplainerProps, totalFrames} from './Explainer';
 import {FPS, HEIGHT, WIDTH} from './theme';
 import './fonts';
 
+// Frame size is a prop, not a constant: any width/height works (Studio sidebar or --props).
+// Presets: reel 1080x1920 · landscape 1920x1080 · square 1080x1080 · portrait 1080x1350 (see theme.ts)
 export const Root: React.FC = () => (
   <Composition
     id="Explainer"
@@ -12,6 +14,7 @@ export const Root: React.FC = () => (
     fps={FPS}
     width={WIDTH}
     height={HEIGHT}
-    defaultProps={{faceSrc: undefined as string | undefined}}
+    defaultProps={{faceSrc: undefined, faceFit: 'cover', width: WIDTH, height: HEIGHT} as ExplainerProps}
+    calculateMetadata={({props}) => ({width: props.width, height: props.height})}
   />
 );

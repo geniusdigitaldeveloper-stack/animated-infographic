@@ -7,8 +7,11 @@ description: Gaya visual, font dan subtitle untuk reel "motion graphics explaine
 
 Panggil pengguna **Ustaz**. Gaya ini dirumus daripada reel rujukan (88s, 9:16, 30fps, 1080×1920).
 
+## Peraturan media
+- Jangan guna muka/rakaman/subtitle/teks daripada video rujukan. Hanya rakaman pemilik (`faceSrc`) dan gaya subtitle pemilik (`captionStyle` dalam `src/theme.ts`).
+
 ## Format
-- 1080×1920, 30fps. Satu video ≈ 60–90s. Hook dalam 3s pertama.
+- Saiz **boleh dilaras** (props `width`/`height`, preset: reel 1080×1920, landscape 1920×1080, square 1080×1080, portrait 1080×1350). Frame tinggi = susun (grafik atas, subtitle tengah, muka bawah); frame lebar/segi empat = sisi (grafik kiri, muka kanan, subtitle bawah). 30fps. Satu video ≈ 60–90s. Hook dalam 3s pertama.
 - Struktur: **Hook → Masalah → Janji → Langkah bernombor → Mesej utama → Recap → CTA (Follow)**.
 
 ## Layout 3 lapis (`src/theme.ts → layout`)

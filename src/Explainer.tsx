@@ -4,11 +4,11 @@ import {Background, ChapterPill, FaceCard, GraphicSlot} from './components/Frame
 import {Caption} from './components/Caption';
 import {graphics, scenes} from './scenes/script';
 
-export type ExplainerProps = {faceSrc?: string};
+export type ExplainerProps = {faceSrc?: string; faceFit?: 'cover' | 'contain'; width: number; height: number};
 
 export const totalFrames = (fps: number) => scenes.reduce((a, s) => a + Math.round(s.duration * fps), 0);
 
-export const Explainer: React.FC<ExplainerProps> = ({faceSrc}) => {
+export const Explainer: React.FC<ExplainerProps> = ({faceSrc, faceFit}) => {
   const {fps} = useVideoConfig();
   let from = 0;
   return (
@@ -25,7 +25,7 @@ export const Explainer: React.FC<ExplainerProps> = ({faceSrc}) => {
         from += d;
         return el;
       })}
-      <FaceCard faceSrc={faceSrc} />
+      <FaceCard faceSrc={faceSrc} faceFit={faceFit} />
     </Background>
   );
 };
