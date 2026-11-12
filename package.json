@@ -1,0 +1,26 @@
+{
+  "name": "animated-infographic",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Motion-graphics explainer reels (talking head + animated infographic cards) built with Remotion.",
+  "scripts": {
+    "dev": "remotion studio",
+    "build:site": "remotion bundle --out-dir=site",
+    "render": "remotion render Explainer out/explainer.mp4",
+    "still": "remotion still Explainer out/still.png --frame=120",
+    "typecheck": "tsc --noEmit",
+    "captions": "node scripts/whisper-to-captions.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.543",
+    "@remotion/google-fonts": "4.0.543",
+    "@remotion/media-utils": "4.0.543",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.543"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "typescript": "^7.0.2"
+  }
+}
