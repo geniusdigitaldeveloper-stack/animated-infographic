@@ -27,3 +27,8 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 - Saiz frame **boleh dilaras** (bukan 1920x1080 sahaja): props `width`/`height`; preset `reel`, `landscape`, `square`, `portrait`. Layout menyesuaikan diri.
 - **Gaya teks infografik (tajuk, kad, senarai, prompt, label) KEKALKAN** seperti sedia ada (Inter + JetBrains Mono, aksen kuning). Hanya **subtitle** yang guna gaya Ustaz.
 - Bila Ustaz minta tukar warna atau font infografik: warna di `colors` dalam `src/theme.ts`, font di `src/fonts.ts`. Jangan ubah struktur lain.
+
+## Pratonton langsung (Ustaz mahu tengok bila-bila)
+- **Pada permulaan setiap tugasan**, hidupkan Remotion Studio dan dedahkan pratonton: `npx remotion studio --port 3000 --no-open` (latar belakang), kemudian panggil `report_preview_port` dengan port 3000 (nama `remotion-studio`). Semak dulu kalau sudah berjalan (`curl localhost:3000`).
+- Studio refresh sendiri bila kod diubah, jadi Ustaz nampak perubahan semasa saya edit. Jangan matikan Studio sehingga tugasan selesai.
+- Jangan tanya Ustaz sama ada mahu pratonton; sentiasa sediakan.
