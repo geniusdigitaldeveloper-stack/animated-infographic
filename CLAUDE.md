@@ -32,3 +32,8 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 - **Pada permulaan setiap tugasan**, hidupkan Remotion Studio dan dedahkan pratonton: `npx remotion studio --port 3000 --no-open` (latar belakang), kemudian panggil `report_preview_port` dengan port 3000 (nama `remotion-studio`). Semak dulu kalau sudah berjalan (`curl localhost:3000`).
 - Studio refresh sendiri bila kod diubah, jadi Ustaz nampak perubahan semasa saya edit. Jangan matikan Studio sehingga tugasan selesai.
 - Jangan tanya Ustaz sama ada mahu pratonton; sentiasa sediakan.
+
+## Pautan untuk Ustaz tengok (WAJIB setiap tugasan edit)
+- Bagi pautan Markdown berlabel tepat **LIHAT SAYA KERJA EDIT** ke https://geniusdigitaldeveloper-stack.github.io/animated-infographic/ pada **permulaan** tugasan dan diulang pada **penghujung** (selepas merge).
+- Nyatakan dengan jujur: pautan tu menunjukkan versi yang sudah merge (dikemas kini ±1–2 minit selepas merge). Pratonton langsung semasa saya edit hanya dalam panel `remotion-studio` aplikasi Claude (localhost tiada pautan awam).
+- Jangan tukar label pautan tu.
