@@ -10,7 +10,9 @@ npm install
 npm run dev        # Remotion Studio
 npm run render     # out/explainer.mp4
 ```
-Letak rakaman muka di `public/face.mp4` dan render dengan props `{"faceSrc":"face.mp4"}`.
+Letak rakaman muka sendiri di `public/face.mp4` dan render dengan props `{"faceSrc":"face.mp4"}`.
+
+**Saiz frame boleh dilaras**: `--props='{"width":1920,"height":1080}'` atau `npm run render:reel | render:landscape | render:square | render:portrait`. Mana-mana width/height berfungsi.
 
 ## Apa ada di dalam
 - `src/theme.ts` – warna, layout, saiz (satu aksen kuning)

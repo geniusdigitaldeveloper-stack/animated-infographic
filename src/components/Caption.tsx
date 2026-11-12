@@ -1,6 +1,7 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {colors, layout, type} from '../theme';
+import {captionStyle as C} from '../theme';
+import {useLayout} from './Frame';
 import {serif} from '../fonts';
 import type {Word} from '../types';
 
@@ -12,7 +13,7 @@ import type {Word} from '../types';
  * - ~4 words per chunk; chunk fades out softly when the next one starts (no hard cuts)
  * Timing: pass `words` (seconds, from Whisper) for exact sync; otherwise words are spread evenly over `duration`.
  */
-export const WORDS_PER_CHUNK = 4;
+export const WORDS_PER_CHUNK = C.wordsPerChunk;
 
 type Props = {text: string; duration: number; words?: Word[]};
 type Tok = {text: string; italic: boolean; start: number; end: number}; // seconds, relative to the scene
@@ -34,6 +35,7 @@ const tokenize = (text: string, duration: number, words?: Word[]): Tok[] => {
 export const Caption: React.FC<Props> = ({text, duration, words}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
+  const L = useLayout();
   const t = frame / fps;
   const toks = tokenize(text, duration, words);
 
@@ -48,28 +50,28 @@ export const Caption: React.FC<Props> = ({text, duration, words}) => {
 
   return (
     <div style={{
-      position: 'absolute', top: layout.captionTop, left: layout.pad, right: layout.pad, height: layout.captionHeight,
+      position: 'absolute', top: L.caption.y, left: L.caption.x, width: L.caption.w, height: L.caption.h,
       display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', opacity: out,
     }}>
-      <div style={{fontFamily: serif, fontSize: type.caption, lineHeight: 1.18, color: colors.text}}>
+      <div style={{fontFamily: serif, fontSize: L.caption.fontSize, lineHeight: 1.18, color: C.spoken}}>
         {chunk.map((w, i) => {
           const g = chunkStart + i;
           const local = frame - Math.round(w.start * fps);
           const p = spring({frame: local, fps, config: {damping: 14, stiffness: 190, mass: 0.6}});
-          const appear = interpolate(local, [0, 4], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-          const blur = interpolate(local, [0, 6], [8, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const appear = interpolate(local, [0, C.fadeFrames], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const blur = interpolate(local, [0, 6], [C.blur, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const active = g === idx;
-          const beat = active ? 1 + 0.06 * Math.max(0, 1 - local / 8) : 1;
+          const beat = active ? 1 + C.beat * Math.max(0, 1 - local / 8) : 1;
           const shown = local >= 0;
           return (
             <span key={g} style={{
               display: 'inline-block', marginRight: '0.28em',
-              color: active ? colors.accent : colors.text,
+              color: active ? C.active : C.spoken,
               fontStyle: w.italic ? 'italic' : 'normal',
               opacity: shown ? appear : 0,
-              transform: `translateY(${(1 - p) * 26}px) scale(${(0.72 + 0.28 * p) * beat})`,
+              transform: `translateY(${(1 - p) * C.rise * L.unit}px) scale(${(C.popFrom + (1 - C.popFrom) * p) * beat})`,
               filter: `blur(${blur}px)`,
-              textShadow: active ? '0 0 28px rgba(255,214,10,.45)' : 'none',
+              textShadow: active ? `0 0 28px ${C.glow}` : 'none',
             }}>{w.text}</span>
           );
         })}

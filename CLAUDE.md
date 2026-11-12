@@ -19,3 +19,9 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 2. Layout tetap: grafik atas, subtitle tengah, kotak muka bawah.
 3. Subtitle serif perkataan-demi-perkataan; **setiap perkataan beranimasi (pop/rise/blur) tepat pada masa ia disebut**; *kata kunci* italic.
 4. Satu scene = satu idea = satu visual. Tiada cut kasar, guna fade/spring.
+
+## Media & subtitle (peraturan pemilik)
+- **Jangan ambil muka, rakaman, suara, subtitle atau teks dari video rujukan.** Rujukan hanya untuk belajar gaya.
+- Muka & video sebenar = **rakaman Ustaz sahaja**, letak di `public/` dan hantar sebagai `faceSrc`.
+- Subtitle sentiasa guna **gaya teks Ustaz** (`captionStyle` dalam `src/theme.ts`, komponen `Caption`) dan perkataan Ustaz sendiri (Whisper pada suara Ustaz).
+- Saiz frame **boleh dilaras** (bukan 1920x1080 sahaja): props `width`/`height`; preset `reel`, `landscape`, `square`, `portrait`. Layout menyesuaikan diri.

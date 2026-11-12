@@ -9,7 +9,11 @@
     "render": "remotion render Explainer out/explainer.mp4",
     "still": "remotion still Explainer out/still.png --frame=120",
     "typecheck": "tsc --noEmit",
-    "captions": "node scripts/whisper-to-captions.mjs"
+    "captions": "node scripts/whisper-to-captions.mjs",
+    "render:reel": "remotion render Explainer out/reel-1080x1920.mp4 --props='{\"width\":1080,\"height\":1920}'",
+    "render:landscape": "remotion render Explainer out/landscape-1920x1080.mp4 --props='{\"width\":1920,\"height\":1080}'",
+    "render:square": "remotion render Explainer out/square-1080x1080.mp4 --props='{\"width\":1080,\"height\":1080}'",
+    "render:portrait": "remotion render Explainer out/portrait-1080x1350.mp4 --props='{\"width\":1080,\"height\":1350}'"
   },
   "dependencies": {
     "@remotion/cli": "4.0.543",
