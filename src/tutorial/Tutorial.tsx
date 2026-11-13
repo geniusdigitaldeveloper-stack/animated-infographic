@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, spring,
 import {tutorial as T} from '../theme';
 import {sans} from '../fonts';
 import {Caption} from '../components/Caption';
-import {CH, CW, cursorAt, cursorAtSrc, HOOK_S, MAIN_S, OUTRO_S, P, srcTimeAt, TOTAL_S} from './timeline';
+import {CH, CW, cursorAt, cursorAtSrc, cursorSeen, HOOK_S, MAIN_S, OUTRO_S, P, srcTimeAt, TOTAL_S} from './timeline';
 
 const FPS = T.FPS;
 const sf = (p: string) => staticFile(p);
@@ -71,6 +71,9 @@ const SideLogo: React.FC<{src: string; y: number; first: number; round?: boolean
 
 /* ---------- video frame with cursor effects (ring + red click ripple) and gentle cinematic zoom ---------- */
 const sc = fr.w / CW; // 1280-space -> frame px
+const HK = P.clicks.find((k) => k.src >= P.hook.src0 && k.src <= P.hook.src1 && k.snap);
+const HOOK_CLICK = HK ?? {bx: cursorAtSrc(P.hook.src0 + 1.2).x, by: cursorAtSrc(P.hook.src0 + 1.2).y};
+const HOOK_CLICK_T = HK ? Math.max(0.6, HK.src - P.hook.src0) : 1.2;
 const Ripple: React.FC<{t: number; at: number; x: number; y: number}> = ({t, at, x, y}) => {
   const l = t - at; if (l < 0 || l > 0.9) return null;
   const ring = (d: number, size: number) => {
@@ -86,24 +89,31 @@ const VideoFrame: React.FC<{mode: 'hook' | 'main'; t: number; children: React.Re
   const ts = mode === 'hook' ? P.hook.src0 + t : srcTimeAt(t);
   const c = cursorAtSrc(ts);
   let zoom = 1;
-  if (mode === 'main') for (const k of P.clicks) {
+  const targets = mode === 'main' ? P.clicks.map((k) => ({out: k.out, bx: k.bx, by: k.by})) : [{out: HOOK_CLICK_T, bx: HOOK_CLICK.bx, by: HOOK_CLICK.by}];
+  for (const k of targets) {
     const d = t - k.out; if (d > -0.35 && d < 1.3) zoom = Math.max(zoom, 1 + 0.2 * Math.sin(Math.PI * Math.min(1, Math.max(0, (d + 0.35) / 1.65))) );
   }
   if (zoomOverride) zoom = zoomOverride;
-  const ringOn = mode === 'main' ? P.dwells.some((d) => t > d.out - 0.05 && t < d.out + 1.1) : false;
-  const rk = mode === 'main' ? P.dwells.find((d) => t > d.out - 0.05 && t < d.out + 1.1) : undefined;
+  // Follow ring: tracks the real mouse like a screen-recorder cursor highlight; before a click it eases onto the CENTRE of the
+  // button under the cursor (magnet) and stays there while the red ripple plays, then releases back to following the mouse.
+  const ease = (v: number) => { const q = Math.min(1, Math.max(0, v)); return q * q * (3 - 2 * q); };
+  let fx = c.x, fy = c.y, magnet = 0;
+  for (const k of targets) {
+    const d = t - k.out;
+    const m = d < 0 ? ease(1 - (-d) / 0.30) * (d > -0.30 ? 1 : 0) : ease(1 - Math.max(0, d - 0.45) / 0.35) * (d < 0.8 ? 1 : 0);
+    if (m > magnet) { magnet = m; fx = c.x + (k.bx - c.x) * m; fy = c.y + (k.by - c.y) * m; }
+  }
+  const showRing = mode === 'main' ? cursorSeen(ts) : true;
+  const ringR = 24 - 3 * magnet;
   return (
     <div style={{position: 'absolute', left: fr.x, top: fr.y, width: fr.w, height: fr.h, borderRadius: fr.radius, overflow: 'hidden',
       boxShadow: '0 30px 80px rgba(30,64,175,.28), 0 2px 0 rgba(255,255,255,.8) inset', border: '1px solid rgba(255,255,255,.9)', background: '#fff'}}>
       <div style={{position: 'absolute', inset: 0, transformOrigin: `${c.x * sc}px ${c.y * sc}px`, transform: `scale(${zoom})`, filter: T.grade}}>
         {children}
-        {ringOn && rk && (() => {
-          const k = Math.min(1, (t - rk.out + 0.05) / 0.25), fade = Math.min(1, (rk.out + 1.1 - t) / 0.4);
-          const r = 20 + (1 - k) * 10; return <div style={{position: 'absolute', left: rk.x * sc - r, top: rk.y * sc - r, width: r * 2, height: r * 2, borderRadius: '50%',
-            border: '2.5px solid rgba(255,40,40,.95)', boxShadow: '0 0 10px rgba(255,40,40,.55)', opacity: fade}} />;
-        })()}
-        {mode === 'main' && P.clicks.map((k, i) => <Ripple key={i} t={t} at={k.out} x={k.x} y={k.y} />)}
-        {mode === 'hook' && <Ripple t={t} at={1.0} x={cursorAtSrc(P.hook.src0 + 1.0).x} y={cursorAtSrc(P.hook.src0 + 1.0).y} />}
+        {showRing && <div style={{position: 'absolute', left: fx * sc - ringR, top: fy * sc - ringR, width: ringR * 2, height: ringR * 2, borderRadius: '50%',
+          border: '3px solid rgba(255,40,40,.95)', boxShadow: '0 0 12px rgba(255,40,40,.55)', background: 'rgba(255,40,40,.08)'}} />}
+        {mode === 'main' && P.clicks.map((k, i) => <Ripple key={i} t={t} at={k.out} x={k.bx} y={k.by} />)}
+        {mode === 'hook' && <Ripple t={t} at={HOOK_CLICK_T} x={HOOK_CLICK.bx} y={HOOK_CLICK.by} />}
       </div>
     </div>
   );
@@ -147,7 +157,7 @@ const SpeedBadge: React.FC<{t: number}> = ({t}) => {
 /* ---------- sections ---------- */
 const Hook: React.FC = () => {
   const frame = useCurrentFrame(); const t = frame / FPS;
-  const zoom = 1 + 0.55 * Math.min(1, Math.max(0, (t - 0.9) / 1.6)) * (1 - 0.0);
+  const zoom = 1 + 0.55 * Math.min(1, Math.max(0, (t - (HOOK_CLICK_T - 0.1)) / 1.6));
   const sh = t > 1.0 && t < 1.18 ? (Math.random() - 0.5) * 0 : 0; void sh;
   return (
     <>
@@ -155,8 +165,8 @@ const Hook: React.FC = () => {
         <OffthreadVideo src={sf('tutorial/proxy.mp4')} startFrom={Math.round(P.hook.src0 * FPS)} style={{width: fr.w, height: fr.h, objectFit: 'cover'}} />
       </VideoFrame>
       <SubBar><Caption text={P.hook.t} duration={HOOK_S - 0.3} rect={subRect(74)} palette={pal} unit={1.2} fontFamily={sans} /></SubBar>
-      <Sequence from={Math.round(0.95 * FPS)}><Audio src={sf('audio/impact.mp3')} volume={0.85} /></Sequence>
-      <Sequence from={Math.round(1.0 * FPS)}><Audio src={sf('audio/click.mp3')} volume={0.7} /></Sequence>
+      <Sequence from={Math.round((HOOK_CLICK_T - 0.05) * FPS)}><Audio src={sf('audio/impact.mp3')} volume={0.85} /></Sequence>
+      <Sequence from={Math.round(HOOK_CLICK_T * FPS)}><Audio src={sf('audio/click.mp3')} volume={0.7} /></Sequence>
       <Sequence from={Math.round(3.6 * FPS)}><Audio src={sf('audio/whoosh.mp3')} volume={0.6} /></Sequence>
     </>
   );

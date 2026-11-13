@@ -32,8 +32,10 @@ def src2out(ts):
         if c['src0'] <= ts <= c['src1']: return c['out0'] + (ts - c['src0'])/c['rate']
     return None
 # clicks: keyword times from whisper + dwell snapping
-x = np.array(C['x']); y = np.array(C['y']); fps = C['fps']
-sp = np.hypot(np.diff(x, prepend=x[0]), np.diff(y, prepend=y[0]))
+x = np.array(C['x']); y = np.array(C['y']); fps = C['fps']; FOUND = np.array(C['found'])
+def seen(j, w=0.25):
+    a = max(0, int(j - w*fps)); return FOUND[a:int(j + w*fps) + 1].any()
+sp = np.hypot(np.diff(x, prepend=x[0]), np.diff(y, prepend=y[0])); R = max(1, round(fps/10))
 pat = re.compile(r'klik|tekan|salin|inter|run|install|finish|next|pilih|buka', re.I)
 cand = [w['end'] for w in words if pat.search(w['word']) and not re.search(r'suka', w['word'])]
 vis = [c['t'] for c in C['clicks']]
@@ -43,17 +45,18 @@ for t in allc:
     merged.append(t)
 clicks = []
 for t in merged:
-    i0 = int(t*fps); win = range(i0, min(len(x)-1, i0 + 8))
+    i0 = int(t*fps); win = range(i0, min(len(x)-1, i0 + int(0.8*fps)))
     if not len(win): continue
     j = min(win, key=lambda k: sp[k]); ts = j / fps
+    if not seen(j): continue  # cursor not actually detected here -> no ring (never guess)
     o = src2out(ts)
     if o is not None: clicks.append({"out": round(o,3), "x": float(x[j]), "y": float(y[j]), "src": round(ts,2)})
 dwells = []
 last = -9
-for i in range(4, len(x)-2):
-    if sp[i-4:i].sum() > 60 and sp[i:i+2].sum() < 3 and i/fps - last > 1.2:
+for i in range(4*R, len(x)-2*R):
+    if sp[i-4*R:i].sum() > 60 and sp[i:i+2*R].sum() < 3 and i/fps - last > 1.2 and seen(i):
         o = src2out(i/fps)
-        if o is not None: dwells.append({"out": round(o,3), "x": float(x[i]), "y": float(y[i])}); last = i/fps
+        if o is not None: dwells.append({"src": round(i/fps,2), "out": round(o,3), "x": float(x[i]), "y": float(y[i])}); last = i/fps
 steps_src = [(13.8,"Semak e-mel pembelian"),(26.2,"Pilih Muat Turun / Akses"),(45.2,"Buka Panduan & Muat Turun"),(68.4,"Salin pautan muat turun"),
  (73.1,"Tampal di Chrome → Enter"),(90.5,"Buka fail yang dimuat turun"),(105.4,"More info → Run anyway"),(126.5,"Pilih PC / laptop → Next"),
  (130.6,"Pilih lokasi → Install → Finish"),(153.6,"Masukkan Stream Key"),(177.5,"Mode Formal: slide PDF")]

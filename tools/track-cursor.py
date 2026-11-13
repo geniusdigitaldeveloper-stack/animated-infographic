@@ -1,9 +1,9 @@
 import subprocess, json, sys, numpy as np, cv2
 src=sys.argv[1]; out=sys.argv[2]
-W,H,FPS=1280,720,10
+W,H,FPS=1280,720,25
 cmd=["ffmpeg","-v","error","-i",src,"-vf",f"fps={FPS},scale={W}:{H}","-f","rawvideo","-pix_fmt","bgr24","-"]
 p=subprocess.Popen(cmd,stdout=subprocess.PIPE)
-fs=W*H*3; i=0; track=[]; prev=None; diffs=[]
+last=None; fs=W*H*3; i=0; track=[]; prev=None; diffs=[]
 while True:
     b=p.stdout.read(fs)
     if len(b)<fs: break
@@ -15,9 +15,13 @@ while True:
     best=None
     for k in range(1,n):
         x,y,w,h,a=st[k]
-        if 12<=a<=140 and 4<=w<=16 and 6<=h<=20:
+        if 10<=a<=1400 and 4<=w<=44 and 6<=h<=56 and 0.9<=h/w<=2.6:
+            # score: shape (arrow h/w~1.5, hand ~1.3) + continuity with previous position
             sc=abs(h/w-1.5)
+            if last is not None and i-last[2]<=8:
+                sc+=0.012*np.hypot(x-last[0],y-last[1])
             if best is None or sc<best[0]: best=(sc,x,y)
+    if best is not None: last=(best[1],best[2],i)
     g=cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
     g=cv2.resize(g,(W//4,H//4))
     d=None if prev is None else cv2.absdiff(g,prev)

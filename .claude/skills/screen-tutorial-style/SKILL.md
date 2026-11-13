@@ -22,7 +22,8 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 - Latar **cerah** beranimasi (orb biru/cyan, grid halus, petak piksel, ombak bawah) ikut tema logo.
 - Warna grade neutral: `contrast(1.05) saturate(1.06) brightness(1.03)`; tiada gradient garang.
 
-## Efek kursor
+## Efek kursor (macam perakam skrin Mac)
+- **Bulatan merah kecil mengikut mouse** (`tools/track-cursor.py` 25fps). Bila klik, bulatan **ditarik ke TENGAH butang** di bawah kursor (`tools/snap-buttons.py`: flood-fill cari kotak butang) dan ripple merah keluar di situ. Bulatan tidak diletak jika kursor tidak benar-benar dikesan (tidak meneka).
 - Setiap **klik**: bulatan **merah KECIL** (radius ≤ ~40px, fokus tepat pada butang yang ditekan, bukan besar) keluar (2 ring + titik) + bunyi `click`, dan zoom lembut ke kawasan kursor.
 - Bila kursor berhenti di butang/menu: **ring highlight** merah kecil dan lembut (radius ~20–30px).
 - **Hook pembuka**: klik butang utama (contoh *Run anyway*) → zoom sinematik + `impact` + teks hook besar; kemudian video bermula dari awal.
