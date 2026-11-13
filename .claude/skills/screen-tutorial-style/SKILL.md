@@ -24,14 +24,15 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 
 ## Efek kursor (macam perakam skrin Mac)
 - **Bulatan merah kecil mengikut mouse** (`tools/track-cursor.py` 25fps). Bila klik, bulatan **ditarik ke TENGAH butang** di bawah kursor (`tools/snap-buttons.py`: flood-fill cari kotak butang) dan ripple merah keluar di situ. Bulatan tidak diletak jika kursor tidak benar-benar dikesan (tidak meneka).
-- Setiap **klik**: bulatan **merah KECIL** (radius ≤ ~40px, fokus tepat pada butang yang ditekan, bukan besar) keluar (2 ring + titik) + bunyi `click`, dan zoom lembut ke kawasan kursor.
+- Setiap **klik**: bulatan **merah KECIL** (radius ≤ ~40px, fokus tepat pada butang yang ditekan, bukan besar) keluar (2 ring + titik) dan ke kawasan kursor.
 - Bila kursor berhenti di butang/menu: **ring highlight** merah kecil dan lembut (radius ~20–30px).
 - **TIADA klip hook pembuka.** Video bermula terus dari awal rakaman. "Hook" bagi Ustaz = perkataan dalam subtitle yang diwarnakan (merah / kuning butter), bukan klip yang dipindahkan ke permulaan.
 
-## Kamera zoom (peraturan Ustaz) — JANGAN statik
-- Setiap kali anak panah menunjuk / klik sesuatu, kamera **zoom masuk ke tempat itu** (`tutorial.camera` dalam `src/theme.ts`: zoom 1.7, masuk 0.75s, keluar 0.95s). Zoom bersambung jika sasaran berdekatan (tidak naik-turun), dan kamera **pan lancar** mengikut anak panah. Tujuan: penonton nampak jelas perkataan / butang yang ditunjuk.
-- Gaya zoom boleh animasi kamera, potong terus, atau fade — pilihan editor; yang wajib ialah zoom ke tempat yang ditunjuk.
-- **Semua efek (zoom, pan, callout, ring, ripple, subtitle) bergerak lancar macam animasi iPhone "4K"**: fizik spring / smootherstep, dikira per bingkai, tiada gerakan kasar atau linear. (Ini kelancaran gerakan, bukan resolusi video; output kekal 1920×1080.)
+## Video statik & kualiti (peraturan Ustaz)
+- **Video STATIK (peraturan Ustaz):** tiada zoom / pan / gerakan kamera. Hanya animasi klik (bulatan merah + ripple pop-up) dan ring ikut mouse kekal.
+- **TIADA bunyi "tek tek" (SFX klik)** — dibuang kerana mengganggu pendengar. Hanya muzik latar halus + suara.
+- **Bahagian rakaman yang kabur/pecah** (rakaman Ustaz yang dizum sendiri): ditingkatkan dengan `tools/enhance-blurry.sh` (de-block, denoise, sharpen, hanya pada julat masa kabur). Ini penajaman, bukan resolusi 4K sebenar.
+- Semua efek yang masih bergerak (ring, ripple, callout, subtitle) kekal lancar macam animasi iPhone (spring / smootherstep per bingkai).
 
 ## Subtitle serentak dengan suara (peraturan Ustaz)
 - Setiap perkataan keluar **tepat bila disebut**: tidak awal, tidak lewat. Masa perkataan dikunci pada permulaan suara sebenar: `tools/build-plan.py ... audio16k.wav` (Whisper word-start purata ~0.13s lewat, jadi dilaraskan ke onset suara). Jangan agih masa sama rata dalam satu ayat.
@@ -52,7 +53,7 @@ Buang jeda janggal/loading; jurang > 0.4s dipercepat ≥ 2x (audio dimute, lenca
 - **Outro**: logo 1 = **Genius Digital Developer** (G biru, induk/ketua), logo 2 = **Global Streamer** (produk di bawahnya). Teks bawah: "Terima kasih" (besar) dan baris biru **"Genius Digital Developer @ Global Streamer"**. Kedua-dua logo animasi iOS (spring, blur→jelas, ikon squircle + sapuan kilat, tekan-bounce), masuk berasingan.
 
 ## Bunyi
-Muzik instrumental tenang di bawah suara (volum 0.11, fade akhir) + SFX: `click`, `impact`, `whoosh`, `pop`, `chime`. Semua disintesis (`tools/make-audio.py`); boleh diganti lagu berlesen.
+Muzik instrumental tenang di bawah suara (volum 0.11, fade akhir) + SFX: `whoosh`, `pop`, `chime` (TIADA `click` / bunyi tek). Semua disintesis (`tools/make-audio.py`); boleh diganti lagu berlesen.
 
 ## Kualiti
 Render akhir 1920×1080 daripada rakaman asal (2560×1440 diturunkan skala = lebih tajam). Kekerapan 120fps: rakaman asal 50fps, jadi 120fps memerlukan interpolasi bingkai (rujuk Ustaz sebelum render final).

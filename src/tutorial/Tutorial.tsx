@@ -184,7 +184,6 @@ const Main: React.FC = () => {
         <Sequence key={i} from={Math.round(s.out0 * FPS)} durationInFrames={Math.max(8, Math.round((s.out1 - s.out0) * FPS))}>
           <Caption text={s.text} words={s.words} duration={Math.max(0.4, s.out1 - s.out0 - 0.1)} rect={subRect(56)} palette={pal} unit={1} fontFamily={sans} />
         </Sequence>))}</SubBar>
-      {P.clicks.map((k, i) => <Sequence key={'c' + i} from={Math.round(k.out * FPS)}><Audio src={sf('audio/click.mp3')} volume={0.55} /></Sequence>)}
       {P.steps.map((s, i) => <Sequence key={'s' + i} from={Math.round(s.out0 * FPS)}><Audio src={sf('audio/chime.mp3')} volume={0.28} /></Sequence>)}
     </>
   );

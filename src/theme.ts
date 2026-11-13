@@ -111,5 +111,5 @@ export const tutorial = {
   hookRed: '#FF3B30',
   grade: 'contrast(1.05) saturate(1.06) brightness(1.03)',
   /** CAMERA (owner): always zoom INTO the spot the arrow points at; never a static full frame. iPhone-smooth (smootherstep + smoothed pan). */
-  camera: {zoom: 1.7, lead: 0.5, tail: 1.6, inS: 0.75, outS: 0.95, merge: 1.4},
+  camera: {zoom: 1.0 /* CANCELLED by owner: video stays STATIC, no zoom/pan */, lead: 0.5, tail: 1.6, inS: 0.75, outS: 0.95, merge: 1.4},
 };
