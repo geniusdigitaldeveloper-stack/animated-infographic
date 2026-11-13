@@ -17,7 +17,7 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 ## Peraturan gaya (jangan langgar)
 1. Satu warna aksen sahaja: kuning `#ffd60a`. Merah hanya untuk "bayar/dikunci/salah".
 2. Layout menyesuaikan saiz frame (lihat `getLayout` dalam `src/theme.ts`): frame tinggi = grafik atas, subtitle tengah, muka bawah; frame lebar = grafik kiri, muka kanan, subtitle bawah.
-3. Subtitle serif perkataan-demi-perkataan; **setiap perkataan beranimasi (pop/rise/blur) tepat pada masa ia disebut**; *kata kunci* italic.
+3. Subtitle perkataan-demi-perkataan; **teks HOOK dalam subtitle = kuning butter `#FFE066` `[[…]]` atau merah cerah `#FF3B30` `{{…}}` sahaja**, kata nama AM dan awal ayat/selepas titik dibesarkan; **setiap perkataan beranimasi (pop/rise/blur) tepat pada masa ia disebut**; *kata kunci* italic.
 4. Satu scene = satu idea = satu visual. Tiada cut kasar, guna fade/spring.
 
 ## Media & subtitle (peraturan pemilik)
@@ -37,3 +37,8 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 - Bagi pautan Markdown berlabel tepat **LIHAT SAYA KERJA EDIT** ke https://geniusdigitaldeveloper-stack.github.io/animated-infographic/ pada **permulaan** tugasan dan diulang pada **penghujung** (selepas merge).
 - Nyatakan dengan jujur: pautan tu menunjukkan versi yang sudah merge (dikemas kini ±1–2 minit selepas merge). Pratonton langsung semasa saya edit hanya dalam panel `remotion-studio` aplikasi Claude (localhost tiada pautan awam).
 - Jangan tukar label pautan tu.
+
+## Video rekod skrin / tutorial
+- Guna skill `screen-tutorial-style` (komposisi `Tutorial`, 1920×1080). **Preview dahulu, jangan render final tanpa kebenaran Ustaz.**
+- Output sentiasa **1920×1080**. Teks hanya di bawah frame video; di atas video hanya efek kursor (ring, zoom, ripple klik merah).
+- Hantar fail preview terus kepada Ustaz (`SendUserFile`) kerana panel pratonton/pautan Pages tidak memaparkan video tutorial.

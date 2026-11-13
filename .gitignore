@@ -3,3 +3,5 @@ out
 site
 *.mp4
 !public/.gitkeep
+public/tutorial/proxy.mp4
+public/audio/music.mp3

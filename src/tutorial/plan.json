@@ -1,0 +1,1466 @@
+{
+ "fps": 30,
+ "duration": 212.55,
+ "clips": [
+  {
+   "src0": 0.0,
+   "src1": 12.5,
+   "rate": 1.0,
+   "out0": 0.0,
+   "out1": 12.5,
+   "kind": "speech"
+  },
+  {
+   "src0": 12.5,
+   "src1": 13.7,
+   "rate": 2.0,
+   "out0": 12.5,
+   "out1": 13.1,
+   "kind": "gap"
+  },
+  {
+   "src0": 13.7,
+   "src1": 20.5,
+   "rate": 1.0,
+   "out0": 13.1,
+   "out1": 19.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 20.5,
+   "src1": 21.8,
+   "rate": 2.0,
+   "out0": 19.9,
+   "out1": 20.55,
+   "kind": "gap"
+  },
+  {
+   "src0": 21.8,
+   "src1": 24.7,
+   "rate": 1.0,
+   "out0": 20.55,
+   "out1": 23.45,
+   "kind": "speech"
+  },
+  {
+   "src0": 24.7,
+   "src1": 26.1,
+   "rate": 2.0,
+   "out0": 23.45,
+   "out1": 24.15,
+   "kind": "gap"
+  },
+  {
+   "src0": 26.1,
+   "src1": 32.3,
+   "rate": 1.0,
+   "out0": 24.15,
+   "out1": 30.35,
+   "kind": "speech"
+  },
+  {
+   "src0": 32.3,
+   "src1": 33.0,
+   "rate": 2.0,
+   "out0": 30.35,
+   "out1": 30.7,
+   "kind": "gap"
+  },
+  {
+   "src0": 33.0,
+   "src1": 38.7,
+   "rate": 1.0,
+   "out0": 30.7,
+   "out1": 36.4,
+   "kind": "speech"
+  },
+  {
+   "src0": 38.7,
+   "src1": 41.4,
+   "rate": 1.0,
+   "out0": 36.4,
+   "out1": 39.1,
+   "kind": "speech"
+  },
+  {
+   "src0": 41.4,
+   "src1": 42.6,
+   "rate": 2.0,
+   "out0": 39.1,
+   "out1": 39.7,
+   "kind": "gap"
+  },
+  {
+   "src0": 42.6,
+   "src1": 45.1,
+   "rate": 1.0,
+   "out0": 39.7,
+   "out1": 42.2,
+   "kind": "speech"
+  },
+  {
+   "src0": 45.1,
+   "src1": 47.6,
+   "rate": 1.0,
+   "out0": 42.2,
+   "out1": 44.7,
+   "kind": "speech"
+  },
+  {
+   "src0": 47.6,
+   "src1": 49.1,
+   "rate": 2.0,
+   "out0": 44.7,
+   "out1": 45.45,
+   "kind": "gap"
+  },
+  {
+   "src0": 49.1,
+   "src1": 51.7,
+   "rate": 1.0,
+   "out0": 45.45,
+   "out1": 48.05,
+   "kind": "speech"
+  },
+  {
+   "src0": 51.7,
+   "src1": 55.5,
+   "rate": 2.533,
+   "out0": 48.05,
+   "out1": 49.55,
+   "kind": "gap"
+  },
+  {
+   "src0": 55.5,
+   "src1": 61.5,
+   "rate": 1.0,
+   "out0": 49.55,
+   "out1": 55.55,
+   "kind": "speech"
+  },
+  {
+   "src0": 61.5,
+   "src1": 65.58,
+   "rate": 1.0,
+   "out0": 55.55,
+   "out1": 59.63,
+   "kind": "speech"
+  },
+  {
+   "src0": 65.58,
+   "src1": 67.9,
+   "rate": 1.0,
+   "out0": 59.63,
+   "out1": 61.95,
+   "kind": "speech"
+  },
+  {
+   "src0": 67.9,
+   "src1": 68.3,
+   "rate": 2.0,
+   "out0": 61.95,
+   "out1": 62.15,
+   "kind": "gap"
+  },
+  {
+   "src0": 68.3,
+   "src1": 71.3,
+   "rate": 1.0,
+   "out0": 62.15,
+   "out1": 65.15,
+   "kind": "speech"
+  },
+  {
+   "src0": 71.3,
+   "src1": 73.08,
+   "rate": 1.0,
+   "out0": 65.15,
+   "out1": 66.93,
+   "kind": "speech"
+  },
+  {
+   "src0": 73.08,
+   "src1": 77.4,
+   "rate": 1.0,
+   "out0": 66.93,
+   "out1": 71.25,
+   "kind": "speech"
+  },
+  {
+   "src0": 77.4,
+   "src1": 78.3,
+   "rate": 2.0,
+   "out0": 71.25,
+   "out1": 71.7,
+   "kind": "gap"
+  },
+  {
+   "src0": 78.3,
+   "src1": 79.5,
+   "rate": 1.0,
+   "out0": 71.7,
+   "out1": 72.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 79.5,
+   "src1": 84.4,
+   "rate": 1.0,
+   "out0": 72.9,
+   "out1": 77.8,
+   "kind": "speech"
+  },
+  {
+   "src0": 84.4,
+   "src1": 85.4,
+   "rate": 1.0,
+   "out0": 77.8,
+   "out1": 78.8,
+   "kind": "speech"
+  },
+  {
+   "src0": 85.4,
+   "src1": 90.4,
+   "rate": 1.0,
+   "out0": 78.8,
+   "out1": 83.8,
+   "kind": "speech"
+  },
+  {
+   "src0": 90.4,
+   "src1": 91.6,
+   "rate": 1.0,
+   "out0": 83.8,
+   "out1": 85.0,
+   "kind": "speech"
+  },
+  {
+   "src0": 91.6,
+   "src1": 95.4,
+   "rate": 1.0,
+   "out0": 85.0,
+   "out1": 88.8,
+   "kind": "speech"
+  },
+  {
+   "src0": 95.4,
+   "src1": 96.5,
+   "rate": 1.0,
+   "out0": 88.8,
+   "out1": 89.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 96.5,
+   "src1": 98.6,
+   "rate": 1.0,
+   "out0": 89.9,
+   "out1": 92.0,
+   "kind": "speech"
+  },
+  {
+   "src0": 98.6,
+   "src1": 99.7,
+   "rate": 1.0,
+   "out0": 92.0,
+   "out1": 93.1,
+   "kind": "speech"
+  },
+  {
+   "src0": 99.7,
+   "src1": 100.5,
+   "rate": 2.0,
+   "out0": 93.1,
+   "out1": 93.5,
+   "kind": "gap"
+  },
+  {
+   "src0": 100.5,
+   "src1": 103.3,
+   "rate": 1.0,
+   "out0": 93.5,
+   "out1": 96.3,
+   "kind": "speech"
+  },
+  {
+   "src0": 103.3,
+   "src1": 105.3,
+   "rate": 2.0,
+   "out0": 96.3,
+   "out1": 97.3,
+   "kind": "gap"
+  },
+  {
+   "src0": 105.3,
+   "src1": 106.6,
+   "rate": 1.0,
+   "out0": 97.3,
+   "out1": 98.6,
+   "kind": "speech"
+  },
+  {
+   "src0": 106.6,
+   "src1": 108.18,
+   "rate": 1.0,
+   "out0": 98.6,
+   "out1": 100.18,
+   "kind": "speech"
+  },
+  {
+   "src0": 108.18,
+   "src1": 109.08,
+   "rate": 1.0,
+   "out0": 100.18,
+   "out1": 101.08,
+   "kind": "speech"
+  },
+  {
+   "src0": 109.08,
+   "src1": 111.4,
+   "rate": 1.0,
+   "out0": 101.08,
+   "out1": 103.4,
+   "kind": "speech"
+  },
+  {
+   "src0": 111.4,
+   "src1": 113.6,
+   "rate": 1.0,
+   "out0": 103.4,
+   "out1": 105.6,
+   "kind": "speech"
+  },
+  {
+   "src0": 113.6,
+   "src1": 116.6,
+   "rate": 1.0,
+   "out0": 105.6,
+   "out1": 108.6,
+   "kind": "speech"
+  },
+  {
+   "src0": 116.6,
+   "src1": 117.9,
+   "rate": 1.0,
+   "out0": 108.6,
+   "out1": 109.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 117.9,
+   "src1": 120.4,
+   "rate": 1.0,
+   "out0": 109.9,
+   "out1": 112.4,
+   "kind": "speech"
+  },
+  {
+   "src0": 120.4,
+   "src1": 125.9,
+   "rate": 1.0,
+   "out0": 112.4,
+   "out1": 117.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 125.9,
+   "src1": 126.4,
+   "rate": 2.0,
+   "out0": 117.9,
+   "out1": 118.15,
+   "kind": "gap"
+  },
+  {
+   "src0": 126.4,
+   "src1": 129.68,
+   "rate": 1.0,
+   "out0": 118.15,
+   "out1": 121.43,
+   "kind": "speech"
+  },
+  {
+   "src0": 129.68,
+   "src1": 130.58,
+   "rate": 1.0,
+   "out0": 121.43,
+   "out1": 122.33,
+   "kind": "speech"
+  },
+  {
+   "src0": 130.58,
+   "src1": 133.6,
+   "rate": 1.0,
+   "out0": 122.33,
+   "out1": 125.35,
+   "kind": "speech"
+  },
+  {
+   "src0": 133.6,
+   "src1": 134.9,
+   "rate": 1.0,
+   "out0": 125.35,
+   "out1": 126.65,
+   "kind": "speech"
+  },
+  {
+   "src0": 134.9,
+   "src1": 137.2,
+   "rate": 1.0,
+   "out0": 126.65,
+   "out1": 128.95,
+   "kind": "speech"
+  },
+  {
+   "src0": 137.2,
+   "src1": 141.8,
+   "rate": 1.0,
+   "out0": 128.95,
+   "out1": 133.55,
+   "kind": "speech"
+  },
+  {
+   "src0": 141.8,
+   "src1": 143.6,
+   "rate": 2.0,
+   "out0": 133.55,
+   "out1": 134.45,
+   "kind": "gap"
+  },
+  {
+   "src0": 143.6,
+   "src1": 144.2,
+   "rate": 1.0,
+   "out0": 134.45,
+   "out1": 135.05,
+   "kind": "speech"
+  },
+  {
+   "src0": 144.2,
+   "src1": 144.9,
+   "rate": 2.0,
+   "out0": 135.05,
+   "out1": 135.4,
+   "kind": "gap"
+  },
+  {
+   "src0": 144.9,
+   "src1": 146.5,
+   "rate": 1.0,
+   "out0": 135.4,
+   "out1": 137.0,
+   "kind": "speech"
+  },
+  {
+   "src0": 146.5,
+   "src1": 150.7,
+   "rate": 1.0,
+   "out0": 137.0,
+   "out1": 141.2,
+   "kind": "speech"
+  },
+  {
+   "src0": 150.7,
+   "src1": 153.58,
+   "rate": 1.0,
+   "out0": 141.2,
+   "out1": 144.08,
+   "kind": "speech"
+  },
+  {
+   "src0": 153.58,
+   "src1": 155.5,
+   "rate": 1.0,
+   "out0": 144.08,
+   "out1": 146.0,
+   "kind": "speech"
+  },
+  {
+   "src0": 155.5,
+   "src1": 156.7,
+   "rate": 1.0,
+   "out0": 146.0,
+   "out1": 147.2,
+   "kind": "speech"
+  },
+  {
+   "src0": 156.7,
+   "src1": 158.68,
+   "rate": 1.0,
+   "out0": 147.2,
+   "out1": 149.18,
+   "kind": "speech"
+  },
+  {
+   "src0": 158.68,
+   "src1": 161.7,
+   "rate": 1.0,
+   "out0": 149.18,
+   "out1": 152.2,
+   "kind": "speech"
+  },
+  {
+   "src0": 161.7,
+   "src1": 162.2,
+   "rate": 2.0,
+   "out0": 152.2,
+   "out1": 152.45,
+   "kind": "gap"
+  },
+  {
+   "src0": 162.2,
+   "src1": 164.6,
+   "rate": 1.0,
+   "out0": 152.45,
+   "out1": 154.85,
+   "kind": "speech"
+  },
+  {
+   "src0": 164.6,
+   "src1": 168.1,
+   "rate": 1.0,
+   "out0": 154.85,
+   "out1": 158.35,
+   "kind": "speech"
+  },
+  {
+   "src0": 168.1,
+   "src1": 175.1,
+   "rate": 1.0,
+   "out0": 158.35,
+   "out1": 165.35,
+   "kind": "speech"
+  },
+  {
+   "src0": 175.1,
+   "src1": 177.48,
+   "rate": 1.0,
+   "out0": 165.35,
+   "out1": 167.73,
+   "kind": "speech"
+  },
+  {
+   "src0": 177.48,
+   "src1": 180.5,
+   "rate": 1.0,
+   "out0": 167.73,
+   "out1": 170.75,
+   "kind": "speech"
+  },
+  {
+   "src0": 180.5,
+   "src1": 181.1,
+   "rate": 2.0,
+   "out0": 170.75,
+   "out1": 171.05,
+   "kind": "gap"
+  },
+  {
+   "src0": 181.1,
+   "src1": 184.38,
+   "rate": 1.0,
+   "out0": 171.05,
+   "out1": 174.33,
+   "kind": "speech"
+  },
+  {
+   "src0": 184.38,
+   "src1": 188.5,
+   "rate": 1.0,
+   "out0": 174.33,
+   "out1": 178.45,
+   "kind": "speech"
+  },
+  {
+   "src0": 188.5,
+   "src1": 190.8,
+   "rate": 1.0,
+   "out0": 178.45,
+   "out1": 180.75,
+   "kind": "speech"
+  },
+  {
+   "src0": 190.8,
+   "src1": 193.2,
+   "rate": 1.0,
+   "out0": 180.75,
+   "out1": 183.15,
+   "kind": "speech"
+  },
+  {
+   "src0": 193.2,
+   "src1": 194.1,
+   "rate": 2.0,
+   "out0": 183.15,
+   "out1": 183.6,
+   "kind": "gap"
+  },
+  {
+   "src0": 194.1,
+   "src1": 195.7,
+   "rate": 1.0,
+   "out0": 183.6,
+   "out1": 185.2,
+   "kind": "speech"
+  },
+  {
+   "src0": 195.7,
+   "src1": 199.1,
+   "rate": 1.0,
+   "out0": 185.2,
+   "out1": 188.6,
+   "kind": "speech"
+  },
+  {
+   "src0": 199.1,
+   "src1": 201.4,
+   "rate": 1.0,
+   "out0": 188.6,
+   "out1": 190.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 201.4,
+   "src1": 202.78,
+   "rate": 1.0,
+   "out0": 190.9,
+   "out1": 192.28,
+   "kind": "speech"
+  },
+  {
+   "src0": 202.78,
+   "src1": 203.2,
+   "rate": 1.0,
+   "out0": 192.28,
+   "out1": 192.7,
+   "kind": "speech"
+  },
+  {
+   "src0": 203.2,
+   "src1": 205.5,
+   "rate": 1.0,
+   "out0": 192.7,
+   "out1": 195.0,
+   "kind": "speech"
+  },
+  {
+   "src0": 205.5,
+   "src1": 206.9,
+   "rate": 2.0,
+   "out0": 195.0,
+   "out1": 195.7,
+   "kind": "gap"
+  },
+  {
+   "src0": 206.9,
+   "src1": 209.1,
+   "rate": 1.0,
+   "out0": 195.7,
+   "out1": 197.9,
+   "kind": "speech"
+  },
+  {
+   "src0": 209.1,
+   "src1": 210.0,
+   "rate": 2.0,
+   "out0": 197.9,
+   "out1": 198.35,
+   "kind": "gap"
+  },
+  {
+   "src0": 210.0,
+   "src1": 211.18,
+   "rate": 1.0,
+   "out0": 198.35,
+   "out1": 199.53,
+   "kind": "speech"
+  },
+  {
+   "src0": 211.18,
+   "src1": 215.18,
+   "rate": 1.0,
+   "out0": 199.53,
+   "out1": 203.53,
+   "kind": "speech"
+  },
+  {
+   "src0": 215.18,
+   "src1": 217.0,
+   "rate": 1.0,
+   "out0": 203.53,
+   "out1": 205.35,
+   "kind": "speech"
+  },
+  {
+   "src0": 217.0,
+   "src1": 220.6,
+   "rate": 1.0,
+   "out0": 205.35,
+   "out1": 208.95,
+   "kind": "speech"
+  },
+  {
+   "src0": 220.6,
+   "src1": 223.2,
+   "rate": 1.0,
+   "out0": 208.95,
+   "out1": 211.55,
+   "kind": "speech"
+  },
+  {
+   "src0": 223.2,
+   "src1": 223.6,
+   "rate": 2.0,
+   "out0": 211.55,
+   "out1": 211.75,
+   "kind": "gap"
+  },
+  {
+   "src0": 223.6,
+   "src1": 224.4,
+   "rate": 1.0,
+   "out0": 211.75,
+   "out1": 212.55,
+   "kind": "speech"
+  }
+ ],
+ "subs": [
+  {
+   "out0": 0.2,
+   "out1": 12.45,
+   "text": "Untuk membuat pembayaran, secara automatik kita akan dibawa ke satu platform seperti ini: [[Global Streamer]]."
+  },
+  {
+   "out0": 13.2,
+   "out1": 19.85,
+   "text": "Kalau tidak, pergi balik pada e-mel yang kita masukkan waktu beli."
+  },
+  {
+   "out0": 20.65,
+   "out1": 23.4,
+   "text": "Dekat e-mel, kita akan dapat [[3 e-mel]] seperti ini."
+  },
+  {
+   "out0": 24.25,
+   "out1": 30.3,
+   "text": "Jadi, kamu boleh pilih antara nak tekan yang muat turun atau akses,"
+  },
+  {
+   "out0": 30.8,
+   "out1": 36.35,
+   "text": "atau pun kamu nak tekan pada yang jenis digital ini. Terima kasih, pembayaran berjaya."
+  },
+  {
+   "out0": 36.6,
+   "out1": 39.05,
+   "text": "Kalau klik sini, akan nampak seperti ini."
+  },
+  {
+   "out0": 39.8,
+   "out1": 42.15,
+   "text": "Nampak, dia akan beritahu nama kita sekali."
+  },
+  {
+   "out0": 42.3,
+   "out1": 44.65,
+   "text": "So klik pada [[Buka Panduan dan Muat Turun]]."
+  },
+  {
+   "out0": 45.55,
+   "out1": 48.0,
+   "text": "Sama saja platform dia, dia akan keluar seperti ini."
+  },
+  {
+   "out0": 49.65,
+   "out1": 55.5,
+   "text": "Bila dah keluar seperti ini, kita tengok dulu video tutorial."
+  },
+  {
+   "out0": 55.75,
+   "out1": 59.7,
+   "text": "Sebab tutorial ini, sama saja segala penerangan dalam ini."
+  },
+  {
+   "out0": 59.65,
+   "out1": 61.9,
+   "text": "Cuma kita nak direct terus kepada salin."
+  },
+  {
+   "out0": 62.25,
+   "out1": 65.1,
+   "text": "{{Salin}} di sini, ataupun muat turun terus."
+  },
+  {
+   "out0": 65.55,
+   "out1": 67.1,
+   "text": "Kalau aku, suka salin."
+  },
+  {
+   "out0": 66.95,
+   "out1": 71.2,
+   "text": "Selepas tekan salin, kita buka Chrome yang baru, kita paste link di sini."
+  },
+  {
+   "out0": 71.8,
+   "out1": 72.85,
+   "text": "Kemudian Enter."
+  },
+  {
+   "out0": 73.3,
+   "out1": 77.75,
+   "text": "Bila Enter, dia akan automatik terus download aplikasi kita."
+  },
+  {
+   "out0": 78.0,
+   "out1": 78.75,
+   "text": "Nampak di sini."
+  },
+  {
+   "out0": 79.2,
+   "out1": 83.75,
+   "text": "Okey, lepas dah siap download, kita terus ke setup di sini."
+  },
+  {
+   "out0": 83.9,
+   "out1": 84.95,
+   "text": "Tekan anak panah ini."
+  },
+  {
+   "out0": 85.2,
+   "out1": 88.75,
+   "text": "Ataupun kalau kita nak tengok file kita di mana, kita tekan di sini."
+  },
+  {
+   "out0": 88.9,
+   "out1": 89.85,
+   "text": "[[Show in folder]]."
+  },
+  {
+   "out0": 90.2,
+   "out1": 91.95,
+   "text": "Kalau nak setup terus, tekan dia."
+  },
+  {
+   "out0": 92.2,
+   "out1": 93.05,
+   "text": "Anak panah ini, [[Open]]."
+  },
+  {
+   "out0": 93.6,
+   "out1": 96.25,
+   "text": "Kita tunggu kejap, dia akan keluar macam ini."
+  },
+  {
+   "out0": 97.4,
+   "out1": 98.55,
+   "text": "Kita tekan {{More info}}."
+  },
+  {
+   "out0": 99.0,
+   "out1": 100.15,
+   "text": "Kita [[Run anyway]]."
+  },
+  {
+   "out0": 100.2,
+   "out1": 101.15,
+   "text": "Sebab apa keluar macam ini?"
+  },
+  {
+   "out0": 101.1,
+   "out1": 103.35,
+   "text": "Sebab aplikasi ini adalah aplikasi yang baru."
+  },
+  {
+   "out0": 103.6,
+   "out1": 105.55,
+   "text": "Kemudian kita tekan dia, [[Run anyway]]."
+  },
+  {
+   "out0": 105.7,
+   "out1": 108.55,
+   "text": "{{Jangan risau}}, benda ini bukan ada virus ke apa."
+  },
+  {
+   "out0": 108.8,
+   "out1": 109.85,
+   "text": "Scam ke, bukan."
+  },
+  {
+   "out0": 110.2,
+   "out1": 112.35,
+   "text": "Tapi sebab benda ini ada benda yang baru."
+  },
+  {
+   "out0": 112.6,
+   "out1": 117.85,
+   "text": "Lepas kita Run anyway, dia akan bagi pilihan untuk kita pilih desktop kita."
+  },
+  {
+   "out0": 118.25,
+   "out1": 121.6,
+   "text": "Okey, kita pilih PC atau laptop lah."
+  },
+  {
+   "out0": 121.45,
+   "out1": 122.3,
+   "text": "Tekan [[Next]]."
+  },
+  {
+   "out0": 122.35,
+   "out1": 125.3,
+   "text": "Kemudian pilih lokasi yang kita nak simpan aplikasi."
+  },
+  {
+   "out0": 125.45,
+   "out1": 126.6,
+   "text": "Tekan [[Install]]."
+  },
+  {
+   "out0": 126.85,
+   "out1": 128.9,
+   "text": "Lepas dah install, kita tekan [[Finish]]."
+  },
+  {
+   "out0": 129.15,
+   "out1": 133.5,
+   "text": "Kemudian kita terus dapat aplikasi untuk kita buat live streaming."
+  },
+  {
+   "out0": 134.55,
+   "out1": 135.0,
+   "text": "Nampak?"
+  },
+  {
+   "out0": 135.5,
+   "out1": 136.95,
+   "text": "Dia automatik bagi macam itu."
+  },
+  {
+   "out0": 137.4,
+   "out1": 141.15,
+   "text": "Okey, sekarang ini [[versi 2.131]]."
+  },
+  {
+   "out0": 141.4,
+   "out1": 144.05,
+   "text": "So dalam ini kita boleh set kita punya live streaming."
+  },
+  {
+   "out0": 144.1,
+   "out1": 145.95,
+   "text": "Nak masukkan laptop punya live."
+  },
+  {
+   "out0": 146.2,
+   "out1": 147.15,
+   "text": "Ini [[Stream Key]]."
+  },
+  {
+   "out0": 147.6,
+   "out1": 149.35,
+   "text": "Facebook pun ada Stream Key."
+  },
+  {
+   "out0": 149.2,
+   "out1": 152.15,
+   "text": "Dan boleh tambah lagi kalau nak mana-mana."
+  },
+  {
+   "out0": 152.55,
+   "out1": 154.8,
+   "text": "Okey, untuk aplikasi ini,"
+  },
+  {
+   "out0": 155.15,
+   "out1": 158.3,
+   "text": "fokus utama dia kepada [[Mobile Legends]], memang lah."
+  },
+  {
+   "out0": 158.45,
+   "out1": 165.3,
+   "text": "Kemudian dalam ini juga untuk mana-mana pelajar, cikgu, atau pensyarah yang nak buat presentation."
+  },
+  {
+   "out0": 165.55,
+   "out1": 167.8,
+   "text": "Nak letak muka, nak letak slide pun boleh."
+  },
+  {
+   "out0": 167.75,
+   "out1": 170.7,
+   "text": "Di sini pun kita akan ada [[Mode Formal]]."
+  },
+  {
+   "out0": 171.15,
+   "out1": 174.5,
+   "text": "Itu mode untuk kita pilih slide kita."
+  },
+  {
+   "out0": 174.35,
+   "out1": 178.4,
+   "text": "So kat sini akan ada kamera, apa semua, kita boleh masukkan PDF."
+  },
+  {
+   "out0": 178.55,
+   "out1": 180.7,
+   "text": "Okey, PDF macam mana? Kita klik kat sini."
+  },
+  {
+   "out0": 181.15,
+   "out1": 183.1,
+   "text": "So kita cari PDF."
+  },
+  {
+   "out0": 183.7,
+   "out1": 185.15,
+   "text": "Presentation PDF, PowerPoint."
+  },
+  {
+   "out0": 185.6,
+   "out1": 188.55,
+   "text": "Okey, bila kita klik sini, kita cari PDF kita kat mana."
+  },
+  {
+   "out0": 189.0,
+   "out1": 190.85,
+   "text": "Okey, contoh kita buka."
+  },
+  {
+   "out0": 191.2,
+   "out1": 192.35,
+   "text": "Soalan dan soalan."
+  },
+  {
+   "out0": 192.3,
+   "out1": 192.65,
+   "text": "Nampak?"
+  },
+  {
+   "out0": 193.0,
+   "out1": 194.95,
+   "text": "So kita crop je lah macam biasa."
+  },
+  {
+   "out0": 195.8,
+   "out1": 197.85,
+   "text": "Jadi muka kita kat situ."
+  },
+  {
+   "out0": 198.45,
+   "out1": 199.7,
+   "text": "Kita transition je."
+  },
+  {
+   "out0": 199.55,
+   "out1": 203.7,
+   "text": "So dekat paparan ini lah yang kita akan bentangkan kepada umum."
+  },
+  {
+   "out0": 203.55,
+   "out1": 205.3,
+   "text": "Yang dalam live tu, paparan ni."
+  },
+  {
+   "out0": 205.65,
+   "out1": 208.9,
+   "text": "Okey, ni ada untuk setup, kita nak tambah apa-apa boleh tambah kat sini."
+  },
+  {
+   "out0": 209.05,
+   "out1": 211.5,
+   "text": "Okey, [[selamat mencuba]] dan semoga berjaya."
+  },
+  {
+   "out0": 211.85,
+   "out1": 212.5,
+   "text": "Assalamualaikum."
+  }
+ ],
+ "steps": [
+  {
+   "out0": 13.2,
+   "out1": 16.8,
+   "num": 1,
+   "label": "Semak e-mel pembelian"
+  },
+  {
+   "out0": 24.25,
+   "out1": 27.85,
+   "num": 2,
+   "label": "Pilih Muat Turun / Akses"
+  },
+  {
+   "out0": 42.3,
+   "out1": 45.9,
+   "num": 3,
+   "label": "Buka Panduan & Muat Turun"
+  },
+  {
+   "out0": 62.25,
+   "out1": 65.85,
+   "num": 4,
+   "label": "Salin pautan muat turun"
+  },
+  {
+   "out0": 66.95,
+   "out1": 70.55,
+   "num": 5,
+   "label": "Tampal di Chrome → Enter"
+  },
+  {
+   "out0": 83.9,
+   "out1": 87.5,
+   "num": 6,
+   "label": "Buka fail yang dimuat turun"
+  },
+  {
+   "out0": 97.4,
+   "out1": 101.0,
+   "num": 7,
+   "label": "More info → Run anyway"
+  },
+  {
+   "out0": 118.25,
+   "out1": 121.85,
+   "num": 8,
+   "label": "Pilih PC / laptop → Next"
+  },
+  {
+   "out0": 122.35,
+   "out1": 125.95,
+   "num": 9,
+   "label": "Pilih lokasi → Install → Finish"
+  },
+  {
+   "out0": 144.1,
+   "out1": 147.7,
+   "num": 10,
+   "label": "Masukkan Stream Key"
+  },
+  {
+   "out0": 167.75,
+   "out1": 171.35,
+   "num": 11,
+   "label": "Mode Formal: slide PDF"
+  }
+ ],
+ "clicks": [
+  {
+   "out": 25.85,
+   "x": 542.0,
+   "y": 197.3,
+   "src": 27.8
+  },
+  {
+   "out": 28.05,
+   "x": 564.3,
+   "y": 220.3,
+   "src": 30.0
+  },
+  {
+   "out": 29.65,
+   "x": 872.0,
+   "y": 522.0,
+   "src": 31.6
+  },
+  {
+   "out": 31.1,
+   "x": 136.0,
+   "y": 26.0,
+   "src": 33.4
+  },
+  {
+   "out": 32.6,
+   "x": 187.3,
+   "y": 127.3,
+   "src": 34.9
+  },
+  {
+   "out": 37.3,
+   "x": 660.0,
+   "y": 343.7,
+   "src": 39.6
+  },
+  {
+   "out": 42.9,
+   "x": 688.0,
+   "y": 369.3,
+   "src": 45.8
+  },
+  {
+   "out": 44.5,
+   "x": 709.0,
+   "y": 370.0,
+   "src": 47.4
+  },
+  {
+   "out": 48.366,
+   "x": 406.0,
+   "y": 28.0,
+   "src": 52.5
+  },
+  {
+   "out": 62.05,
+   "x": 862.0,
+   "y": 477.0,
+   "src": 68.1
+  },
+  {
+   "out": 63.55,
+   "x": 660.0,
+   "y": 563.7,
+   "src": 69.7
+  },
+  {
+   "out": 65.25,
+   "x": 893.7,
+   "y": 474.0,
+   "src": 71.4
+  },
+  {
+   "out": 67.15,
+   "x": 441.0,
+   "y": 103.0,
+   "src": 73.3
+  },
+  {
+   "out": 68.45,
+   "x": 358.0,
+   "y": 16.0,
+   "src": 74.6
+  },
+  {
+   "out": 73.0,
+   "x": 399.4,
+   "y": 60.5,
+   "src": 79.6
+  },
+  {
+   "out": 74.3,
+   "x": 782.0,
+   "y": 129.0,
+   "src": 80.9
+  },
+  {
+   "out": 84.3,
+   "x": 1208.0,
+   "y": 142.0,
+   "src": 90.9
+  },
+  {
+   "out": 88.2,
+   "x": 1184.0,
+   "y": 145.0,
+   "src": 94.8
+  },
+  {
+   "out": 91.6,
+   "x": 1209.0,
+   "y": 140.0,
+   "src": 98.2
+  },
+  {
+   "out": 97.8,
+   "x": 507.0,
+   "y": 258.0,
+   "src": 105.8
+  },
+  {
+   "out": 100.1,
+   "x": 760.6,
+   "y": 288.8,
+   "src": 108.1
+  },
+  {
+   "out": 105.0,
+   "x": 680.7,
+   "y": 478.0,
+   "src": 113.0
+  },
+  {
+   "out": 106.8,
+   "x": 681.0,
+   "y": 475.0,
+   "src": 114.8
+  },
+  {
+   "out": 110.0,
+   "x": 618.0,
+   "y": 397.0,
+   "src": 118.0
+  },
+  {
+   "out": 113.6,
+   "x": 490.0,
+   "y": 390.0,
+   "src": 121.6
+  },
+  {
+   "out": 116.1,
+   "x": 491.3,
+   "y": 373.0,
+   "src": 124.1
+  },
+  {
+   "out": 118.95,
+   "x": 491.0,
+   "y": 364.0,
+   "src": 127.2
+  },
+  {
+   "out": 122.55,
+   "x": 854.0,
+   "y": 469.7,
+   "src": 130.8
+  },
+  {
+   "out": 123.45,
+   "x": 769.0,
+   "y": 529.3,
+   "src": 131.7
+  },
+  {
+   "out": 125.45,
+   "x": 820.0,
+   "y": 626.0,
+   "src": 133.7
+  },
+  {
+   "out": 126.45,
+   "x": 840.0,
+   "y": 496.0,
+   "src": 134.7
+  },
+  {
+   "out": 128.35,
+   "x": 818.0,
+   "y": 620.0,
+   "src": 136.6
+  },
+  {
+   "out": 129.05,
+   "x": 868.0,
+   "y": 569.0,
+   "src": 137.3
+  },
+  {
+   "out": 150.2,
+   "x": 1254.0,
+   "y": 135.0,
+   "src": 159.7
+  },
+  {
+   "out": 152.3,
+   "x": 660.0,
+   "y": 429.0,
+   "src": 161.9
+  },
+  {
+   "out": 172.45,
+   "x": 623.0,
+   "y": 376.0,
+   "src": 182.5
+  },
+  {
+   "out": 173.95,
+   "x": 375.0,
+   "y": 321.0,
+   "src": 184.0
+  },
+  {
+   "out": 175.65,
+   "x": 982.0,
+   "y": 616.0,
+   "src": 185.7
+  },
+  {
+   "out": 180.85,
+   "x": 601.0,
+   "y": 202.0,
+   "src": 190.9
+  },
+  {
+   "out": 186.4,
+   "x": 486.0,
+   "y": 300.2,
+   "src": 196.9
+  },
+  {
+   "out": 190.7,
+   "x": 243.1,
+   "y": 162.1,
+   "src": 201.2
+  }
+ ],
+ "dwells": [
+  {
+   "out": 48.168,
+   "x": 406.0,
+   "y": 29.7
+  },
+  {
+   "out": 48.8,
+   "x": 271.0,
+   "y": 24.0
+  },
+  {
+   "out": 61.35,
+   "x": 867.3,
+   "y": 471.7
+  },
+  {
+   "out": 76.9,
+   "x": 1225.3,
+   "y": 45.0
+  },
+  {
+   "out": 111.5,
+   "x": 612.0,
+   "y": 397.7
+  },
+  {
+   "out": 113.3,
+   "x": 490.0,
+   "y": 390.0
+  },
+  {
+   "out": 119.75,
+   "x": 371.0,
+   "y": 384.0
+  },
+  {
+   "out": 125.35,
+   "x": 820.0,
+   "y": 626.0
+  },
+  {
+   "out": 127.85,
+   "x": 817.0,
+   "y": 629.0
+  },
+  {
+   "out": 150.2,
+   "x": 1254.0,
+   "y": 135.0
+  },
+  {
+   "out": 151.7,
+   "x": 750.3,
+   "y": 362.7
+  },
+  {
+   "out": 164.15,
+   "x": 500.3,
+   "y": 551.8
+  },
+  {
+   "out": 172.45,
+   "x": 623.0,
+   "y": 376.0
+  }
+ ],
+ "hook": {
+  "src0": 111.4,
+  "src1": 114.4,
+  "t": "{{Jangan risau}}, [[bukan virus!]] Cara betul download & setup."
+ }
+}

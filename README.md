@@ -26,3 +26,7 @@ Letak rakaman muka sendiri di `public/face.mp4` dan render dengan props `{"faceS
 
 ## Deploy
 Push ke `main` → GitHub Actions bina `remotion bundle` dan terbitkan ke GitHub Pages.
+
+## Tutorial skrin (komposisi `Tutorial`)
+Video rekod skrin 16:9 1920×1080: jejak kursor, ring + efek klik merah, zoom hook, buang jeda / 2x, callout langkah di bawah frame, subtitle dengan teks hook kuning butter / merah cerah, latar cerah beranimasi, logo kiri (pop setiap 100s) dan outro iOS. Lihat `.claude/skills/screen-tutorial-style`.
+Alat: `tools/build-plan.py`, `tools/make-audio.py`. Kata hook dalam subtitle: `[[butter]]`, `{{merah}}`.

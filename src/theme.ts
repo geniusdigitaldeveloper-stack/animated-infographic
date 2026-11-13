@@ -83,3 +83,18 @@ export const captionStyle = {
   fadeFrames: 4,
   beat: 0.06, // extra scale on the active word
 };
+
+/** Screen-recording tutorial look: bright background, video framed ~70% centred-high, text only BELOW the frame. */
+export const tutorial = {
+  W: 1920, H: 1080, FPS: 30,
+  frame: {w: 1344, h: 756, x: 288, y: 60, radius: 22}, // 70% of canvas height, centred, top margin kept
+  callout: {y: 832, h: 46},
+  subBar: {x: 288, y: 890, w: 1344, h: 150, radius: 26},
+  logos: {x: 56, size: 184, y1: 250, y2: 500},
+  bg: ['#f7fbff', '#e8f3ff'],
+  ink: '#0b1220',
+  // OWNER HOOK COLOURS (subtitle only): butter yellow or bright red. Marked in text as [[hook]] (butter) / {{hook}} (red).
+  hookButter: '#FFE066',
+  hookRed: '#FF3B30',
+  grade: 'contrast(1.05) saturate(1.06) brightness(1.03)',
+};

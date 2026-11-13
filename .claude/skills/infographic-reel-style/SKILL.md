@@ -33,6 +33,7 @@ Panggil pengguna **Ustaz**. Gaya ini dirumus daripada reel rujukan (88s, 9:16, 3
 ## Subtitle (`src/components/Caption.tsx`)
 - 4 perkataan satu chunk. **Setiap perkataan ada animasi frame sendiri, tepat pada saat ia disebut** (ikut suara):
   spring pop `scale 0.72→1`, naik `26px→0`, blur `8px→0`, fade in (~4 frame). Perkataan yang sedang disebut = **kuning + glow + denyut kecil**; sudah disebut = putih; belum disebut = tersembunyi.
+- **Teks HOOK dalam subtitle** (gaya Ustaz): hanya **kuning butter `#FFE066`** `[[frasa]]` atau **merah cerah `#FF3B30`** `{{frasa}}`, pada tempat yang sesuai. Awal ayat & selepas titik huruf besar; kata nama AM dibesarkan.
 - Tulis `*kata kunci*` dalam teks untuk italic. Chunk fade keluar 0.12s sebelum chunk seterusnya (tiada cut keras).
 - **Masa tepat**: `faster-whisper` (word timestamps) → `npm run captions whisper.json` → letak `words` (saat, relatif kepada scene) pada scene dalam `script.tsx`. Tanpa `words`, masa dibahagi sama rata.
 - Peraturan: jangan paparkan perkataan sebelum ia disebut; animasi mesti bermula pada frame `round(start*fps)`.
