@@ -53,3 +53,11 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 6. Awal ayat / selepas titik huruf besar; kata nama AM dibesarkan.
 7. Subtitle di BAWAH frame video, tidak di atas video.
 Kod: `src/components/Caption.tsx` (+ `glass()`), parameter: `captionStyle` dalam `src/theme.ts`.
+
+## "Hook" = teks subtitle (peraturan Ustaz)
+- **Hook ialah perkataan dalam subtitle** yang diwarnakan: **merah cerah** `{{…}}` atau **kuning butter** `[[…]]` pada tempat yang sesuai. Selebihnya **biru air** `#6FD3FF`.
+- **JANGAN** cari bahagian video lalu letak di awal sebagai hook pembuka. Video bermula dari awal rakaman.
+
+## Wajib setiap kali edit video untuk Ustaz
+Guna SEMUA gaya yang Ustaz minta disimpan (skill `infographic-reel-style`, `screen-tutorial-style`, `reel-edit-workflow`, bahagian di atas). **Hanya buang apa yang Ustaz suruh buang; yang tidak disuruh buang, JANGAN buang.**
+Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · warna putih pada teks subtitle · klip hook pembuka · bulatan klik besar · video muka daripada video rujukan.

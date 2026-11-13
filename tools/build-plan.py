@@ -64,7 +64,6 @@ steps = []
 for n, (ts, lab) in enumerate(steps_src, 1):
     o = src2out(ts)
     if o is not None: steps.append({"out0": round(o,3), "out1": round(o+3.6,3), "num": n, "label": lab})
-HOOK = {"src0": 111.4, "src1": 114.4, "t": "{{Jangan risau}}, [[bukan virus!]] Cara betul download & setup."}
-plan = {"fps": FPS_OUT, "duration": round(t_out,3), "clips": clips, "subs": subs_out, "steps": steps, "clicks": clicks, "dwells": dwells, "hook": HOOK}
+plan = {"fps": FPS_OUT, "duration": round(t_out,3), "clips": clips, "subs": subs_out, "steps": steps, "clicks": clicks, "dwells": dwells}
 json.dump(plan, open(out, 'w'), ensure_ascii=False, indent=1)
 print("dwells", len(dwells)); print("duration", plan['duration'], "clips", len(clips), "clicks", len(clicks), "steps", len(steps))

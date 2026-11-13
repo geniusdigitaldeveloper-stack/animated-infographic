@@ -26,7 +26,7 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 - **Bulatan merah kecil mengikut mouse** (`tools/track-cursor.py` 25fps). Bila klik, bulatan **ditarik ke TENGAH butang** di bawah kursor (`tools/snap-buttons.py`: flood-fill cari kotak butang) dan ripple merah keluar di situ. Bulatan tidak diletak jika kursor tidak benar-benar dikesan (tidak meneka).
 - Setiap **klik**: bulatan **merah KECIL** (radius ≤ ~40px, fokus tepat pada butang yang ditekan, bukan besar) keluar (2 ring + titik) + bunyi `click`, dan zoom lembut ke kawasan kursor.
 - Bila kursor berhenti di butang/menu: **ring highlight** merah kecil dan lembut (radius ~20–30px).
-- **Hook pembuka**: klik butang utama (contoh *Run anyway*) → zoom sinematik + `impact` + teks hook besar; kemudian video bermula dari awal.
+- **TIADA klip hook pembuka.** Video bermula terus dari awal rakaman. "Hook" bagi Ustaz = perkataan dalam subtitle yang diwarnakan (merah / kuning butter), bukan klip yang dipindahkan ke permulaan.
 
 ## Potongan
 Buang jeda janggal/loading; jurang > 0.4s dipercepat ≥ 2x (audio dimute, lencana ⏩ di bawah frame); ayat berulang dibuang. Momen penting kekal 1x.

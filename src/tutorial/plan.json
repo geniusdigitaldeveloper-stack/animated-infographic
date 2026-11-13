@@ -877,7 +877,7 @@
   {
    "out0": 105.7,
    "out1": 108.55,
-   "text": "{{Jangan risau}}, benda ini bukan ada virus ke apa."
+   "text": "{{Jangan risau}}, benda ini {{bukan ada virus}} ke apa."
   },
   {
    "out0": 108.8,
@@ -1887,10 +1887,5 @@
    "bh": 27.5,
    "snap": true
   }
- ],
- "hook": {
-  "src0": 111.4,
-  "src1": 114.4,
-  "t": "{{Jangan risau}}, [[bukan virus!]] Cara betul download & setup."
- }
+ ]
 }

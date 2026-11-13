@@ -8,9 +8,8 @@ export const P = plan as unknown as {
   steps: {out0: number; out1: number; num: number; label: string}[];
   clicks: {out: number; x: number; y: number; src: number; bx: number; by: number; bw: number; bh: number; snap: boolean}[];
   dwells: {out: number; x: number; y: number; src: number; bx: number; by: number}[];
-  hook: {src0: number; src1: number; t: string};
 };
-export const HOOK_S = 4.0;
+export const HOOK_S = 0; // NO opening hook clip (owner removed it): video starts from the beginning
 export const OUTRO_S = 6.5;
 export const MAIN_S = P.duration;
 export const TOTAL_S = HOOK_S + MAIN_S + OUTRO_S;
