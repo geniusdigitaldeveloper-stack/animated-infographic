@@ -1,22 +1,21 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {measureText} from '@remotion/layout-utils';
 import {captionStyle as C, tutorial} from '../theme';
 import {useLayout} from './Frame';
 import {serif} from '../fonts';
 import type {Word} from '../types';
 
 /**
- * Owner's subtitle: word-by-word, every word animates (spring pop / rise / blur) at the moment it is spoken.
- * Markup inside the text:
- *   *word*        italic keyword
- *   [[phrase]]    HOOK text, butter yellow  (#FFE066)
- *   {{phrase}}    HOOK text, bright red     (#FF3B30)
- * Hook colours are the owner's rule: use ONLY butter yellow or bright red for hook text, at the right place.
- * Proper nouns / sentence starts are capitalised in the source text itself.
- * Timing: pass `words` (seconds, from Whisper) for exact sync, else words are spread evenly over `duration`.
+ * OWNER'S SUBTITLE STYLE
+ * - NO long bar. EVERY word has its own faded-black GLASS pill (iOS "Liquid Glass" look: translucent dark overlay,
+ *   backdrop blur, bright rim + specular highlight). Pills are separate, never one long border.
+ * - A glass highlight lens glides smoothly from the word being said to the next word (spring, 4K-smooth).
+ * - Every word still pops in (spring / rise / blur) at the moment it is spoken.
+ * Markup: *word* italic · [[phrase]] HOOK butter yellow (#FFE066) · {{phrase}} HOOK bright red (#FF3B30)
+ * Timing: pass `words` (seconds, from Whisper) for exact sync, else evenly spread over `duration`.
  */
 export const WORDS_PER_CHUNK = C.wordsPerChunk;
-
 export type CaptionRect = {x: number; y: number; w: number; h: number; fontSize: number};
 export type Palette = {spoken: string; active: string; glow: string};
 type Props = {fontFamily?: string; text: string; duration: number; words?: Word[]; rect?: CaptionRect; palette?: Palette; unit?: number};
@@ -33,15 +32,21 @@ const tokenize = (text: string, duration: number, words?: Word[]): Tok[] => {
     if (r.includes(']]') || r.includes('}}')) mode = null;
     const clean = r.replace(/\[\[|\]\]|\{\{|\}\}/g, '');
     const w = words?.[i];
-    return {
-      text: clean.replace(/\*/g, ''),
-      italic: /^\*.+\*[.,!?:;]*$/.test(clean),
-      hook,
-      start: w ? w.start : i * per,
-      end: w ? w.end : (i + 1) * per,
-    };
+    return {text: clean.replace(/\*/g, ''), italic: /^\*.+\*[.,!?:;]*$/.test(clean), hook,
+      start: w ? w.start : i * per, end: w ? w.end : (i + 1) * per};
   });
 };
+
+// Liquid-glass recipe (dark, faded, see-through)
+const glass = (u: number, strong = false): React.CSSProperties => ({
+  background: strong
+    ? 'linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.10) 45%, rgba(255,255,255,.18) 100%)'
+    : 'linear-gradient(180deg, rgba(20,28,48,.46) 0%, rgba(10,16,30,.52) 100%)',
+  backdropFilter: 'blur(18px) saturate(1.8)', WebkitBackdropFilter: 'blur(18px) saturate(1.8)',
+  border: `${Math.max(1, 1.5 * u)}px solid rgba(255,255,255,${strong ? 0.6 : 0.26})`,
+  borderRadius: 22 * u,
+  boxShadow: `inset 0 ${1.5 * u}px 0 rgba(255,255,255,${strong ? 0.7 : 0.4}), inset 0 ${-1.5 * u}px 0 rgba(255,255,255,.10), inset 0 0 ${14 * u}px rgba(255,255,255,.07), 0 ${10 * u}px ${28 * u}px rgba(8,14,30,${strong ? 0.12 : 0.22})`,
+});
 
 export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, unit, fontFamily}) => {
   const frame = useCurrentFrame();
@@ -49,7 +54,8 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
   const L = useLayout();
   const box = rect ?? L.caption;
   const u = unit ?? L.unit;
-  const pal = palette ?? {spoken: C.spoken, active: C.active, glow: C.glow};
+  const pal = palette ?? {spoken: '#fff', active: '#fff', glow: C.glow};
+  const family = fontFamily ?? serif;
   const t = frame / fps;
   const toks = tokenize(text, duration, words);
 
@@ -59,35 +65,55 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
   const chunk = toks.slice(chunkStart, chunkStart + WORDS_PER_CHUNK);
   const lastEnd = chunk[chunk.length - 1].end;
   const out = chunkStart + WORDS_PER_CHUNK < toks.length
-    ? interpolate(t, [lastEnd - 0.12, lastEnd], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
-    : 1;
+    ? interpolate(t, [lastEnd - C.motion.chunkFade, lastEnd], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 1;
+
+  // exact widths so the gliding lens lines up with every pill
+  const fs = box.fontSize, padX = fs * 0.36, padY = fs * 0.14, gap = fs * 0.2;
+  const weight = (k: Tok) => (fontFamily ? (k.hook ? 800 : 600) : 400);
+  const widths = chunk.map((k) => {
+    let w = fs * 0.6 * k.text.length;
+    try { w = measureText({text: k.text, fontFamily: family, fontSize: fs, fontWeight: String(weight(k))}).width; } catch (e) { /* font not ready */ }
+    return Math.ceil(w) + padX * 2;
+  });
+  const xs: number[] = []; let acc = 0;
+  widths.forEach((w, i) => { xs[i] = acc; acc += w + gap; });
+  const total = acc - gap;
+  const fit = Math.min(1, (box.w - 40) / total);
+  const rowH = fs * 1.18 + padY * 2;
+
+  // lens glides from previous word -> current word
+  const li = idx - chunkStart;
+  const startF = Math.round(chunk[li].start * fps);
+  const p = spring({frame: frame - startF, fps, config: C.motion.lens});
+  const from = li > 0 ? li - 1 : li;
+  const lx = xs[from] + (xs[li] - xs[from]) * p;
+  const lw = widths[from] + (widths[li] - widths[from]) * p;
+  const lensIn = li === 0 ? interpolate(frame - startF, [0, C.motion.lensIn], [0, 1], {extrapolateRight: 'clamp'}) : 1;
 
   return (
-    <div style={{
-      position: 'absolute', top: box.y, left: box.x, width: box.w, height: box.h,
-      display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', opacity: out,
-    }}>
-      <div style={{fontFamily: fontFamily ?? serif, fontSize: box.fontSize, lineHeight: 1.18, color: pal.spoken}} data-caption>
+    <div style={{position: 'absolute', top: box.y, left: box.x, width: box.w, height: box.h, display: 'flex', justifyContent: 'center',
+      alignItems: 'center', opacity: out}}>
+      <div style={{position: 'relative', width: total, height: rowH, transform: `scale(${fit})`, transformOrigin: 'center'}}>
+        <div style={{position: 'absolute', left: lx, top: 0, width: lw, height: rowH, opacity: lensIn, ...glass(u, true),
+          boxShadow: `${glass(u, true).boxShadow}, 0 0 ${26 * u}px rgba(255,255,255,.35)`}} />
         {chunk.map((w, i) => {
           const g = chunkStart + i;
           const local = frame - Math.round(w.start * fps);
-          const p = spring({frame: local, fps, config: {damping: 14, stiffness: 190, mass: 0.6}});
+          const pop = spring({frame: local, fps, config: C.motion.pop});
           const appear = interpolate(local, [0, C.fadeFrames], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const blur = interpolate(local, [0, 6], [C.blur, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const active = g === idx;
           const beat = active ? 1 + C.beat * Math.max(0, 1 - local / 8) : 1;
           const hookColor = w.hook === 'butter' ? tutorial.hookButter : w.hook === 'red' ? tutorial.hookRed : null;
           return (
-            <span key={g} style={{
-              display: 'inline-block', marginRight: '0.28em',
-              color: hookColor ?? (active ? pal.active : pal.spoken),
-              fontStyle: w.italic ? 'italic' : 'normal',
-              fontWeight: fontFamily ? (hookColor ? 800 : 600) : 400,
-              opacity: local >= 0 ? appear : 0,
-              transform: `translateY(${(1 - p) * C.rise * u}px) scale(${(C.popFrom + (1 - C.popFrom) * p) * beat})`,
-              filter: `blur(${blur}px)`,
-              textShadow: hookColor ? `0 0 26px ${hookColor}66` : active ? `0 0 28px ${pal.glow}` : 'none',
-            }}>{w.text}</span>
+            <div key={g} style={{position: 'absolute', left: xs[i], top: 0, width: widths[i], height: rowH, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', ...glass(u), opacity: local >= 0 ? appear : 0,
+              transform: `translateY(${(1 - pop) * C.rise * u}px) scale(${(C.popFrom + (1 - C.popFrom) * pop) * beat})`,
+              filter: `blur(${blur}px)`}}>
+              <span style={{fontFamily: family, fontSize: fs, lineHeight: 1.18, whiteSpace: 'nowrap', fontStyle: w.italic ? 'italic' : 'normal',
+                fontWeight: weight(w), color: hookColor ?? pal.spoken,
+                textShadow: hookColor ? `0 0 ${20 * u}px ${hookColor}55, 0 ${2 * u}px ${6 * u}px rgba(0,0,0,.45)` : `0 ${2 * u}px ${8 * u}px rgba(0,0,0,.45)`}}>{w.text}</span>
+            </div>
           );
         })}
       </div>

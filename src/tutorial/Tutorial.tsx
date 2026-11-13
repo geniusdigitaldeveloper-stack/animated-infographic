@@ -142,9 +142,9 @@ const Callout: React.FC<{t: number}> = ({t}) => {
     </div>
   );
 };
-const SubBar: React.FC<{children: React.ReactNode; big?: boolean}> = ({children}) => (
-  <div style={{position: 'absolute', left: T.subBar.x, top: T.subBar.y, width: T.subBar.w, height: T.subBar.h, borderRadius: T.subBar.radius,
-    background: 'rgba(11,18,32,.90)', boxShadow: '0 18px 50px rgba(11,18,32,.30)'}}>{children}</div>
+/** Positioning box only. NO long background bar: every word carries its own glass pill (see Caption). */
+const SubBar: React.FC<{children: React.ReactNode}> = ({children}) => (
+  <div style={{position: 'absolute', left: T.subBar.x, top: T.subBar.y, width: T.subBar.w, height: T.subBar.h}}>{children}</div>
 );
 const subRect = (fs: number) => ({x: 0, y: 0, w: T.subBar.w, h: T.subBar.h, fontSize: fs});
 const pal = {spoken: 'rgba(255,255,255,.92)', active: '#ffffff', glow: 'rgba(255,255,255,.5)'};

@@ -31,6 +31,8 @@ Panggil pengguna **Ustaz**. Gaya ini dirumus daripada reel rujukan (88s, 9:16, 3
 - **Tajuk/UI: Inter 800**. **Prompt/kod: JetBrains Mono**.
 
 ## Subtitle (`src/components/Caption.tsx`)
+- **Gaya border subtitle (Ustaz): BUKAN bar hitam panjang.** Setiap perkataan ada **pil kaca tersendiri** (overlay hitam yang dipudarkan, lut sinar, gaya *Liquid Glass* iOS terkini: blur latar, rim cerah, sorotan atas). Satu **kaca penyerlah meluncur lancar (spring) dari perkataan yang sedang disebut ke perkataan sebelah**. Pil tidak digabung menjadi satu border.
+- **Animasi subtitle (Ustaz) = lancar macam iPhone/iOS.** Fizik *spring* (bukan linear / ease cut), dikira pada setiap bingkai, jadi kekal licin pada fps tinggi (render akhir fps tinggi, contoh 60/120). Dua gerakan: (1) setiap perkataan *pop* masuk (naik + skala + blur→jelas) tepat pada masa disebut; (2) **kaca penyerlah meluncur dari perkataan ke perkataan sebelah**. Parameter: `captionStyle.motion` dalam `src/theme.ts`. Jangan tukar ke animasi kasar atau cut keras.
 - 4 perkataan satu chunk. **Setiap perkataan ada animasi frame sendiri, tepat pada saat ia disebut** (ikut suara):
   spring pop `scale 0.72→1`, naik `26px→0`, blur `8px→0`, fade in (~4 frame). Perkataan yang sedang disebut = **kuning + glow + denyut kecil**; sudah disebut = putih; belum disebut = tersembunyi.
 - **Teks HOOK dalam subtitle** (gaya Ustaz): hanya **kuning butter `#FFE066`** `[[frasa]]` atau **merah cerah `#FF3B30`** `{{frasa}}`, pada tempat yang sesuai. Awal ayat & selepas titik huruf besar; kata nama AM dibesarkan.

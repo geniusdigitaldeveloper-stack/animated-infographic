@@ -17,7 +17,7 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 ## Peraturan gaya (jangan langgar)
 1. Satu warna aksen sahaja: kuning `#ffd60a`. Merah hanya untuk "bayar/dikunci/salah".
 2. Layout menyesuaikan saiz frame (lihat `getLayout` dalam `src/theme.ts`): frame tinggi = grafik atas, subtitle tengah, muka bawah; frame lebar = grafik kiri, muka kanan, subtitle bawah.
-3. Subtitle perkataan-demi-perkataan; **teks HOOK dalam subtitle = kuning butter `#FFE066` `[[…]]` atau merah cerah `#FF3B30` `{{…}}` sahaja**, kata nama AM dan awal ayat/selepas titik dibesarkan; **setiap perkataan beranimasi (pop/rise/blur) tepat pada masa ia disebut**; *kata kunci* italic.
+3. Subtitle perkataan-demi-perkataan, **setiap perkataan pil kaca sendiri (overlay hitam pudar, gaya Liquid Glass iOS) dengan kaca penyerlah meluncur dari perkataan ke perkataan; JANGAN guna satu bar/border panjang**; **teks HOOK dalam subtitle = kuning butter `#FFE066` `[[…]]` atau merah cerah `#FF3B30` `{{…}}` sahaja**, kata nama AM dan awal ayat/selepas titik dibesarkan; **setiap perkataan beranimasi (pop/naik/blur) tepat pada masa ia disebut dengan animasi spring lancar macam iPhone (`captionStyle.motion`)**; *kata kunci* italic.
 4. Satu scene = satu idea = satu visual. Tiada cut kasar, guna fade/spring.
 
 ## Media & subtitle (peraturan pemilik)
@@ -42,3 +42,13 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 - Guna skill `screen-tutorial-style` (komposisi `Tutorial`, 1920×1080). **Preview dahulu, jangan render final tanpa kebenaran Ustaz.**
 - Output sentiasa **1920×1080**. Teks hanya di bawah frame video; di atas video hanya efek kursor (ring, zoom, ripple klik merah).
 - Hantar fail preview terus kepada Ustaz (`SendUserFile`) kerana panel pratonton/pautan Pages tidak memaparkan video tutorial.
+
+## Gaya teks subtitle Ustaz — RINGKASAN LENGKAP (jangan tinggal satu pun)
+1. Pil kaca **setiap perkataan** (overlay hitam pudar, lut sinar, Liquid Glass iOS) — **bukan** satu bar panjang.
+2. Kaca penyerlah **meluncur** dari perkataan ke perkataan sebelah.
+3. Animasi **spring lancar macam iPhone**, per bingkai, sesuai fps tinggi.
+4. Perkataan pop masuk tepat masa disebut (Whisper), 4 perkataan satu chunk, fade lembut antara chunk.
+5. **Teks HOOK**: kuning butter `#FFE066` `[[…]]` atau merah cerah `#FF3B30` `{{…}}` sahaja, pada tempat sesuai.
+6. Awal ayat / selepas titik huruf besar; kata nama AM dibesarkan.
+7. Subtitle di BAWAH frame video, tidak di atas video.
+Kod: `src/components/Caption.tsx` (+ `glass()`), parameter: `captionStyle` dalam `src/theme.ts`.

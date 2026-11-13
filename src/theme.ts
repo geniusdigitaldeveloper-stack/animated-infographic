@@ -73,6 +73,7 @@ export const type = {
  * Edit here to change every caption. Never copy subtitles/text from reference videos.
  */
 export const captionStyle = {
+  // glass pills: one per word (never one long bar) — recipe lives in components/Caption.tsx `glass()`
   wordsPerChunk: 4,
   spoken: colors.text, // already said
   active: colors.accent, // being said now
@@ -82,6 +83,16 @@ export const captionStyle = {
   blur: 8, // px blur at first frame
   fadeFrames: 4,
   beat: 0.06, // extra scale on the active word
+  /**
+   * OWNER'S SUBTITLE MOTION = iPhone / iOS-smooth. Spring physics (never linear/ease-in-out cuts), evaluated every frame,
+   * so it stays silky at any fps (render final at high fps, e.g. 60/120). Every word pops in AND a glass lens glides word -> next word.
+   */
+  motion: {
+    pop: {damping: 14, stiffness: 190, mass: 0.6}, // word pill pop-in (slight iOS overshoot)
+    lens: {damping: 24, stiffness: 150, mass: 0.9}, // glass highlight gliding between words (critically-smooth, no wobble)
+    chunkFade: 0.12, // seconds: soft fade between 4-word chunks
+    lensIn: 6, // frames for the lens to fade in on the first word
+  },
 };
 
 /** Screen-recording tutorial look: bright background, video framed ~70% centred-high, text only BELOW the frame. */
