@@ -23,8 +23,8 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 - Warna grade neutral: `contrast(1.05) saturate(1.06) brightness(1.03)`; tiada gradient garang.
 
 ## Efek kursor
-- Setiap **klik**: bulatan merah keluar (2 ring + titik) + bunyi `click`, dan zoom lembut ke kawasan kursor.
-- Bila kursor berhenti di butang/menu: **ring highlight** lembut.
+- Setiap **klik**: bulatan **merah KECIL** (radius ≤ ~40px, fokus tepat pada butang yang ditekan, bukan besar) keluar (2 ring + titik) + bunyi `click`, dan zoom lembut ke kawasan kursor.
+- Bila kursor berhenti di butang/menu: **ring highlight** merah kecil dan lembut (radius ~20–30px).
 - **Hook pembuka**: klik butang utama (contoh *Run anyway*) → zoom sinematik + `impact` + teks hook besar; kemudian video bermula dari awal.
 
 ## Potongan
@@ -37,7 +37,7 @@ Buang jeda janggal/loading; jurang > 0.4s dipercepat ≥ 2x (audio dimute, lenca
 
 ## Logo (2 logo diberi Ustaz)
 - Kiri skrin, **tidak terlalu besar** (184px) dan tidak menindih frame; **setiap logo animasi sendiri** (bukan kumpulan), pop-up setiap **100 saat**.
-- **Outro**: kedua-dua logo animasi iOS (spring, blur→jelas, ikon squircle + sapuan kilat, tekan-bounce), masuk berasingan.
+- **Outro**: logo 1 = **Genius Digital Developer** (G biru, induk/ketua), logo 2 = **Global Streamer** (produk di bawahnya). Teks bawah: "Terima kasih" (besar) dan baris biru **"Genius Digital Developer @ Global Streamer"**. Kedua-dua logo animasi iOS (spring, blur→jelas, ikon squircle + sapuan kilat, tekan-bounce), masuk berasingan.
 
 ## Bunyi
 Muzik instrumental tenang di bawah suara (volum 0.11, fade akhir) + SFX: `click`, `impact`, `whoosh`, `pop`, `chime`. Semua disintesis (`tools/make-audio.py`); boleh diganti lagu berlesen.

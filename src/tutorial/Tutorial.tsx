@@ -75,11 +75,11 @@ const Ripple: React.FC<{t: number; at: number; x: number; y: number}> = ({t, at,
   const l = t - at; if (l < 0 || l > 0.9) return null;
   const ring = (d: number, size: number) => {
     const k = Math.max(0, l - d) / 0.6; if (k <= 0 || k > 1) return null;
-    const r = 10 + k * size; return <div style={{position: 'absolute', left: x * sc - r, top: y * sc - r, width: r * 2, height: r * 2,
-      borderRadius: '50%', border: `${4 - k * 2.5}px solid rgba(255,45,45,${1 - k})`, boxShadow: `0 0 ${14 * (1 - k)}px rgba(255,45,45,${0.6 * (1 - k)})`}} />;
+    const r = 6 + k * size; return <div style={{position: 'absolute', left: x * sc - r, top: y * sc - r, width: r * 2, height: r * 2,
+      borderRadius: '50%', border: `${4 - k * 2}px solid rgba(255,30,30,${1 - k * 0.85})`, boxShadow: `0 0 ${8 * (1 - k)}px rgba(255,40,40,${0.55 * (1 - k)})`}} />;
   };
   const dot = Math.max(0, 1 - l / 0.25);
-  return <>{ring(0, 70)}{ring(0.14, 100)}<div style={{position: 'absolute', left: x * sc - 9, top: y * sc - 9, width: 18, height: 18, borderRadius: '50%', background: `rgba(255,45,45,${dot})`}} /></>;
+  return <>{ring(0, 26)}{ring(0.12, 38)}<div style={{position: 'absolute', left: x * sc - 5, top: y * sc - 5, width: 10, height: 10, borderRadius: '50%', background: `rgba(255,40,40,${dot})`}} /></>;
 };
 
 const VideoFrame: React.FC<{mode: 'hook' | 'main'; t: number; children: React.ReactNode; zoomOverride?: number}> = ({mode, t, children, zoomOverride}) => {
@@ -99,8 +99,8 @@ const VideoFrame: React.FC<{mode: 'hook' | 'main'; t: number; children: React.Re
         {children}
         {ringOn && rk && (() => {
           const k = Math.min(1, (t - rk.out + 0.05) / 0.25), fade = Math.min(1, (rk.out + 1.1 - t) / 0.4);
-          const r = 40 + (1 - k) * 30; return <div style={{position: 'absolute', left: rk.x * sc - r, top: rk.y * sc - r, width: r * 2, height: r * 2, borderRadius: '50%',
-            border: '3px solid rgba(255,255,255,.95)', boxShadow: '0 0 22px rgba(56,189,248,.95), inset 0 0 14px rgba(56,189,248,.5)', opacity: fade}} />;
+          const r = 20 + (1 - k) * 10; return <div style={{position: 'absolute', left: rk.x * sc - r, top: rk.y * sc - r, width: r * 2, height: r * 2, borderRadius: '50%',
+            border: '2.5px solid rgba(255,40,40,.95)', boxShadow: '0 0 10px rgba(255,40,40,.55)', opacity: fade}} />;
         })()}
         {mode === 'main' && P.clicks.map((k, i) => <Ripple key={i} t={t} at={k.out} x={k.x} y={k.y} />)}
         {mode === 'hook' && <Ripple t={t} at={1.0} x={cursorAtSrc(P.hook.src0 + 1.0).x} y={cursorAtSrc(P.hook.src0 + 1.0).y} />}
@@ -198,8 +198,8 @@ const Outro: React.FC = () => {
       <OutroLogo src="tutorial/logo-app.png" size={400} x={640} delay={0.2} squircle />
       <OutroLogo src="tutorial/logo-gs.png" size={420} x={1280} delay={1.0} />
       <div style={{position: 'absolute', left: 0, right: 0, top: 690, textAlign: 'center', fontFamily: sans, color: T.ink, opacity: txt, transform: `translateY(${(1 - txt) * 16}px)`}}>
-        <div style={{fontSize: 64, fontWeight: 800}}>Terima kasih!</div>
-        <div style={{fontSize: 34, fontWeight: 600, marginTop: 10, color: '#2563eb'}}>Global Streamer · Selamat mencuba</div>
+        <div style={{fontSize: 70, fontWeight: 800}}>Terima kasih</div>
+        <div style={{fontSize: 34, fontWeight: 600, marginTop: 10, color: '#2563eb'}}>Genius Digital Developer @ Global Streamer</div>
       </div>
       <Sequence from={Math.round(0.2 * FPS)}><Audio src={sf('audio/whoosh.mp3')} volume={0.5} /></Sequence>
       <Sequence from={Math.round(0.45 * FPS)}><Audio src={sf('audio/pop.mp3')} volume={0.7} /></Sequence>
