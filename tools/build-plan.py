@@ -1,13 +1,25 @@
 """Build the edit plan (EDL + subtitles + steps + clicks) for a screen-recording tutorial.
-Usage: python3 tools/build-plan.py whisper.json cursor.json subs.json out/plan.json
+Usage: python3 tools/build-plan.py whisper.json cursor.json subs.json out/plan.json [audio16k.wav]
+With audio16k.wav every subtitle word is locked to the REAL voice onset (Whisper word starts run ~0.13s late), so text appears exactly when spoken.
 subs.json = [{"s":src_start,"e":src_end,"t":"cleaned text with [[hook]] / {{hook red}}"}, ...]  (hand-cleaned from Whisper)
 """
 import json, re, sys, numpy as np
-wh, cur, subs_f, out = sys.argv[1:5]
+wh, cur, subs_f, out = sys.argv[1:5]; AUD = sys.argv[5] if len(sys.argv) > 5 else None
 W = json.load(open(wh)); C = json.load(open(cur)); subs = json.load(open(subs_f))
 FPS_OUT = 30
 words = [w for s in W['segments'] for w in s['words']]
-PAD0, PAD1 = 0.10, 0.20
+PAD0, PAD1 = 0.32, 0.20
+# --- voice onsets (silence -> voice edges) from real audio
+ONS = []
+if AUD:
+    a16 = np.frombuffer(open(AUD, 'rb').read()[44:], dtype=np.int16).astype(np.float32) / 32768
+    hop = 160; nfr = len(a16) // hop
+    db = 20*np.log10(np.sqrt((a16[:nfr*hop].reshape(nfr, hop)**2).mean(1)) + 1e-5)
+    vc = db > (np.percentile(db, 15) + 14)
+    ONS = [j/100 for j in range(1, nfr-1) if vc[j] and not vc[j-1] and vc[j+1]]
+def onset(t):
+    c = [o for o in ONS if t - 0.35 <= o <= t + 0.05]
+    return (min(c, key=lambda o: abs(o - (t - 0.13)))) if c else t - 0.10
 clips = []; t_out = 0.0
 def add(src0, src1, rate, kind):
     global t_out
@@ -23,9 +35,27 @@ for i, s in enumerate(subs):
     if gap > 0.05:
         if gap <= 0.4: a = prev_end
         else: add(prev_end, a, max(2.0, gap/1.5), 'gap')
-    o0 = t_out + (s['s'] - a)
-    add(a, b, 1.0, 'speech')
-    subs_out.append({"out0": round(o0,3), "out1": round(t_out - (b - s['e']) + 0.15,3), "text": s['t']})
+    add(a, b, 1.0, 'speech'); c = clips[-1]
+    o_of = lambda ts: c['out0'] + (ts - c['src0'])
+    ww = [w for w in words if w['start'] >= s['s'] - 0.08 and w['end'] <= s['e'] + 0.15]
+    toks = s['t'].split()
+    clean = [re.sub(r'\[\[|\]\]|\{\{|\}\}|\*', '', k) for k in toks]
+    wl = [max(1, len(re.sub(r'\W', '', k))) for k in clean]
+    if ww:
+        st = [max(a, onset(w['start'])) for w in ww]; en = [w['end'] for w in ww]
+        cw = np.cumsum([0] + [max(1, len(w['word'].strip())) for w in ww]); cw = cw / cw[-1]
+        cc = np.cumsum([0] + wl); fr_ = cc / cc[-1]
+        starts = [float(np.interp(fr_[k], cw[:-1], st)) for k in range(len(clean))]
+        last_end = en[-1]
+    else:
+        n = len(clean); starts = [s['s'] + (s['e'] - s['s']) * k / n for k in range(n)]; last_end = s['e']
+    starts = [min(max(v, a), b - 0.05) for v in starts]
+    for k in range(1, len(starts)): starts[k] = max(starts[k], starts[k-1] + 0.04)
+    o0 = o_of(starts[0] - 0.05)
+    ends = starts[1:] + [last_end]
+    wout = [{"text": clean[k], "start": round(o_of(starts[k]) - o0, 3), "end": round(max(o_of(ends[k]) - o0, o_of(starts[k]) - o0 + 0.1), 3)} for k in range(len(clean))]
+    out1 = o_of(min(b, max(last_end, starts[-1]) + 0.25))
+    subs_out.append({"out0": round(o0, 3), "out1": round(out1, 3), "text": s['t'], "words": wout})
     prev_end = b
 def src2out(ts):
     for c in clips:

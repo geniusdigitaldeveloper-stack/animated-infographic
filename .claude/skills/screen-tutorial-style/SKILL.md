@@ -28,6 +28,14 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 - Bila kursor berhenti di butang/menu: **ring highlight** merah kecil dan lembut (radius ~20–30px).
 - **TIADA klip hook pembuka.** Video bermula terus dari awal rakaman. "Hook" bagi Ustaz = perkataan dalam subtitle yang diwarnakan (merah / kuning butter), bukan klip yang dipindahkan ke permulaan.
 
+## Kamera zoom (peraturan Ustaz) — JANGAN statik
+- Setiap kali anak panah menunjuk / klik sesuatu, kamera **zoom masuk ke tempat itu** (`tutorial.camera` dalam `src/theme.ts`: zoom 1.7, masuk 0.75s, keluar 0.95s). Zoom bersambung jika sasaran berdekatan (tidak naik-turun), dan kamera **pan lancar** mengikut anak panah. Tujuan: penonton nampak jelas perkataan / butang yang ditunjuk.
+- Gaya zoom boleh animasi kamera, potong terus, atau fade — pilihan editor; yang wajib ialah zoom ke tempat yang ditunjuk.
+- **Semua efek (zoom, pan, callout, ring, ripple, subtitle) bergerak lancar macam animasi iPhone "4K"**: fizik spring / smootherstep, dikira per bingkai, tiada gerakan kasar atau linear. (Ini kelancaran gerakan, bukan resolusi video; output kekal 1920×1080.)
+
+## Subtitle serentak dengan suara (peraturan Ustaz)
+- Setiap perkataan keluar **tepat bila disebut**: tidak awal, tidak lewat. Masa perkataan dikunci pada permulaan suara sebenar: `tools/build-plan.py ... audio16k.wav` (Whisper word-start purata ~0.13s lewat, jadi dilaraskan ke onset suara). Jangan agih masa sama rata dalam satu ayat.
+
 ## Potongan
 Buang jeda janggal/loading; jurang > 0.4s dipercepat ≥ 2x (audio dimute, lencana ⏩ di bawah frame); ayat berulang dibuang. Momen penting kekal 1x.
 

@@ -82,29 +82,53 @@ const Ripple: React.FC<{t: number; at: number; x: number; y: number}> = ({t, at,
   return <>{ring(0, 26)}{ring(0.12, 38)}<div style={{position: 'absolute', left: x * sc - 5, top: y * sc - 5, width: 10, height: 10, borderRadius: '50%', background: `rgba(255,40,40,${dot})`}} /></>;
 };
 
-const VideoFrame: React.FC<{t: number; children: React.ReactNode}> = ({t, children}) => {
-  const ts = srcTimeAt(t);
-  const c = cursorAtSrc(ts);
-  let zoom = 1;
-  const targets = P.clicks.map((k) => ({out: k.out, bx: k.bx, by: k.by}));
-  for (const k of targets) {
-    const d = t - k.out; if (d > -0.35 && d < 1.3) zoom = Math.max(zoom, 1 + 0.2 * Math.sin(Math.PI * Math.min(1, Math.max(0, (d + 0.35) / 1.65))) );
+/* ---------- CAMERA: zoom into the place the arrow points at (never static), iPhone-smooth ---------- */
+const ease = (v: number) => { const q = Math.min(1, Math.max(0, v)); return q * q * q * (q * (q * 6 - 15) + 10); }; // smootherstep
+const CAM = T.camera;
+const SEGS = (() => {
+  const ev = [...P.clicks.map((k) => k.out), ...P.dwells.map((d) => d.out)].sort((x, y) => x - y);
+  const segs: {a: number; b: number}[] = [];
+  for (const e of ev) {
+    const a = e - CAM.lead, b = e + CAM.tail;
+    const last = segs[segs.length - 1];
+    if (last && a - last.b < CAM.merge) last.b = Math.max(last.b, b); else segs.push({a, b});
   }
-  // Follow ring: tracks the real mouse like a screen-recorder cursor highlight; before a click it eases onto the CENTRE of the
-  // button under the cursor (magnet) and stays there while the red ripple plays, then releases back to following the mouse.
-  const ease = (v: number) => { const q = Math.min(1, Math.max(0, v)); return q * q * (3 - 2 * q); };
+  return segs;
+})();
+const camEnv = (t: number) => {
+  let m = 0;
+  for (const g of SEGS) if (t >= g.a && t <= g.b) m = Math.max(m, ease((t - g.a) / CAM.inS) * (1 - ease((t - (g.b - CAM.outS)) / CAM.outS)));
+  return m;
+};
+/** Follow ring position: tracks the real mouse; before a click it eases onto the CENTRE of the button under the cursor. */
+const ringPos = (t: number) => {
+  const c = cursorAtSrc(srcTimeAt(t));
   let fx = c.x, fy = c.y, magnet = 0;
-  for (const k of targets) {
+  for (const k of P.clicks) {
     const d = t - k.out;
     const m = d < 0 ? ease(1 - (-d) / 0.30) * (d > -0.30 ? 1 : 0) : ease(1 - Math.max(0, d - 0.45) / 0.35) * (d < 0.8 ? 1 : 0);
     if (m > magnet) { magnet = m; fx = c.x + (k.bx - c.x) * m; fy = c.y + (k.by - c.y) * m; }
   }
+  return {x: fx, y: fy, magnet};
+};
+
+const VideoFrame: React.FC<{t: number; children: React.ReactNode}> = ({t, children}) => {
+  const ts = srcTimeAt(t);
+  const r = ringPos(t);
+  const fx = r.x, fy = r.y, magnet = r.magnet;
+  // camera focus = smoothed ring position (pan is silky, no jitter)
+  const samples = [-0.3, -0.15, 0, 0.15, 0.3].map((d) => ringPos(Math.max(0, t + d)));
+  const gx = samples.reduce((q, v) => q + v.x, 0) / samples.length, gy = samples.reduce((q, v) => q + v.y, 0) / samples.length;
+  const z = 1 + (CAM.zoom - 1) * camEnv(t);
+  const fw = fr.w, fh = fr.h;
+  const cx = Math.min(fw - fw / (2 * z), Math.max(fw / (2 * z), gx * sc)), cy = Math.min(fh - fh / (2 * z), Math.max(fh / (2 * z), gy * sc));
   const showRing = cursorSeen(ts);
-  const ringR = 24 - 3 * magnet;
+  const ringR = (24 - 3 * magnet);
   return (
     <div style={{position: 'absolute', left: fr.x, top: fr.y, width: fr.w, height: fr.h, borderRadius: fr.radius, overflow: 'hidden',
       boxShadow: '0 30px 80px rgba(30,64,175,.28), 0 2px 0 rgba(255,255,255,.8) inset', border: '1px solid rgba(255,255,255,.9)', background: '#fff'}}>
-      <div style={{position: 'absolute', inset: 0, transformOrigin: `${c.x * sc}px ${c.y * sc}px`, transform: `scale(${zoom})`, filter: T.grade}}>
+      <div style={{position: 'absolute', left: 0, top: 0, width: fw, height: fh, transformOrigin: '0 0',
+        transform: `translate(${fw / 2 - cx * z}px, ${fh / 2 - cy * z}px) scale(${z})`, filter: T.grade, willChange: 'transform'}}>
         {children}
         {showRing && <div style={{position: 'absolute', left: fx * sc - ringR, top: fy * sc - ringR, width: ringR * 2, height: ringR * 2, borderRadius: '50%',
           border: '3px solid rgba(255,40,40,.95)', boxShadow: '0 0 12px rgba(255,40,40,.55)', background: 'rgba(255,40,40,.08)'}} />}
@@ -127,7 +151,7 @@ const Callout: React.FC<{t: number}> = ({t}) => {
   const step = P.steps.find((s) => t >= s.out0 && t < s.out1); if (!step) return null;
   const w = 540; const avg = [-0.3, -0.15, 0, 0.15, 0.3].map((d) => cursorAt(Math.max(0, t + d)).x).reduce((a, b) => a + b, 0) / 5;
   const cx = Math.min(fr.x + fr.w - w, Math.max(fr.x, fr.x + avg * sc - w / 2));
-  const l = t - step.out0; const p = Math.min(1, l / 0.3) * Math.min(1, (step.out1 - t) / 0.3);
+  const l = t - step.out0; const p = ease(l / 0.45) * ease((step.out1 - t) / 0.45);
   return (
     <div style={{position: 'absolute', left: cx, top: T.callout.y, width: w, height: T.callout.h, opacity: p, transform: `translateY(${(1 - p) * 10}px)`,
       display: 'flex', alignItems: 'center', gap: 12, fontFamily: sans}}>
@@ -158,7 +182,7 @@ const Main: React.FC = () => {
       <Callout t={t} /><SpeedBadge t={t} />
       <SubBar>{P.subs.map((s, i) => (
         <Sequence key={i} from={Math.round(s.out0 * FPS)} durationInFrames={Math.max(8, Math.round((s.out1 - s.out0) * FPS))}>
-          <Caption text={s.text} duration={Math.max(0.4, s.out1 - s.out0 - 0.1)} rect={subRect(56)} palette={pal} unit={1} fontFamily={sans} />
+          <Caption text={s.text} words={s.words} duration={Math.max(0.4, s.out1 - s.out0 - 0.1)} rect={subRect(56)} palette={pal} unit={1} fontFamily={sans} />
         </Sequence>))}</SubBar>
       {P.clicks.map((k, i) => <Sequence key={'c' + i} from={Math.round(k.out * FPS)}><Audio src={sf('audio/click.mp3')} volume={0.55} /></Sequence>)}
       {P.steps.map((s, i) => <Sequence key={'s' + i} from={Math.round(s.out0 * FPS)}><Audio src={sf('audio/chime.mp3')} volume={0.28} /></Sequence>)}

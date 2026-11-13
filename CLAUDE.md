@@ -68,3 +68,8 @@ Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · wa
 - Tunjukkan juga bahagian yang diedit: gambar/klip sebelum-dan-selepas atau klip pendek bahagian yang diubah, dengan kapsyen ringkas apa yang berubah.
 - Fail video terlalu besar: kecilkan bitrate atau pecah kepada bahagian, tetapi tetap hantar dalam chat ini.
 - Render akhir tetap hanya selepas Ustaz kata puas hati; preview boleh dihantar bila-bila.
+
+## Zoom, gerakan & penyegerakan subtitle (peraturan Ustaz)
+- **Kamera mesti zoom ke tempat yang anak panah tunjuk** (bukan video statik) — `tutorial.camera`.
+- **Semua efek bergerak lancar macam animasi iPhone "4K"** (spring/smootherstep per bingkai). Bukan menukar resolusi; output kekal 1920×1080.
+- **Subtitle keluar serentak dengan sebutan** (masa per perkataan dikunci pada suara sebenar). Jangan awal, jangan lewat.

@@ -4,7 +4,7 @@ import cursor from './cursor.json';
 export type Clip = {src0: number; src1: number; rate: number; out0: number; out1: number; kind: string};
 export const P = plan as unknown as {
   fps: number; duration: number; clips: Clip[];
-  subs: {out0: number; out1: number; text: string}[];
+  subs: {out0: number; out1: number; text: string; words: {text: string; start: number; end: number}[]}[];
   steps: {out0: number; out1: number; num: number; label: string}[];
   clicks: {out: number; x: number; y: number; src: number; bx: number; by: number; bw: number; bh: number; snap: boolean}[];
   dwells: {out: number; x: number; y: number; src: number; bx: number; by: number}[];
