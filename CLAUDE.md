@@ -44,6 +44,7 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 - Hantar fail preview terus kepada Ustaz (`SendUserFile`) kerana panel pratonton/pautan Pages tidak memaparkan video tutorial.
 
 ## Gaya teks subtitle Ustaz — RINGKASAN LENGKAP (jangan tinggal satu pun)
+0. **Warna teks = tiga sahaja, tiada putih:** biru air `#6FD3FF` (teks biasa), kuning butter `#FFE066` dan merah cerah `#FF3B30` (hook sahaja).
 1. Pil kaca **setiap perkataan** (overlay hitam pudar, lut sinar, Liquid Glass iOS) — **bukan** satu bar panjang.
 2. Kaca penyerlah **meluncur** dari perkataan ke perkataan sebelah.
 3. Animasi **spring lancar macam iPhone**, per bingkai, sesuai fps tinggi.

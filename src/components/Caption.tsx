@@ -12,6 +12,7 @@ import type {Word} from '../types';
  *   backdrop blur, bright rim + specular highlight). Pills are separate, never one long border.
  * - A glass highlight lens glides smoothly from the word being said to the next word (spring, 4K-smooth).
  * - Every word still pops in (spring / rise / blur) at the moment it is spoken.
+ * COLOURS (owner): exactly three — water blue #6FD3FF for normal text, butter yellow #FFE066 / bright red #FF3B30 for HOOK only. NEVER white.
  * Markup: *word* italic · [[phrase]] HOOK butter yellow (#FFE066) · {{phrase}} HOOK bright red (#FF3B30)
  * Timing: pass `words` (seconds, from Whisper) for exact sync, else evenly spread over `duration`.
  */
@@ -54,7 +55,7 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
   const L = useLayout();
   const box = rect ?? L.caption;
   const u = unit ?? L.unit;
-  const pal = palette ?? {spoken: '#fff', active: '#fff', glow: C.glow};
+  const pal = palette ?? {spoken: tutorial.waterBlue, active: tutorial.waterBlue, glow: C.glow};
   const family = fontFamily ?? serif;
   const t = frame / fps;
   const toks = tokenize(text, duration, words);
@@ -112,7 +113,7 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
               filter: `blur(${blur}px)`}}>
               <span style={{fontFamily: family, fontSize: fs, lineHeight: 1.18, whiteSpace: 'nowrap', fontStyle: w.italic ? 'italic' : 'normal',
                 fontWeight: weight(w), color: hookColor ?? pal.spoken,
-                textShadow: hookColor ? `0 0 ${20 * u}px ${hookColor}55, 0 ${2 * u}px ${6 * u}px rgba(0,0,0,.45)` : `0 ${2 * u}px ${8 * u}px rgba(0,0,0,.45)`}}>{w.text}</span>
+                textShadow: hookColor ? `0 0 ${20 * u}px ${hookColor}55, 0 ${2 * u}px ${6 * u}px rgba(0,0,0,.45)` : `0 0 ${18 * u}px rgba(111,211,255,.45), 0 ${2 * u}px ${8 * u}px rgba(0,0,0,.45)`}}>{w.text}</span>
             </div>
           );
         })}

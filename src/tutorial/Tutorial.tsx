@@ -136,7 +136,7 @@ const Callout: React.FC<{t: number}> = ({t}) => {
   return (
     <div style={{position: 'absolute', left: cx, top: T.callout.y, width: w, height: T.callout.h, opacity: p, transform: `translateY(${(1 - p) * 10}px)`,
       display: 'flex', alignItems: 'center', gap: 12, fontFamily: sans}}>
-      <span style={{width: 40, height: 40, borderRadius: 99, background: '#2563eb', color: '#fff', fontWeight: 800, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      <span style={{width: 40, height: 40, borderRadius: 99, background: '#0b1220', color: T.waterBlue, fontWeight: 800, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center',
         boxShadow: '0 6px 16px rgba(37,99,235,.45)'}}>{step.num}</span>
       <span style={{background: 'rgba(255,255,255,.92)', color: T.ink, fontWeight: 700, fontSize: 26, padding: '6px 18px', borderRadius: 99, boxShadow: '0 6px 18px rgba(30,64,175,.18)', whiteSpace: 'nowrap'}}>{step.label}</span>
     </div>
@@ -147,7 +147,7 @@ const SubBar: React.FC<{children: React.ReactNode}> = ({children}) => (
   <div style={{position: 'absolute', left: T.subBar.x, top: T.subBar.y, width: T.subBar.w, height: T.subBar.h}}>{children}</div>
 );
 const subRect = (fs: number) => ({x: 0, y: 0, w: T.subBar.w, h: T.subBar.h, fontSize: fs});
-const pal = {spoken: 'rgba(255,255,255,.92)', active: '#ffffff', glow: 'rgba(255,255,255,.5)'};
+const pal = {spoken: T.waterBlue, active: T.waterBlue, glow: 'rgba(111,211,255,.55)'};
 
 const SpeedBadge: React.FC<{t: number}> = ({t}) => {
   const c = P.clips.find((k) => t >= k.out0 && t < k.out1); if (!c || c.kind !== 'gap') return null;

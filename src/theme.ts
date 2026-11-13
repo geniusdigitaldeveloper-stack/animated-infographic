@@ -75,9 +75,9 @@ export const type = {
 export const captionStyle = {
   // glass pills: one per word (never one long bar) — recipe lives in components/Caption.tsx `glass()`
   wordsPerChunk: 4,
-  spoken: colors.text, // already said
-  active: colors.accent, // being said now
-  glow: 'rgba(255,214,10,.45)',
+  spoken: '#6FD3FF', // normal subtitle text = water blue (never white)
+  active: '#6FD3FF',
+  glow: 'rgba(111,211,255,.55)',
   popFrom: 0.72, // scale at first frame of a word
   rise: 26, // px a word rises while popping in
   blur: 8, // px blur at first frame
@@ -105,6 +105,8 @@ export const tutorial = {
   bg: ['#f7fbff', '#e8f3ff'],
   ink: '#0b1220',
   // OWNER HOOK COLOURS (subtitle only): butter yellow or bright red. Marked in text as [[hook]] (butter) / {{hook}} (red).
+  // OWNER SUBTITLE PALETTE = exactly 3 colours, NO white: water blue (normal text) · butter yellow + bright red (hook only)
+  waterBlue: '#6FD3FF',
   hookButter: '#FFE066',
   hookRed: '#FF3B30',
   grade: 'contrast(1.05) saturate(1.06) brightness(1.03)',

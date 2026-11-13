@@ -32,4 +32,5 @@ Video rekod skrin 16:9 1920×1080: jejak kursor, ring + efek klik merah, zoom ho
 Alat: `tools/build-plan.py`, `tools/make-audio.py`. Kata hook dalam subtitle: `[[butter]]`, `{{merah}}`.
 
 ### Gaya subtitle (Ustaz)
+Warna: biru air `#6FD3FF` (teks biasa) + kuning butter / merah cerah (hook). Tiada putih.
 Pil kaca setiap perkataan (Liquid Glass iOS, overlay hitam pudar) · kaca penyerlah meluncur antara perkataan · animasi spring lancar macam iPhone · hook kuning butter `[[…]]` / merah cerah `{{…}}`. Parameter: `captionStyle` (`src/theme.ts`).

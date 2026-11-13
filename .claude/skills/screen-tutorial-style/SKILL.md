@@ -32,6 +32,7 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 Buang jeda janggal/loading; jurang > 0.4s dipercepat ≥ 2x (audio dimute, lencana ⏩ di bawah frame); ayat berulang dibuang. Momen penting kekal 1x.
 
 ## Gaya teks Ustaz (subtitle sahaja)
+- **Warna teks subtitle (Ustaz) = TIGA sahaja, TIADA putih:** **biru air `#6FD3FF`** untuk teks biasa; **kuning butter `#FFE066`** `[[…]]` dan **merah cerah `#FF3B30`** `{{…}}` untuk hook pada tempat sesuai. Putih bukan gaya Ustaz.
 - **Gaya border subtitle (Ustaz): BUKAN bar hitam panjang.** Setiap perkataan ada **pil kaca tersendiri** (overlay hitam yang dipudarkan, lut sinar, gaya *Liquid Glass* iOS terkini: blur latar, rim cerah, sorotan atas). Satu **kaca penyerlah meluncur lancar (spring) dari perkataan yang sedang disebut ke perkataan sebelah**. Pil tidak digabung menjadi satu border.
 - **Animasi subtitle (Ustaz) = lancar macam iPhone/iOS.** Fizik *spring* (bukan linear / ease cut), dikira pada setiap bingkai, jadi kekal licin pada fps tinggi (render akhir fps tinggi, contoh 60/120). Dua gerakan: (1) setiap perkataan *pop* masuk (naik + skala + blur→jelas) tepat pada masa disebut; (2) **kaca penyerlah meluncur dari perkataan ke perkataan sebelah**. Parameter: `captionStyle.motion` dalam `src/theme.ts`. Jangan tukar ke animasi kasar atau cut keras.
 - Perkataan demi perkataan, setiap perkataan beranimasi tepat pada masa disebut.
