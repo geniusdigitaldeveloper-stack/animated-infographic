@@ -41,7 +41,7 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 ## Video rekod skrin / tutorial
 - Guna skill `screen-tutorial-style` (komposisi `Tutorial`, 1920×1080). **Preview dahulu, jangan render final tanpa kebenaran Ustaz.**
 - Output sentiasa **1920×1080**. Teks hanya di bawah frame video; di atas video hanya efek kursor (ring, zoom, ripple klik merah).
-- Hantar fail preview terus kepada Ustaz (`SendUserFile`) kerana panel pratonton/pautan Pages tidak memaparkan video tutorial.
+- Hantar SEMUA preview/render/bahagian edit terus dalam chat (`SendUserFile`); jangan tempat lain.
 
 ## Gaya teks subtitle Ustaz — RINGKASAN LENGKAP (jangan tinggal satu pun)
 0. **Warna teks = tiga sahaja, tiada putih:** biru air `#6FD3FF` (teks biasa), kuning butter `#FFE066` dan merah cerah `#FF3B30` (hook sahaja).
@@ -61,3 +61,10 @@ Kod: `src/components/Caption.tsx` (+ `glass()`), parameter: `captionStyle` dalam
 ## Wajib setiap kali edit video untuk Ustaz
 Guna SEMUA gaya yang Ustaz minta disimpan (skill `infographic-reel-style`, `screen-tutorial-style`, `reel-edit-workflow`, bahagian di atas). **Hanya buang apa yang Ustaz suruh buang; yang tidak disuruh buang, JANGAN buang.**
 Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · warna putih pada teks subtitle · klip hook pembuka · bulatan klik besar · video muka daripada video rujukan.
+
+## Penghantaran hasil — SEMUA dalam chat ini sahaja (peraturan Ustaz)
+- **Preview, render akhir, kualiti render, bahagian yang dipotong / di-crop / diedit — semuanya dihantar terus dalam chat ini** menggunakan `SendUserFile` (display `render`), supaya Ustaz boleh tengok semasa kita kerja bersama.
+- **JANGAN** hantar atau letak hasil di tempat lain (Drive, Pages, artifact, repo awam, pautan luar) melainkan Ustaz minta.
+- Tunjukkan juga bahagian yang diedit: gambar/klip sebelum-dan-selepas atau klip pendek bahagian yang diubah, dengan kapsyen ringkas apa yang berubah.
+- Fail video terlalu besar: kecilkan bitrate atau pecah kepada bahagian, tetapi tetap hantar dalam chat ini.
+- Render akhir tetap hanya selepas Ustaz kata puas hati; preview boleh dihantar bila-bila.
