@@ -9,7 +9,7 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 
 ## Aliran kerja
 1. Muat turun rakaman (Drive: `drive.usercontent.google.com/download?id=…&export=download&confirm=t`).
-2. **Transkripsi dahulu**: `faster-whisper` (word timestamps), hantar audio sebagai array numpy.
+2. **Transkripsi dahulu**: `tools/transcribe.py medium out.json audio.wav` (faster-whisper **medium**, `language="ms"`, word timestamps). Subtitle **verbatim** cakap Ustaz.
 3. **Jejak kursor** (``tools/track-cursor.py` warna HSV, kursor Ustaz hijau limau → `track.json`; `tools/detect-clicks.py` → `cursor.json`).
 4. Bersihkan transkrip secara manual (BM betul, huruf besar kata nama AM & awal ayat) → `subs.json` → `python3 tools/build-plan.py whisper.json cursor.json subs.json src/tutorial/plan.json`.
 5. Hasilkan proxy preview 1280×720 ke `public/tutorial/proxy.mp4` (*.mp4 tidak di-commit), audio: `python3 tools/make-audio.py <saat>`.
@@ -57,3 +57,10 @@ Muzik instrumental tenang di bawah suara (volum 0.11, fade akhir) + SFX: `whoosh
 
 ## Kualiti
 Render akhir 1920×1080 daripada rakaman asal (2560×1440 diturunkan skala = lebih tajam). Kekerapan 120fps: rakaman asal 50fps, jadi 120fps memerlukan interpolasi bingkai (rujuk Ustaz sebelum render final).
+
+## Subtitle = HANYA apa yang Ustaz sebut (peraturan Ustaz)
+- Subtitle mesti **verbatim**: hanya perkataan yang Ustaz sebut, dengan **gaya cakap Ustaz sendiri** (korang, macam ni, kat sini, nak, dia, lah). **Jangan tambah, jangan reka, jangan tukar maksud, jangan "baiki" bahasa** ke bentuk formal.
+- Hanya betulkan ejaan jelas, huruf besar awal ayat / selepas titik / kata nama AM, dan salah dengar Whisper yang pasti (contoh *emak info* → *More info*).
+- Transkripsi guna **Whisper `medium` dengan `language="ms"`** (`tools/transcribe.py medium out.json audio.wav`); model `small` salah dengar dan boleh terlepas ayat. Semak keseluruhan transkrip dengan rakaman/skrin sebelum guna.
+- Ayat yang tidak pasti: **tandakan dan tanya Ustaz**, jangan teka senyap-senyap.
+- Perkara umum: **apa yang Ustaz tak cakap, jangan buat; apa yang Ustaz tak suruh, jangan buat; apa yang Ustaz tak suruh padam, jangan padam.**

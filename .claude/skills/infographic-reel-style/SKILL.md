@@ -57,3 +57,10 @@ Elak transisi liar — fade dan spring sahaja.
 Ayat pendek, satu idea satu visual. Hook: "Everybody's … But the setup? They lock it behind paid courses."
 Janji: "Give me one minute, and I'll show you all of it." Mesej: "Take inspiration, but don't copy."
 Penutup: "The tools do the cutting. Your taste does the rest." CTA: "Follow, because next up…"
+
+## Subtitle = HANYA apa yang Ustaz sebut (peraturan Ustaz)
+- Subtitle mesti **verbatim**: hanya perkataan yang Ustaz sebut, dengan **gaya cakap Ustaz sendiri** (korang, macam ni, kat sini, nak, dia, lah). **Jangan tambah, jangan reka, jangan tukar maksud, jangan "baiki" bahasa** ke bentuk formal.
+- Hanya betulkan ejaan jelas, huruf besar awal ayat / selepas titik / kata nama AM, dan salah dengar Whisper yang pasti (contoh *emak info* → *More info*).
+- Transkripsi guna **Whisper `medium` dengan `language="ms"`** (`tools/transcribe.py medium out.json audio.wav`); model `small` salah dengar dan boleh terlepas ayat. Semak keseluruhan transkrip dengan rakaman/skrin sebelum guna.
+- Ayat yang tidak pasti: **tandakan dan tanya Ustaz**, jangan teka senyap-senyap.
+- Perkara umum: **apa yang Ustaz tak cakap, jangan buat; apa yang Ustaz tak suruh, jangan buat; apa yang Ustaz tak suruh padam, jangan padam.**

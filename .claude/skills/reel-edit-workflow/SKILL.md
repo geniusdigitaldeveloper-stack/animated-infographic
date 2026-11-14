@@ -49,3 +49,10 @@ Potong jeda (cth. 17 pauses cut) → subtitle (Whisper) → muzik perlahan → d
 
 ## Pautan ke repo ini
 Hasilkan grafik/subtitle ikut `infographic-reel-style`: edit `src/scenes/script.tsx`, letak face cam di `public/`, render dengan `npm run render`.
+
+## Subtitle = HANYA apa yang Ustaz sebut (peraturan Ustaz)
+- Subtitle mesti **verbatim**: hanya perkataan yang Ustaz sebut, dengan **gaya cakap Ustaz sendiri** (korang, macam ni, kat sini, nak, dia, lah). **Jangan tambah, jangan reka, jangan tukar maksud, jangan "baiki" bahasa** ke bentuk formal.
+- Hanya betulkan ejaan jelas, huruf besar awal ayat / selepas titik / kata nama AM, dan salah dengar Whisper yang pasti (contoh *emak info* → *More info*).
+- Transkripsi guna **Whisper `medium` dengan `language="ms"`** (`tools/transcribe.py medium out.json audio.wav`); model `small` salah dengar dan boleh terlepas ayat. Semak keseluruhan transkrip dengan rakaman/skrin sebelum guna.
+- Ayat yang tidak pasti: **tandakan dan tanya Ustaz**, jangan teka senyap-senyap.
+- Perkara umum: **apa yang Ustaz tak cakap, jangan buat; apa yang Ustaz tak suruh, jangan buat; apa yang Ustaz tak suruh padam, jangan padam.**

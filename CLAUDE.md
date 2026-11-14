@@ -75,3 +75,10 @@ Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · wa
 - **Bahagian kabur/pecah** (zoom sendiri dalam rakaman Ustaz) ditingkatkan: `tools/enhance-blurry.sh` (de-block, denoise, sharpen). Jujur: penajaman, bukan 4K sebenar.
 - Efek yang ada tetap bergerak lancar macam animasi iPhone (spring/smootherstep). Output kekal 1920×1080.
 - **Subtitle keluar serentak dengan sebutan** (masa per perkataan dikunci pada suara sebenar). Jangan awal, jangan lewat.
+
+## Subtitle = HANYA apa yang Ustaz sebut (peraturan Ustaz)
+- Subtitle mesti **verbatim**: hanya perkataan yang Ustaz sebut, dengan **gaya cakap Ustaz sendiri** (korang, macam ni, kat sini, nak, dia, lah). **Jangan tambah, jangan reka, jangan tukar maksud, jangan "baiki" bahasa** ke bentuk formal.
+- Hanya betulkan ejaan jelas, huruf besar awal ayat / selepas titik / kata nama AM, dan salah dengar Whisper yang pasti (contoh *emak info* → *More info*).
+- Transkripsi guna **Whisper `medium` dengan `language="ms"`** (`tools/transcribe.py medium out.json audio.wav`); model `small` salah dengar dan boleh terlepas ayat. Semak keseluruhan transkrip dengan rakaman/skrin sebelum guna.
+- Ayat yang tidak pasti: **tandakan dan tanya Ustaz**, jangan teka senyap-senyap.
+- Perkara umum: **apa yang Ustaz tak cakap, jangan buat; apa yang Ustaz tak suruh, jangan buat; apa yang Ustaz tak suruh padam, jangan padam.**
