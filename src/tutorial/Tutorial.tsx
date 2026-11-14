@@ -96,22 +96,25 @@ const SEGS = (() => {
   return segs;
 })();
 const CK = [...P.clicks].sort((a, b) => a.out - b.out);
-/** Camera focus: the CLICKED BUTTON centre (not the mouse path). Between two nearby clicks it glides smoothly to the next button. */
-const focusAt = (t: number) => {
-  let i = -1;
-  for (let k = 0; k < CK.length; k++) if (CK[k].out - 0.35 <= t) i = k;
-  if (i < 0) i = 0;
-  const a = CK[i], b = CK[i + 1];
-  if (b && t >= a.out + 0.45) {
-    const u = ease((t - (a.out + 0.45)) / Math.max(0.25, (b.out - 0.35) - (a.out + 0.45)));
-    return {x: a.bx + (b.bx - a.bx) * u, y: a.by + (b.by - a.by) * u};
-  }
-  return {x: a.bx, y: a.by};
-};
+/**
+ * macOS / iOS-style camera: a CRITICALLY-DAMPED SPRING (no overshoot, velocity continuous = no jerks).
+ * The spring is linear, so zoom and focus are exact sums of spring step-responses (closed form, any fps).
+ */
+const SPR = (d: number) => (d <= 0 ? 0 : 1 - (1 + CAM.omega * d) * Math.exp(-CAM.omega * d));
 const camEnv = (t: number) => {
   let m = 0;
-  for (const g of SEGS) if (t >= g.a && t <= g.b) m = Math.max(m, ease((t - g.a) / CAM.inS) * (1 - ease((t - (g.b - CAM.outS)) / CAM.outS)));
-  return m;
+  for (const g of SEGS) m += SPR(t - g.a) - SPR(t - g.b);
+  return Math.min(1, Math.max(0, m));
+};
+/** Camera focus = the CLICKED BUTTON centre (never the mouse path); the move to the next button is the same spring. */
+const focusAt = (t: number) => {
+  if (!CK.length) return {x: 640, y: 360};
+  let x = CK[0].bx, y = CK[0].by;
+  for (let i = 1; i < CK.length; i++) {
+    const w = SPR(t - (CK[i].out - 0.5));
+    x += (CK[i].bx - CK[i - 1].bx) * w; y += (CK[i].by - CK[i - 1].by) * w;
+  }
+  return {x, y};
 };
 /** Follow ring position: tracks the real mouse; before a click it eases onto the CENTRE of the button under the cursor. */
 const ringPos = (t: number) => {

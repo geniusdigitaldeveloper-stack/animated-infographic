@@ -111,5 +111,5 @@ export const tutorial = {
   hookRed: '#FF3B30',
   grade: 'contrast(1.05) saturate(1.06) brightness(1.03)',
   /** CAMERA (owner): zoom ONLY at each CLICK, onto the clicked button (fixed focus, never follows the mouse path), smooth + a little close (1.5x). Static everywhere else. */
-  camera: {zoom: 1.5, lead: 0.5, tail: 1.4, inS: 0.7, outS: 0.9, merge: 1.4},
+  camera: {zoom: 1.5, lead: 0.5, tail: 1.4, merge: 1.4, omega: 8 /* spring stiffness: critically damped, macOS/iOS-like, no overshoot */},
 };
