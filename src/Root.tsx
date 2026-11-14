@@ -1,7 +1,7 @@
 import React from 'react';
 import {Composition} from 'remotion';
 import {Explainer, ExplainerProps, totalFrames} from './Explainer';
-import {FPS, HEIGHT, WIDTH} from './theme';
+import {FPS, HEIGHT, WIDTH, tutorial as tutorialTheme} from './theme';
 import './fonts';
 import {Tutorial, totalFrames as tutorialFrames} from './tutorial/Tutorial';
 
@@ -19,6 +19,6 @@ export const Root: React.FC = () => (
     defaultProps={{faceSrc: undefined, faceFit: 'cover', width: WIDTH, height: HEIGHT} as ExplainerProps}
     calculateMetadata={({props}) => ({width: props.width, height: props.height})}
   />
-  <Composition id="Tutorial" component={Tutorial} durationInFrames={tutorialFrames()} fps={30} width={1920} height={1080} />
+  <Composition id="Tutorial" component={Tutorial} durationInFrames={tutorialFrames()} fps={tutorialTheme.FPS} width={1920} height={1080} />
   </>
 );

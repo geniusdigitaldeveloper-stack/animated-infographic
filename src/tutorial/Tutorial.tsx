@@ -49,7 +49,7 @@ const popAnim = (f: number, times: number[]) => {
     const l = f - tt * FPS;
     if (l >= 0 && l < FPS * 1.6) {
       const p = spring({frame: l, fps: FPS, config: {damping: 7, stiffness: 160, mass: 0.7}});
-      s = Math.max(s, (p - 1) * 0.32 + (tt === times[0] ? 0 : 0)); rot = Math.sin(l * 0.5) * 6 * Math.exp(-l / 12);
+      s = Math.max(s, (p - 1) * 0.32 + (tt === times[0] ? 0 : 0)); const ls = l * 30 / FPS; rot = Math.sin(ls * 0.5) * 6 * Math.exp(-ls / 12);
     }
   }
   return {s, rot};
@@ -161,7 +161,7 @@ const VideoFrame: React.FC<{t: number; children: React.ReactNode}> = ({t, childr
 const MainClips: React.FC = () => (
   <>{P.clips.map((c, i) => (
     <Sequence key={i} from={Math.round(c.out0 * FPS)} durationInFrames={Math.max(1, Math.round((c.out1 - c.out0) * FPS))} premountFor={FPS}>
-      <OffthreadVideo src={sf('tutorial/proxy.mp4')} startFrom={Math.round(c.src0 * FPS)} playbackRate={c.rate} muted={c.kind === 'gap'}
+      <OffthreadVideo src={sf(T.SRC)} startFrom={Math.round(c.src0 * FPS)} playbackRate={c.rate} muted={c.kind === 'gap'}
         style={{width: fr.w, height: fr.h, objectFit: 'cover'}} />
     </Sequence>))}</>
 );
@@ -247,7 +247,7 @@ export const Tutorial: React.FC = () => {
   const frame = useCurrentFrame();
   const hookF = Math.round(HOOK_S * FPS), mainF = Math.round(MAIN_S * FPS), outF = Math.round(OUTRO_S * FPS);
   const outT = (hookF + mainF);
-  const fadeOutFrame = interpolate(frame, [outT - 12, outT + 6], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const fadeOutFrame = interpolate(frame, [outT - 0.4 * FPS, outT + 0.2 * FPS], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill style={{fontFamily: sans}}>
       <Background />
@@ -257,7 +257,7 @@ export const Tutorial: React.FC = () => {
         <Sequence from={hookF} durationInFrames={mainF}><Main /></Sequence>
       </AbsoluteFill>
       <Sequence from={outT}><Outro /></Sequence>
-      <Audio src={sf('audio/music.mp3')} volume={(f) => 0.11 * interpolate(f, [totalFrames() - 120, totalFrames() - 10], [1, 0.0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+      <Audio src={sf('audio/music.mp3')} volume={(f) => 0.11 * interpolate(f, [totalFrames() - 4 * FPS, totalFrames() - FPS / 3], [1, 0.0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
     </AbsoluteFill>
   );
 };

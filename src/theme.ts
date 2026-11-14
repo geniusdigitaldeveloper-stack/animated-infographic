@@ -97,7 +97,11 @@ export const captionStyle = {
 
 /** Screen-recording tutorial look: bright background, video framed ~70% centred-high, text only BELOW the frame. */
 export const tutorial = {
-  W: 1920, H: 1080, FPS: 30,
+  W: 1920, H: 1080,
+  // fps: 30 for quick previews, 120 for the final render (set REMOTION_TUT_FPS=120). All animation is time-based so it is identical at any fps.
+  FPS: Number(process.env.REMOTION_TUT_FPS ?? 30),
+  // video source: proxy (preview) or the 1440p enhanced master (final): REMOTION_TUT_SRC=tutorial/master.mp4
+  SRC: String(process.env.REMOTION_TUT_SRC ?? 'tutorial/proxy.mp4'),
   frame: {w: 1344, h: 756, x: 288, y: 60, radius: 22}, // 70% of canvas height, centred, top margin kept
   callout: {y: 832, h: 46},
   subBar: {x: 288, y: 890, w: 1344, h: 150, radius: 26},

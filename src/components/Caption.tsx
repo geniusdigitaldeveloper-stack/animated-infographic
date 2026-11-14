@@ -58,6 +58,7 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
   const pal = palette ?? {spoken: tutorial.waterBlue, active: tutorial.waterBlue, glow: C.glow};
   const family = fontFamily ?? serif;
   const t = frame / fps;
+  const k = fps / 30; // frame-based timings below were authored at 30fps -> scale so motion is identical at any fps
   const toks = tokenize(text, duration, words);
 
   let idx = 0;
@@ -89,7 +90,7 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
   const from = li > 0 ? li - 1 : li;
   const lx = xs[from] + (xs[li] - xs[from]) * p;
   const lw = widths[from] + (widths[li] - widths[from]) * p;
-  const lensIn = li === 0 ? interpolate(frame - startF, [0, C.motion.lensIn], [0, 1], {extrapolateRight: 'clamp'}) : 1;
+  const lensIn = li === 0 ? interpolate(frame - startF, [0, C.motion.lensIn * k], [0, 1], {extrapolateRight: 'clamp'}) : 1;
 
   return (
     <div style={{position: 'absolute', top: box.y, left: box.x, width: box.w, height: box.h, display: 'flex', justifyContent: 'center',
@@ -101,10 +102,10 @@ export const Caption: React.FC<Props> = ({text, duration, words, rect, palette, 
           const g = chunkStart + i;
           const local = frame - Math.round(w.start * fps);
           const pop = spring({frame: local, fps, config: C.motion.pop});
-          const appear = interpolate(local, [0, C.fadeFrames], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-          const blur = interpolate(local, [0, 6], [C.blur, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const appear = interpolate(local, [0, C.fadeFrames * k], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const blur = interpolate(local, [0, 6 * k], [C.blur, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
           const active = g === idx;
-          const beat = active ? 1 + C.beat * Math.max(0, 1 - local / 8) : 1;
+          const beat = active ? 1 + C.beat * Math.max(0, 1 - local / (8 * k)) : 1;
           const hookColor = w.hook === 'butter' ? tutorial.hookButter : w.hook === 'red' ? tutorial.hookRed : null;
           return (
             <div key={g} style={{position: 'absolute', left: xs[i], top: 0, width: widths[i], height: rowH, display: 'flex', alignItems: 'center',
