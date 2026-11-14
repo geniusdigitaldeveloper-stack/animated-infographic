@@ -87,3 +87,7 @@ Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · wa
 ## Kabur & nama (peraturan Ustaz)
 - **Kaburkan teks nota/lower-third pada panel Preview dan Program** (kotak border nota di kiri bawah, contoh "GLOBAL STREAMER", "FOLLOW & SHARE", "RANK BOOSTING") dalam bahagian contoh slide. Julat masa dan kawasan di `src/tutorial/blur.json` (dicari dengan `tools/find-blur-ranges.py`); kabur dilukis di dalam bingkai video supaya ikut zoom.
 - Nama produk betul: **Mobile Legends Bang Bang** (bukan "main-main"; Whisper terpotong sebut "Bang Bang").
+
+## Eksport akhir 1080p (peraturan Ustaz: JANGAN jatuh ke 720p)
+- Output akhir **1080p penuh**. Fail mentah Remotion (120fps, level 5.1, `yuvj420p`) menyebabkan sesetengah app/pemain menghad kepada 720p. **Sentiasa eksport versi piawai**: H.264 High, **`yuv420p` bt709 julat TV**, level 4.2 (60fps) / 4.1 (30fps), `tools/export-1080p.sh [fps] [crf]`. Hantar 60fps dan 30fps dalam chat.
+- Sahkan dengan `ffprobe` (1920×1080, `yuv420p`) sebelum hantar. Jika app Ustaz masih tunjuk 720p dengan fail piawai ini, had itu datang daripada app (pemprosesan / pelan), bukan fail.
