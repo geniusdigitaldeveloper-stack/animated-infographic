@@ -86,7 +86,7 @@ const Ripple: React.FC<{t: number; at: number; x: number; y: number}> = ({t, at,
 const ease = (v: number) => { const q = Math.min(1, Math.max(0, v)); return q * q * q * (q * (q * 6 - 15) + 10); }; // smootherstep
 const CAM = T.camera;
 const SEGS = (() => {
-  const ev = [...P.clicks.map((k) => k.out), ...P.dwells.map((d) => d.out)].sort((x, y) => x - y);
+  const ev = P.clicks.map((k) => k.out).sort((x, y) => x - y); // clicks ONLY
   const segs: {a: number; b: number}[] = [];
   for (const e of ev) {
     const a = e - CAM.lead, b = e + CAM.tail;
@@ -95,6 +95,19 @@ const SEGS = (() => {
   }
   return segs;
 })();
+const CK = [...P.clicks].sort((a, b) => a.out - b.out);
+/** Camera focus: the CLICKED BUTTON centre (not the mouse path). Between two nearby clicks it glides smoothly to the next button. */
+const focusAt = (t: number) => {
+  let i = -1;
+  for (let k = 0; k < CK.length; k++) if (CK[k].out - 0.35 <= t) i = k;
+  if (i < 0) i = 0;
+  const a = CK[i], b = CK[i + 1];
+  if (b && t >= a.out + 0.45) {
+    const u = ease((t - (a.out + 0.45)) / Math.max(0.25, (b.out - 0.35) - (a.out + 0.45)));
+    return {x: a.bx + (b.bx - a.bx) * u, y: a.by + (b.by - a.by) * u};
+  }
+  return {x: a.bx, y: a.by};
+};
 const camEnv = (t: number) => {
   let m = 0;
   for (const g of SEGS) if (t >= g.a && t <= g.b) m = Math.max(m, ease((t - g.a) / CAM.inS) * (1 - ease((t - (g.b - CAM.outS)) / CAM.outS)));
@@ -116,9 +129,8 @@ const VideoFrame: React.FC<{t: number; children: React.ReactNode}> = ({t, childr
   const ts = srcTimeAt(t);
   const r = ringPos(t);
   const fx = r.x, fy = r.y, magnet = r.magnet;
-  // camera focus = smoothed ring position (pan is silky, no jitter)
-  const samples = [-0.3, -0.15, 0, 0.15, 0.3].map((d) => ringPos(Math.max(0, t + d)));
-  const gx = samples.reduce((q, v) => q + v.x, 0) / samples.length, gy = samples.reduce((q, v) => q + v.y, 0) / samples.length;
+  // camera focus = the clicked button (fixed), never the mouse path
+  const fo = focusAt(t); const gx = fo.x, gy = fo.y;
   const z = 1 + (CAM.zoom - 1) * camEnv(t);
   const fw = fr.w, fh = fr.h;
   const cx = Math.min(fw - fw / (2 * z), Math.max(fw / (2 * z), gx * sc)), cy = Math.min(fh - fh / (2 * z), Math.max(fh / (2 * z), gy * sc));

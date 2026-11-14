@@ -28,11 +28,12 @@ Panggil pengguna **Ustaz**. Komposisi: `Tutorial` (`src/tutorial/Tutorial.tsx`),
 - Bila kursor berhenti di butang/menu: **ring highlight** merah kecil dan lembut (radius ~20–30px).
 - **TIADA klip hook pembuka.** Video bermula terus dari awal rakaman. "Hook" bagi Ustaz = perkataan dalam subtitle yang diwarnakan (merah / kuning butter), bukan klip yang dipindahkan ke permulaan.
 
-## Video statik & kualiti (peraturan Ustaz)
-- **Video STATIK (peraturan Ustaz):** tiada zoom / pan / gerakan kamera. Hanya animasi klik (bulatan merah + ripple pop-up) dan ring ikut mouse kekal.
-- **TIADA bunyi "tek tek" (SFX klik)** — dibuang kerana mengganggu pendengar. Hanya muzik latar halus + suara.
-- **Bahagian rakaman yang kabur/pecah** (rakaman Ustaz yang dizum sendiri): ditingkatkan dengan `tools/enhance-blurry.sh` (de-block, denoise, sharpen, hanya pada julat masa kabur). Ini penajaman, bukan resolusi 4K sebenar.
-- Semua efek yang masih bergerak (ring, ripple, callout, subtitle) kekal lancar macam animasi iPhone (spring / smootherstep per bingkai).
+## Video statik, zoom hanya pada klik & kualiti (peraturan Ustaz)
+- **Video statik** sepanjang masa, **kecuali zoom pada setiap klik**: kamera zoom masuk (smooth, **dekat sedikit**, 1.5x, `tutorial.camera`) ke **butang yang diklik** (fokus tetap pada tengah butang), kemudian keluar lancar. Klik berdekatan: zoom bersambung dan fokus meluncur ke butang seterusnya. **Jangan ikut pergerakan mouse; jangan pan ikut laluan mouse.**
+- Animasi klik (bulatan merah + ripple pop-up) dan ring ikut mouse kekal.
+- **TIADA bunyi "tek tek" (SFX klik)** — mengganggu pendengar. Hanya muzik latar halus + suara.
+- **Bahagian rakaman yang kabur/pecah** (rakaman Ustaz yang dizum sendiri): ditingkatkan dengan `tools/enhance-blurry.sh` (de-block, denoise, sharpen). Penajaman, bukan 4K sebenar.
+- Semua efek yang bergerak (zoom, ring, ripple, callout, subtitle) lancar macam animasi iPhone (spring / smootherstep per bingkai).
 
 ## Subtitle serentak dengan suara (peraturan Ustaz)
 - Setiap perkataan keluar **tepat bila disebut**: tidak awal, tidak lewat. Masa perkataan dikunci pada permulaan suara sebenar: `tools/build-plan.py ... audio16k.wav` (Whisper word-start purata ~0.13s lewat, jadi dilaraskan ke onset suara). Jangan agih masa sama rata dalam satu ayat.

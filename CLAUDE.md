@@ -40,7 +40,7 @@ Rujukan gaya: lihat skill `infographic-reel-style` (visual, font, subtitle) dan 
 
 ## Video rekod skrin / tutorial
 - Guna skill `screen-tutorial-style` (komposisi `Tutorial`, 1920×1080). **Preview dahulu, jangan render final tanpa kebenaran Ustaz.**
-- Output sentiasa **1920×1080**. Teks hanya di bawah frame video; di atas video hanya efek kursor (ring dan ripple klik merah sahaja).
+- Output sentiasa **1920×1080**. Teks hanya di bawah frame video; di atas video hanya efek kursor (ring dan ripple klik merah) dan zoom pada klik.
 - Hantar SEMUA preview/render/bahagian edit terus dalam chat (`SendUserFile`); jangan tempat lain.
 
 ## Gaya teks subtitle Ustaz — RINGKASAN LENGKAP (jangan tinggal satu pun)
@@ -60,7 +60,7 @@ Kod: `src/components/Caption.tsx` (+ `glass()`), parameter: `captionStyle` dalam
 
 ## Wajib setiap kali edit video untuk Ustaz
 Guna SEMUA gaya yang Ustaz minta disimpan (skill `infographic-reel-style`, `screen-tutorial-style`, `reel-edit-workflow`, bahagian di atas). **Hanya buang apa yang Ustaz suruh buang; yang tidak disuruh buang, JANGAN buang.**
-Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · warna putih pada teks subtitle · klip hook pembuka · bunyi tek (SFX klik) · zoom/pan kamera · bulatan klik besar · video muka daripada video rujukan.
+Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · warna putih pada teks subtitle · klip hook pembuka · bunyi tek (SFX klik) · zoom yang ikut pergerakan mouse (zoom hanya pada butang yang diklik dibenarkan) · bulatan klik besar · video muka daripada video rujukan.
 
 ## Penghantaran hasil — SEMUA dalam chat ini sahaja (peraturan Ustaz)
 - **Preview, render akhir, kualiti render, bahagian yang dipotong / di-crop / diedit — semuanya dihantar terus dalam chat ini** menggunakan `SendUserFile` (display `render`), supaya Ustaz boleh tengok semasa kita kerja bersama.
@@ -69,8 +69,9 @@ Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · wa
 - Fail video terlalu besar: kecilkan bitrate atau pecah kepada bahagian, tetapi tetap hantar dalam chat ini.
 - Render akhir tetap hanya selepas Ustaz kata puas hati; preview boleh dihantar bila-bila.
 
-## Video statik, tiada bunyi tek, kualiti (peraturan Ustaz — GANTI peraturan zoom sebelum ini)
-- **Video STATIK: BATAL semua zoom / pan / gerakan kamera.** Hanya animasi klik (bulatan merah, ripple pop-up) dan ring ikut mouse kekal. `tutorial.camera.zoom = 1`.
+## Video statik, zoom hanya pada klik, tiada bunyi tek, kualiti (peraturan Ustaz — GANTI peraturan zoom sebelum ini)
+- **Video STATIK sepanjang masa**, kecuali **zoom pada setiap klik**: kamera zoom masuk (smooth, **dekat sedikit**, 1.5x) ke **butang yang diklik** (fokus tetap pada tengah butang), kemudian keluar semula lancar. **JANGAN ikut pergerakan mouse dan jangan pan mengikut laluan mouse.** `tutorial.camera` dalam `src/theme.ts`.
+- Animasi klik (bulatan merah, ripple pop-up) dan ring ikut mouse kekal.
 - **BUANG bunyi "tek tek" (SFX klik).** Jangan letak bunyi klik. Hanya muzik latar halus + suara.
 - **Bahagian kabur/pecah** (zoom sendiri dalam rakaman Ustaz) ditingkatkan: `tools/enhance-blurry.sh` (de-block, denoise, sharpen). Jujur: penajaman, bukan 4K sebenar.
 - Efek yang ada tetap bergerak lancar macam animasi iPhone (spring/smootherstep). Output kekal 1920×1080.
