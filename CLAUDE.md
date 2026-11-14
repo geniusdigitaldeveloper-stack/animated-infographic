@@ -70,7 +70,7 @@ Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · wa
 - Render akhir tetap hanya selepas Ustaz kata puas hati; preview boleh dihantar bila-bila.
 
 ## Video statik, zoom hanya pada klik, tiada bunyi tek, kualiti (peraturan Ustaz — GANTI peraturan zoom sebelum ini)
-- **Video STATIK sepanjang masa**, kecuali **zoom pada setiap klik**: kamera zoom masuk (smooth, **dekat sedikit**, 1.5x) ke **butang yang diklik** (fokus tetap pada tengah butang), kemudian keluar semula lancar. **JANGAN ikut pergerakan mouse dan jangan pan mengikut laluan mouse.** `tutorial.camera` dalam `src/theme.ts`.
+- **Video STATIK sepanjang masa**, kecuali **zoom pada setiap klik**: kamera zoom masuk (smooth, **dekat sedikit**, 1.5x) ke **butang yang diklik** (fokus tetap pada tengah butang), kemudian keluar semula lancar. **Gerakan zoom = fizik spring critically-damped macam animasi sistem MacBook/iOS** (tiada overshoot, tiada tersentak; `camera.omega`). **JANGAN ikut pergerakan mouse dan jangan pan mengikut laluan mouse.** `tutorial.camera` dalam `src/theme.ts`.
 - Animasi klik (bulatan merah, ripple pop-up) dan ring ikut mouse kekal.
 - **BUANG bunyi "tek tek" (SFX klik).** Jangan letak bunyi klik. Hanya muzik latar halus + suara.
 - **Bahagian kabur/pecah** (zoom sendiri dalam rakaman Ustaz) ditingkatkan: `tools/enhance-blurry.sh` (de-block, denoise, sharpen). Jujur: penajaman, bukan 4K sebenar.
