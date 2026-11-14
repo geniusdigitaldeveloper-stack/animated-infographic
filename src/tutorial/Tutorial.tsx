@@ -3,6 +3,7 @@ import {AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, spring,
 import {tutorial as T} from '../theme';
 import {sans} from '../fonts';
 import {Caption} from '../components/Caption';
+import blurCfg from './blur.json';
 import {CH, CW, cursorAt, cursorAtSrc, cursorSeen, HOOK_S, MAIN_S, OUTRO_S, P, srcTimeAt, TOTAL_S} from './timeline';
 
 const FPS = T.FPS;
@@ -147,6 +148,10 @@ const VideoFrame: React.FC<{t: number; children: React.ReactNode}> = ({t, childr
         {children}
         {showRing && <div style={{position: 'absolute', left: fx * sc - ringR, top: fy * sc - ringR, width: ringR * 2, height: ringR * 2, borderRadius: '50%',
           border: '3px solid rgba(255,40,40,.95)', boxShadow: '0 0 12px rgba(255,40,40,.55)', background: 'rgba(255,40,40,.08)'}} />}
+        {blurCfg.regions.map((r, i) => r.ranges.some(([a, b]) => ts >= a && ts <= b) && (
+          <div key={'b' + i} style={{position: 'absolute', left: r.x * sc - 6, top: r.y * sc - 6, width: r.w * sc + 12, height: r.h * sc + 12, borderRadius: 14,
+            backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', background: 'rgba(235,242,255,.18)'}} />
+        ))}
         {P.clicks.map((k, i) => <Ripple key={i} t={t} at={k.out} x={k.bx} y={k.by} />)}
       </div>
     </div>

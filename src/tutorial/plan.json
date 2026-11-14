@@ -2920,7 +2920,7 @@
   {
    "out0": 161.885,
    "out1": 165.515,
-   "text": "fokus utama dia kepada [[Mobile Legends]], main-main lah.",
+   "text": "fokus utama dia kepada [[Mobile Legends Bang Bang]] lah.",
    "words": [
     {
      "text": "fokus",
@@ -2948,13 +2948,18 @@
      "end": 2.242
     },
     {
-     "text": "Legends,",
+     "text": "Legends",
      "start": 2.242,
      "end": 2.596
     },
     {
-     "text": "main-main",
+     "text": "Bang",
      "start": 2.596,
+     "end": 2.743
+    },
+    {
+     "text": "Bang",
+     "start": 2.743,
      "end": 2.89
     },
     {

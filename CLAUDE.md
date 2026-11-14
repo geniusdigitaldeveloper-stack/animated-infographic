@@ -83,3 +83,7 @@ Senarai yang Ustaz suruh BUANG (kekal dibuang): bar subtitle hitam panjang · wa
 - Transkripsi guna **Whisper `medium` dengan `language="ms"`** (`tools/transcribe.py medium out.json audio.wav`); model `small` salah dengar dan boleh terlepas ayat. Semak keseluruhan transkrip dengan rakaman/skrin sebelum guna.
 - Ayat yang tidak pasti: **tandakan dan tanya Ustaz**, jangan teka senyap-senyap.
 - Perkara umum: **apa yang Ustaz tak cakap, jangan buat; apa yang Ustaz tak suruh, jangan buat; apa yang Ustaz tak suruh padam, jangan padam.**
+
+## Kabur & nama (peraturan Ustaz)
+- **Kaburkan teks nota/lower-third pada panel Preview dan Program** (kotak border nota di kiri bawah, contoh "GLOBAL STREAMER", "FOLLOW & SHARE", "RANK BOOSTING") dalam bahagian contoh slide. Julat masa dan kawasan di `src/tutorial/blur.json` (dicari dengan `tools/find-blur-ranges.py`); kabur dilukis di dalam bingkai video supaya ikut zoom.
+- Nama produk betul: **Mobile Legends Bang Bang** (bukan "main-main"; Whisper terpotong sebut "Bang Bang").
