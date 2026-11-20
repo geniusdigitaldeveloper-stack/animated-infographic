@@ -83,3 +83,26 @@ export const captionStyle = {
   fadeFrames: 4,
   beat: 0.06, // extra scale on the active word
 };
+
+/**
+ * Voice-over reels (no face cam). Everything sits inside the platform SAFE ZONE
+ * (TikTok/Reels UI covers the top bar, the right-hand buttons and the bottom caption area).
+ * tall: graphic top, subtitle under it · wide: graphic left, subtitle bottom.
+ */
+export const safeZone = {top: 0.085, bottom: 0.21, left: 0.06, right: 0.13}; // fractions of the frame
+export type ReelLayout = {unit: number; safe: Rect; pill: {x: number; y: number}; graphic: Rect; caption: Rect & {fontSize: number}};
+export const getReelLayout = (W: number, H: number): ReelLayout => {
+  const u = W >= H ? Math.min(W, H) / 1080 : W / 1080;
+  const safe = {x: W * safeZone.left, y: H * safeZone.top, w: W * (1 - safeZone.left - safeZone.right), h: H * (1 - safeZone.top - safeZone.bottom)};
+  const pillH = 60 * u;
+  if (H / W >= 1.2) {
+    const capH = safe.h * 0.22;
+    return {unit: u, safe, pill: {x: safe.x, y: safe.y},
+      graphic: {x: safe.x, y: safe.y + pillH + 20 * u, w: safe.w, h: safe.h - pillH - capH - 40 * u},
+      caption: {x: safe.x, y: safe.y + safe.h - capH, w: safe.w, h: capH, fontSize: type.caption * u}};
+  }
+  const capH = safe.h * 0.24;
+  return {unit: u, safe, pill: {x: safe.x, y: safe.y},
+    graphic: {x: safe.x, y: safe.y + pillH + 10 * u, w: safe.w, h: safe.h - pillH - capH - 20 * u},
+    caption: {x: safe.x, y: safe.y + safe.h - capH, w: safe.w, h: capH, fontSize: type.caption * 0.85 * u}};
+};

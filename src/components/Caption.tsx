@@ -1,6 +1,6 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {captionStyle as C} from '../theme';
+import {captionStyle as C, Rect} from '../theme';
 import {useLayout} from './Frame';
 import {serif} from '../fonts';
 import type {Word} from '../types';
@@ -15,7 +15,7 @@ import type {Word} from '../types';
  */
 export const WORDS_PER_CHUNK = C.wordsPerChunk;
 
-type Props = {text: string; duration: number; words?: Word[]};
+type Props = {text: string; duration: number; words?: Word[]; box?: Rect & {fontSize: number}; unit?: number};
 type Tok = {text: string; italic: boolean; start: number; end: number}; // seconds, relative to the scene
 
 const tokenize = (text: string, duration: number, words?: Word[]): Tok[] => {
@@ -32,10 +32,12 @@ const tokenize = (text: string, duration: number, words?: Word[]): Tok[] => {
   });
 };
 
-export const Caption: React.FC<Props> = ({text, duration, words}) => {
+export const Caption: React.FC<Props> = ({text, duration, words, box, unit}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const L = useLayout();
+  const Lay = useLayout();
+  const B = box ?? Lay.caption;
+  const U = unit ?? Lay.unit;
   const t = frame / fps;
   const toks = tokenize(text, duration, words);
 
@@ -50,10 +52,10 @@ export const Caption: React.FC<Props> = ({text, duration, words}) => {
 
   return (
     <div style={{
-      position: 'absolute', top: L.caption.y, left: L.caption.x, width: L.caption.w, height: L.caption.h,
+      position: 'absolute', top: B.y, left: B.x, width: B.w, height: B.h,
       display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', opacity: out,
     }}>
-      <div style={{fontFamily: serif, fontSize: L.caption.fontSize, lineHeight: 1.18, color: C.spoken}}>
+      <div style={{fontFamily: serif, fontSize: B.fontSize, lineHeight: 1.18, color: C.spoken}}>
         {chunk.map((w, i) => {
           const g = chunkStart + i;
           const local = frame - Math.round(w.start * fps);
@@ -69,7 +71,7 @@ export const Caption: React.FC<Props> = ({text, duration, words}) => {
               color: active ? C.active : C.spoken,
               fontStyle: w.italic ? 'italic' : 'normal',
               opacity: shown ? appear : 0,
-              transform: `translateY(${(1 - p) * C.rise * L.unit}px) scale(${(C.popFrom + (1 - C.popFrom) * p) * beat})`,
+              transform: `translateY(${(1 - p) * C.rise * U}px) scale(${(C.popFrom + (1 - C.popFrom) * p) * beat})`,
               filter: `blur(${blur}px)`,
               textShadow: active ? `0 0 28px ${C.glow}` : 'none',
             }}>{w.text}</span>
