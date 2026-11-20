@@ -1,0 +1,729 @@
+{
+ "total": 58.83,
+ "voEnd": 55.83,
+ "scenes": [
+  {
+   "id": "ayat",
+   "start": 0.0,
+   "end": 10.21
+  },
+  {
+   "id": "hadis",
+   "start": 10.21,
+   "end": 21.86
+  },
+  {
+   "id": "maksud",
+   "start": 21.86,
+   "end": 28.23
+  },
+  {
+   "id": "huraian",
+   "start": 28.23,
+   "end": 33.84
+  },
+  {
+   "id": "rahmah",
+   "start": 33.84,
+   "end": 40.99
+  },
+  {
+   "id": "prinsip",
+   "start": 40.99,
+   "end": 46.15
+  },
+  {
+   "id": "penutup",
+   "start": 46.15,
+   "end": 58.83
+  }
+ ],
+ "words": [
+  {
+   "text": "Wahai",
+   "key": false,
+   "start": 0.07,
+   "end": 0.41,
+   "scene": "ayat"
+  },
+  {
+   "text": "orang-orang",
+   "key": false,
+   "start": 0.41,
+   "end": 0.71,
+   "scene": "ayat"
+  },
+  {
+   "text": "yang",
+   "key": false,
+   "start": 0.71,
+   "end": 0.89,
+   "scene": "ayat"
+  },
+  {
+   "text": "beriman",
+   "key": true,
+   "start": 0.89,
+   "end": 1.46,
+   "scene": "ayat"
+  },
+  {
+   "text": "peliharalah",
+   "key": true,
+   "start": 1.46,
+   "end": 2.11,
+   "scene": "ayat"
+  },
+  {
+   "text": "diri",
+   "key": false,
+   "start": 2.11,
+   "end": 2.55,
+   "scene": "ayat"
+  },
+  {
+   "text": "kamu",
+   "key": false,
+   "start": 2.55,
+   "end": 2.81,
+   "scene": "ayat"
+  },
+  {
+   "text": "dan",
+   "key": false,
+   "start": 2.81,
+   "end": 3.07,
+   "scene": "ayat"
+  },
+  {
+   "text": "keluarga",
+   "key": true,
+   "start": 3.07,
+   "end": 3.63,
+   "scene": "ayat"
+  },
+  {
+   "text": "kamu",
+   "key": false,
+   "start": 3.63,
+   "end": 4.05,
+   "scene": "ayat"
+  },
+  {
+   "text": "dari",
+   "key": false,
+   "start": 4.05,
+   "end": 4.31,
+   "scene": "ayat"
+  },
+  {
+   "text": "neraka",
+   "key": true,
+   "start": 4.31,
+   "end": 4.87,
+   "scene": "ayat"
+  },
+  {
+   "text": "yang",
+   "key": false,
+   "start": 4.87,
+   "end": 5.71,
+   "scene": "ayat"
+  },
+  {
+   "text": "bahan-bahan",
+   "key": false,
+   "start": 5.71,
+   "end": 6.29,
+   "scene": "ayat"
+  },
+  {
+   "text": "bakarannya",
+   "key": false,
+   "start": 6.29,
+   "end": 7.01,
+   "scene": "ayat"
+  },
+  {
+   "text": "manusia",
+   "key": false,
+   "start": 7.01,
+   "end": 7.96,
+   "scene": "ayat"
+  },
+  {
+   "text": "dan",
+   "key": false,
+   "start": 7.96,
+   "end": 8.38,
+   "scene": "ayat"
+  },
+  {
+   "text": "batu",
+   "key": false,
+   "start": 8.38,
+   "end": 8.82,
+   "scene": "ayat"
+  },
+  {
+   "text": "berhala.",
+   "key": false,
+   "start": 8.82,
+   "end": 9.26,
+   "scene": "ayat"
+  },
+  {
+   "text": "Dalam",
+   "key": false,
+   "start": 10.26,
+   "end": 10.46,
+   "scene": "hadis"
+  },
+  {
+   "text": "Sunan",
+   "key": false,
+   "start": 10.48,
+   "end": 10.82,
+   "scene": "hadis"
+  },
+  {
+   "text": "Tirmizi,",
+   "key": false,
+   "start": 10.82,
+   "end": 11.66,
+   "scene": "hadis"
+  },
+  {
+   "text": "Abdullah",
+   "key": false,
+   "start": 11.92,
+   "end": 12.12,
+   "scene": "hadis"
+  },
+  {
+   "text": "bin",
+   "key": false,
+   "start": 12.12,
+   "end": 12.42,
+   "scene": "hadis"
+  },
+  {
+   "text": "Amr",
+   "key": false,
+   "start": 12.42,
+   "end": 12.64,
+   "scene": "hadis"
+  },
+  {
+   "text": "r.a.",
+   "key": false,
+   "start": 12.64,
+   "end": 13.7,
+   "scene": "hadis"
+  },
+  {
+   "text": "meriwayatkan",
+   "key": false,
+   "start": 13.7,
+   "end": 14.56,
+   "scene": "hadis"
+  },
+  {
+   "text": "bahawa",
+   "key": false,
+   "start": 14.56,
+   "end": 15.2,
+   "scene": "hadis"
+  },
+  {
+   "text": "Rasulullah",
+   "key": false,
+   "start": 15.2,
+   "end": 15.7,
+   "scene": "hadis"
+  },
+  {
+   "text": "SAW",
+   "key": false,
+   "start": 15.7,
+   "end": 16.88,
+   "scene": "hadis"
+  },
+  {
+   "text": "bersabda,",
+   "key": false,
+   "start": 16.88,
+   "end": 17.63,
+   "scene": "hadis"
+  },
+  {
+   "text": "Laisa",
+   "key": true,
+   "start": 17.7,
+   "end": 18.28,
+   "scene": "hadis"
+  },
+  {
+   "text": "minna",
+   "key": true,
+   "start": 18.28,
+   "end": 19.16,
+   "scene": "hadis"
+  },
+  {
+   "text": "man",
+   "key": true,
+   "start": 19.16,
+   "end": 19.52,
+   "scene": "hadis"
+  },
+  {
+   "text": "lam",
+   "key": true,
+   "start": 19.52,
+   "end": 19.88,
+   "scene": "hadis"
+  },
+  {
+   "text": "yarham",
+   "key": true,
+   "start": 19.88,
+   "end": 20.54,
+   "scene": "hadis"
+  },
+  {
+   "text": "saghirana.",
+   "key": true,
+   "start": 20.54,
+   "end": 21.46,
+   "scene": "hadis"
+  },
+  {
+   "text": "Yang",
+   "key": false,
+   "start": 21.9,
+   "end": 22.38,
+   "scene": "maksud"
+  },
+  {
+   "text": "bermaksud",
+   "key": false,
+   "start": 22.38,
+   "end": 23.12,
+   "scene": "maksud"
+  },
+  {
+   "text": "bukan",
+   "key": false,
+   "start": 23.12,
+   "end": 23.48,
+   "scene": "maksud"
+  },
+  {
+   "text": "daripada",
+   "key": false,
+   "start": 23.48,
+   "end": 23.98,
+   "scene": "maksud"
+  },
+  {
+   "text": "golongan",
+   "key": true,
+   "start": 23.98,
+   "end": 24.48,
+   "scene": "maksud"
+  },
+  {
+   "text": "kami,",
+   "key": false,
+   "start": 24.48,
+   "end": 24.94,
+   "scene": "maksud"
+  },
+  {
+   "text": "sesiapa",
+   "key": false,
+   "start": 25.26,
+   "end": 25.62,
+   "scene": "maksud"
+  },
+  {
+   "text": "yang",
+   "key": false,
+   "start": 25.62,
+   "end": 25.9,
+   "scene": "maksud"
+  },
+  {
+   "text": "tidak",
+   "key": false,
+   "start": 25.9,
+   "end": 26.1,
+   "scene": "maksud"
+  },
+  {
+   "text": "menyayangi",
+   "key": true,
+   "start": 26.1,
+   "end": 26.78,
+   "scene": "maksud"
+  },
+  {
+   "text": "kanak-kanak",
+   "key": false,
+   "start": 26.78,
+   "end": 27.36,
+   "scene": "maksud"
+  },
+  {
+   "text": "kami.",
+   "key": false,
+   "start": 27.36,
+   "end": 27.62,
+   "scene": "maksud"
+  },
+  {
+   "text": "Hadis",
+   "key": false,
+   "start": 28.23,
+   "end": 28.5,
+   "scene": "huraian"
+  },
+  {
+   "text": "ini",
+   "key": false,
+   "start": 28.5,
+   "end": 28.72,
+   "scene": "huraian"
+  },
+  {
+   "text": "meletakkan",
+   "key": false,
+   "start": 28.72,
+   "end": 29.24,
+   "scene": "huraian"
+  },
+  {
+   "text": "rahmah",
+   "key": true,
+   "start": 29.24,
+   "end": 29.7,
+   "scene": "huraian"
+  },
+  {
+   "text": "terhadap",
+   "key": false,
+   "start": 29.71,
+   "end": 30.27,
+   "scene": "huraian"
+  },
+  {
+   "text": "kanak-kanak",
+   "key": false,
+   "start": 30.27,
+   "end": 30.96,
+   "scene": "huraian"
+  },
+  {
+   "text": "sebagai",
+   "key": false,
+   "start": 31.01,
+   "end": 31.37,
+   "scene": "huraian"
+  },
+  {
+   "text": "akhlak",
+   "key": true,
+   "start": 31.37,
+   "end": 31.79,
+   "scene": "huraian"
+  },
+  {
+   "text": "umat",
+   "key": false,
+   "start": 31.79,
+   "end": 32.11,
+   "scene": "huraian"
+  },
+  {
+   "text": "Nabi",
+   "key": false,
+   "start": 32.11,
+   "end": 32.45,
+   "scene": "huraian"
+  },
+  {
+   "text": "Muhammad",
+   "key": false,
+   "start": 32.45,
+   "end": 32.81,
+   "scene": "huraian"
+  },
+  {
+   "text": "SAW.",
+   "key": false,
+   "start": 32.81,
+   "end": 33.44,
+   "scene": "huraian"
+  },
+  {
+   "text": "Rahmah",
+   "key": true,
+   "start": 33.98,
+   "end": 34.65,
+   "scene": "rahmah"
+  },
+  {
+   "text": "bukan",
+   "key": false,
+   "start": 34.73,
+   "end": 35.09,
+   "scene": "rahmah"
+  },
+  {
+   "text": "kelemahan",
+   "key": true,
+   "start": 35.09,
+   "end": 35.82,
+   "scene": "rahmah"
+  },
+  {
+   "text": "tetapi",
+   "key": false,
+   "start": 35.82,
+   "end": 36.43,
+   "scene": "rahmah"
+  },
+  {
+   "text": "kekuatan",
+   "key": true,
+   "start": 36.43,
+   "end": 37.19,
+   "scene": "rahmah"
+  },
+  {
+   "text": "untuk",
+   "key": false,
+   "start": 37.19,
+   "end": 37.55,
+   "scene": "rahmah"
+  },
+  {
+   "text": "berlaku",
+   "key": false,
+   "start": 37.55,
+   "end": 37.97,
+   "scene": "rahmah"
+  },
+  {
+   "text": "lembut",
+   "key": true,
+   "start": 37.97,
+   "end": 38.42,
+   "scene": "rahmah"
+  },
+  {
+   "text": "tanpa",
+   "key": false,
+   "start": 38.42,
+   "end": 39.0,
+   "scene": "rahmah"
+  },
+  {
+   "text": "mengabaikan",
+   "key": false,
+   "start": 39.0,
+   "end": 39.72,
+   "scene": "rahmah"
+  },
+  {
+   "text": "ketegasan.",
+   "key": true,
+   "start": 39.72,
+   "end": 40.36,
+   "scene": "rahmah"
+  },
+  {
+   "text": "Adil",
+   "key": true,
+   "start": 41.04,
+   "end": 41.73,
+   "scene": "prinsip"
+  },
+  {
+   "text": "tanpa",
+   "key": false,
+   "start": 41.77,
+   "end": 42.27,
+   "scene": "prinsip"
+  },
+  {
+   "text": "pilih",
+   "key": false,
+   "start": 42.27,
+   "end": 42.68,
+   "scene": "prinsip"
+  },
+  {
+   "text": "kasih",
+   "key": false,
+   "start": 42.68,
+   "end": 42.93,
+   "scene": "prinsip"
+  },
+  {
+   "text": "dan",
+   "key": false,
+   "start": 42.93,
+   "end": 43.22,
+   "scene": "prinsip"
+  },
+  {
+   "text": "mendisiplinkan",
+   "key": false,
+   "start": 43.22,
+   "end": 44.46,
+   "scene": "prinsip"
+  },
+  {
+   "text": "tanpa",
+   "key": false,
+   "start": 44.46,
+   "end": 44.98,
+   "scene": "prinsip"
+  },
+  {
+   "text": "kekerasan.",
+   "key": true,
+   "start": 44.98,
+   "end": 45.75,
+   "scene": "prinsip"
+  },
+  {
+   "text": "Kesalahan",
+   "key": false,
+   "start": 46.3,
+   "end": 47.08,
+   "scene": "penutup"
+  },
+  {
+   "text": "anak",
+   "key": false,
+   "start": 47.08,
+   "end": 47.34,
+   "scene": "penutup"
+  },
+  {
+   "text": "perlu",
+   "key": false,
+   "start": 47.34,
+   "end": 47.68,
+   "scene": "penutup"
+  },
+  {
+   "text": "dibimbing.",
+   "key": true,
+   "start": 47.68,
+   "end": 48.32,
+   "scene": "penutup"
+  },
+  {
+   "text": "Tubuhnya",
+   "key": false,
+   "start": 48.33,
+   "end": 48.91,
+   "scene": "penutup"
+  },
+  {
+   "text": "tidak",
+   "key": false,
+   "start": 48.91,
+   "end": 49.17,
+   "scene": "penutup"
+  },
+  {
+   "text": "boleh",
+   "key": false,
+   "start": 49.17,
+   "end": 49.35,
+   "scene": "penutup"
+  },
+  {
+   "text": "dijadikan",
+   "key": false,
+   "start": 49.35,
+   "end": 50.05,
+   "scene": "penutup"
+  },
+  {
+   "text": "tempat",
+   "key": false,
+   "start": 50.05,
+   "end": 50.55,
+   "scene": "penutup"
+  },
+  {
+   "text": "melepaskan",
+   "key": false,
+   "start": 50.55,
+   "end": 51.41,
+   "scene": "penutup"
+  },
+  {
+   "text": "kemarahan",
+   "key": true,
+   "start": 51.41,
+   "end": 52.14,
+   "scene": "penutup"
+  },
+  {
+   "text": "dan",
+   "key": false,
+   "start": 52.14,
+   "end": 52.5,
+   "scene": "penutup"
+  },
+  {
+   "text": "marwahnya",
+   "key": true,
+   "start": 52.5,
+   "end": 53.3,
+   "scene": "penutup"
+  },
+  {
+   "text": "tidak",
+   "key": false,
+   "start": 53.3,
+   "end": 53.6,
+   "scene": "penutup"
+  },
+  {
+   "text": "boleh",
+   "key": false,
+   "start": 53.6,
+   "end": 53.86,
+   "scene": "penutup"
+  },
+  {
+   "text": "dihancurkan",
+   "key": false,
+   "start": 53.86,
+   "end": 54.8,
+   "scene": "penutup"
+  },
+  {
+   "text": "dengan",
+   "key": false,
+   "start": 54.8,
+   "end": 55.16,
+   "scene": "penutup"
+  },
+  {
+   "text": "makian.",
+   "key": true,
+   "start": 55.16,
+   "end": 55.66,
+   "scene": "penutup"
+  }
+ ]
+}
