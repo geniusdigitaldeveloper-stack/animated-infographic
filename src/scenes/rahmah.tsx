@@ -2,7 +2,7 @@ import React from 'react';
 import {interpolate} from 'remotion';
 import {colors} from '../theme';
 import {arabic, sans} from '../fonts';
-import {Compare, FactCard, Kicker, LineIcon, Process, SlowZoom, Squash, useLocal, usePop} from '../components/Motion';
+import {Compare, CountUp, FactCard, Kicker, LineIcon, Process, SlowZoom, Squash, useLocal, usePop} from '../components/Motion';
 import data from './rahmah-words.json';
 
 /**
@@ -17,7 +17,7 @@ export const SFX_VOL: Record<Sfx, number> = {pop: 0.45, tick: 0.3, whoosh: 0.3, 
 export const MUSIC_VOL = 0.2; // ambient bed, 20% under the VO
 export const OVERLAP = 0.35; // seconds of cross-transition between scenes
 
-type W = {text: string; key: boolean; start: number; end: number; scene: string};
+type W = {text: string; key: boolean; start: number; end: number; scene: string; ar: boolean};
 export const words = data.words as W[];
 export const TOTAL = data.total;
 const norm = (s: string) => s.toLowerCase().replace(/[.,?!]/g, '');
@@ -67,12 +67,64 @@ const ArabicWord: React.FC<{ar: string; at: number; next: number}> = ({ar, at, n
   );
 };
 
+/** Quran recitation: the verse in phrases; the current phrase is shown, each word lights up as it is recited. */
+const ArabicRecitation: React.FC<{c: (w: string, nth?: number) => number; blocks: string[][]; label: string[]}> = ({c, blocks, label}) => {
+  const {frame, fps} = useLocal(0);
+  const t = frame / fps;
+  const seen: Record<string, number> = {};
+  const timed = blocks.map((b) => b.map((ar) => { const n = seen[ar] ?? 0; seen[ar] = n + 1; return {ar, at: c(ar, n)}; }));
+  return (
+    <div style={{position: 'relative', width: '100%', height: 860}}>
+      {timed.map((b, i) => {
+        const start = b[0].at, end = timed[i + 1]?.[0].at ?? 1e9;
+        const o = interpolate(t, [start - 0.25, start, end - 0.25, end], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        if (o <= 0) return null;
+        return (
+          <div key={i} style={{position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 30, opacity: o,
+            transform: `translateY(${(1 - o) * 30}px)`}}>
+            <Kicker at={start - 0.2} color={colors.accent}>{label[i]}</Kicker>
+            <ArabicLine parts={b} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const reelScenes: ReelScene[] = [
+  {
+    id: 'firman', chapter: 'Firman Allah', bg: {glow: [50, 35], pattern: 'rings'},
+    graphic: (c) => (
+      <Col gap={30}>
+        <LineIcon name="book" at={c('firman')} size={110} />
+        <Kicker at={c('firman')} size={36} color={colors.text}>Firman Allah Taala dalam</Kicker>
+        <Squash at={c('at-tahrim')} size={92}><span style={{whiteSpace: 'nowrap'}}>Surah At-Tahrim</span></Squash>
+        <div style={{display: 'flex', alignItems: 'center', gap: 26}}>
+          <Kicker at={c('ayat')} size={44} color={colors.text}>Ayat</Kicker>
+          <CountUp at={c('6')} to={6} dur={0.5} size={220} />
+        </div>
+      </Col>
+    ),
+    sfx: [{w: 'at-tahrim', s: 'pop'}, {w: '6', s: 'tick'}],
+  },
+  {
+    id: 'ayat_ar', chapter: 'At-Tahrim: 6', bg: {glow: [50, 45], pattern: 'none'},
+    graphic: (c) => (
+      <ArabicRecitation c={c} label={['Ta\'awwuz', 'Ayat 6', 'Ayat 6', 'Ayat 6']} blocks={[
+        ['أَعُوذُ', 'بِاللَّهِ', 'مِنَ', 'الشَّيْطَانِ', 'الرَّجِيمِ'],
+        ['يَا', 'أَيُّهَا', 'الَّذِينَ', 'آمَنُوا', 'قُوا', 'أَنفُسَكُمْ', 'وَأَهْلِيكُمْ', 'نَارًا'],
+        ['وَقُودُهَا', 'النَّاسُ', 'وَالْحِجَارَةُ', 'عَلَيْهَا', 'مَلَائِكَةٌ', 'غِلَاظٌ', 'شِدَادٌ'],
+        ['لَّا', 'يَعْصُونَ', 'اللَّهَ', 'مَا', 'أَمَرَهُمْ', 'وَيَفْعَلُونَ', 'مَا', 'يُؤْمَرُونَ'],
+      ]} />
+    ),
+    sfx: [],
+  },
   {
     id: 'ayat', chapter: 'Al-Quran · At-Tahrim: 6', bg: {glow: [50, 28], pattern: 'dots'},
     graphic: (c) => (
       <Col gap={34}>
-        <Kicker at={c('wahai')}>Wahai orang yang beriman</Kicker>
+        <Kicker at={c('bermaksud')}>Yang bermaksud</Kicker>
+        <Kicker at={c('wahai')} size={34} color={colors.text}>Wahai orang yang beriman</Kicker>
         <Squash at={c('peliharalah')} size={108}>PELIHARALAH</Squash>
         <div style={{display: 'flex', gap: 22, width: '100%'}}>
           <FactCard at={c('diri')} icon="shield" title="Diri kamu" />
@@ -86,6 +138,22 @@ export const reelScenes: ReelScene[] = [
       </Col>
     ),
     sfx: [{w: 'peliharalah', s: 'pop'}, {w: 'keluarga', s: 'pop'}, {w: 'manusia', s: 'pop'}],
+  },
+  {
+    id: 'malaikat', chapter: 'Maksud ayat', bg: {glow: [70, 30], pattern: 'grid'},
+    graphic: (c) => (
+      <Col gap={30}>
+        <Kicker at={c('mereka')}>Dijaga dan dikawal oleh</Kicker>
+        <Squash at={c('malaikat-malaikat')} size={140}>MALAIKAT</Squash>
+        <div style={{display: 'flex', gap: 18}}>
+          <Chip at={c('keras')}>Keras</Chip>
+          <Chip at={c('kasar')}>Kasar layanannya</Chip>
+        </div>
+        <FactCard at={c('menderhaka')} icon="shield" title="Tidak menderhaka" sub="kepada Allah" />
+        <FactCard at={c('melakukan')} icon="check" title="Tetap melakukan" sub="segala yang diperintahkan" hot />
+      </Col>
+    ),
+    sfx: [{w: 'malaikat-malaikat', s: 'pop'}, {w: 'menderhaka', s: 'pop'}, {w: 'melakukan', s: 'pop'}],
   },
   {
     id: 'hadis', chapter: 'Hadis · Sunan Tirmizi', bg: {glow: [50, 40], pattern: 'none'},
@@ -158,11 +226,68 @@ export const reelScenes: ReelScene[] = [
     sfx: [{w: 'adil', s: 'pop'}, {w: 'mendisiplinkan', s: 'pop'}],
   },
   {
-    id: 'penutup', chapter: 'Pesanan', bg: {glow: [50, 40], pattern: 'none'}, closing: true,
+    id: 'penutup', chapter: 'Pesanan', bg: {glow: [50, 40], pattern: 'none'},
     graphic: (c) => <Closing c={c} />,
-    sfx: [{w: 'dibimbing', s: 'signature'}, {w: 'marwahnya', s: 'pop'}],
+    sfx: [{w: 'dibimbing', s: 'pop'}, {w: 'tubuhnya', s: 'pop'}, {w: 'marwahnya', s: 'pop'}],
+  },
+  {
+    id: 'kuat_intro', chapter: 'Umat yang kuat', bg: {glow: [50, 30], pattern: 'dots'},
+    graphic: (c) => (
+      <Col gap={34}>
+        <Kicker at={c('rasulullah')} size={36} color={colors.text}>Rasulullah SAW amat mencintai</Kicker>
+        <LineIcon name="bolt" at={c('kuat')} size={140} />
+        <Squash at={c('kuat')} size={130}>UMAT YANG KUAT</Squash>
+      </Col>
+    ),
+    sfx: [{w: 'kuat', s: 'pop'}],
+  },
+  {
+    id: 'kuat', chapter: 'Hadis · Sahih Muslim', bg: {glow: [35, 45], pattern: 'grid'},
+    graphic: (c) => (
+      <Col gap={34}>
+        <div style={{display: 'flex', alignItems: 'center', gap: 18}}>
+          <LineIcon name="book" at={c('sahih')} size={70} />
+          <Kicker at={c('sahih')} color={colors.accent} size={34}>Sahih Muslim · Nabi SAW bersabda</Kicker>
+        </div>
+        <div style={{display: 'flex', gap: 26, width: '100%', alignItems: 'stretch'}}>
+          <div style={{flex: 1.3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20}}>
+            <Kicker at={c('mukmin')} size={32} color={colors.text}>Mukmin yang</Kicker>
+            <Squash at={c('kuat')} size={140}>KUAT</Squash>
+            <FactCard at={c('baik')} icon="star" title="lebih baik" />
+            <FactCard at={c('dicintai')} icon="heart" title="lebih dicintai" sub="oleh Allah" hot />
+          </div>
+          <LemahCol at={c('lemah')} />
+        </div>
+      </Col>
+    ),
+    sfx: [{w: 'kuat', s: 'pop'}, {w: 'baik', s: 'pop'}, {w: 'dicintai', s: 'pop'}, {w: 'lemah', s: 'pop'}],
+  },
+  {
+    id: 'rumah', chapter: 'Renungan', bg: {glow: [50, 40], pattern: 'none'}, closing: true,
+    graphic: (c) => (
+      <SlowZoom at={c('kekuatan')} to={1.14} dur={5}>
+        <Col gap={24}>
+          <Kicker at={c('kekuatan')} size={40} color={colors.text}>Kekuatan ini bermula dari</Kicker>
+          <LineIcon name="home" at={c('rumah')} size={170} draw={0.8} />
+          <Squash at={c('rumah')} size={170}>RUMAH</Squash>
+        </Col>
+      </SlowZoom>
+    ),
+    sfx: [{w: 'rumah', s: 'signature'}],
   },
 ];
+
+const LemahCol: React.FC<{at: number}> = ({at}) => {
+  const s = usePop(at);
+  return (
+    <div style={{flex: 1, opacity: s.opacity * 0.75, transform: s.transform, background: colors.card, borderRadius: 28,
+      border: `2px solid ${colors.cardBorder}`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18}}>
+      <div style={{fontFamily: sans, fontWeight: 600, fontSize: 26, letterSpacing: 3, color: 'rgba(255,255,255,.5)'}}>DARIPADA</div>
+      <LineIcon name="battery" at={at} size={100} color="rgba(255,255,255,.6)" />
+      <div style={{fontFamily: sans, fontWeight: 800, fontSize: 64, color: 'rgba(255,255,255,.6)'}}>lemah</div>
+    </div>
+  );
+};
 
 const Closing: React.FC<{c: (w: string) => number}> = ({c}) => {
   const {t} = useLocal(c('tubuhnya'));

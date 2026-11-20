@@ -27,22 +27,32 @@ def write(path, x, mp3=False):
 
 # ---------- 1. cut the VO ----------
 # One scene = one source range. Ranges skip the Arabic recitation, "Sidang Jumaat" asides and a stumble.
+# (id, source ranges, compress pauses?) — dalil (ayat & hadis) are kept in full; only "Sidang Jumaat",
+# the Hari Kanak-kanak / bantut part and long pauses are removed. Quran recitation keeps its natural pauses.
 SCENES = [
-    ('ayat',    [(33.05, 43.95)]),    # maksud At-Tahrim:6 (Arabic recitation and "Yang bermaksud" skipped)
-    ('hadis',   [(61.85, 73.70)]),    # Sunan Tirmizi + short Arabic of the hadith
-    ('maksud',  [(73.78, 79.95)]),
-    ('huraian', [(80.95, 86.75)]),
-    ('rahmah',  [(88.00, 95.35)]),
-    ('prinsip', [(95.45, 100.65)]),
-    ('penutup', [(100.65, 110.65)]),
+    ('firman',   [(5.40, 8.70)], True),     # "Firman Allah Taala dalam Surah At-Tahrim ayat 6"
+    ('ayat_ar',  [(9.00, 31.20)], False),   # ta'awwudh + At-Tahrim:6 (Arabic recitation, untouched)
+    ('ayat',     [(31.30, 43.95)], True),   # maksud (1)
+    ('malaikat', [(43.98, 58.50)], True),   # maksud (2) — stops before "Sidang Jumaat"
+    ('hadis',    [(61.85, 73.70)], True),   # Sunan Tirmizi + Arabic of the hadith
+    ('maksud',   [(73.78, 79.95)], True),
+    ('huraian',  [(80.95, 86.75)], True),
+    ('rahmah',   [(88.00, 95.35)], True),
+    ('prinsip',  [(95.45, 100.65)], True),
+    ('penutup',  [(100.65, 110.65)], True),
+    ('kuat_intro', [(193.05, 197.60)], True),  # "Rasulullah SAW amat mencintai umat yang kuat"
+    ('kuat',     [(197.70, 208.60)], True),  # hadis Sahih Muslim
+    ('rumah',    [(209.20, 211.20)], True),  # "Kekuatan ini bermula dari rumah" — closing moment
 ]
 # whisper → what was actually said (checked by re-listening to each clip); list = split one token into several
 FIX = {'peliharlah': 'peliharalah', 'bersadar': 'bersabda,', 'Leisa': 'Laisa', 'mallam': ['man', 'lam'], 'sagirana': 'saghirana.',
        'hari': 'Hadis', 'sini': 'ini', 'perekasi': ['pilih', 'kasih'], 'matian': 'makian.', 'R.': 'r.a.', 'Anhu': None,
-       'dibimbing': 'dibimbing.'}
+       'dibimbing': 'dibimbing.', 'menerhak': 'menderhaka', 'malaykat-malaykat': 'malaikat-malaikat', 'Mumin': 'Mukmin',
+       'mumin': 'mukmin', 'sahih': 'Sahih', 'kuat.': 'kuat.', 'Kekuatan': 'Kekuatan'}
 KEY = {'beriman', 'peliharalah', 'keluarga', 'neraka', 'Laisa', 'minna', 'man', 'lam', 'yarham', 'saghirana', 'golongan',
        'menyayangi', 'rahmah', 'akhlak', 'kelemahan', 'kekuatan', 'lembut', 'ketegasan', 'adil', 'kekerasan', 'dibimbing',
-       'kemarahan', 'marwahnya', 'makian'}
+       'kemarahan', 'marwahnya', 'makian', 'At-Tahrim', '6', 'malaikat-malaikat', 'keras', 'kasar', 'menderhaka', 'kuat', 'lemah',
+       'Mukmin', 'mukmin', 'dicintai', 'rumah'}
 MAX_GAP, KEEP_GAP, SCENE_GAP, TAIL = 0.30, 0.20, 0.40, 3.0
 
 raw = json.load(open(WJSON))  # flat list [{w,s,e}] (per-clip re-transcription)
@@ -58,14 +68,15 @@ for w in raw:
         step = (w['e'] - w['s']) / len(f)
         for i, x in enumerate(f): words.append({'w': x, 's': round(w['s'] + i * step, 3), 'e': round(w['s'] + (i + 1) * step, 3)})
         continue
-    words.append({'w': f, 's': w['s'], 'e': w['e']})
+    words.append({'w': f, 's': w['s'], 'e': w['e'], 'ar': w.get('ar', False)})
 
 # words the chunked pass missed but the full-file pass heard (first pass: "Dalam Sunan Tirmizi", "orang-orang yang beriman")
-words.append({'w': 'Dalam', 's': 61.90, 'e': 62.10})
+words.append({'w': 'Dalam', 's': 61.90, 'e': 62.10, 'ar': False})
 for i, w in enumerate(words):
     if w['w'] == 'beriman' and words[i - 1]['w'] == 'orang-orang':
-        words.insert(i, {'w': 'yang', 's': w['s'], 'e': w['s'] + 0.18}); w['s'] += 0.18; break
+        words.insert(i, {'w': 'yang', 's': w['s'], 'e': w['s'] + 0.18, 'ar': False}); w['s'] += 0.18; break
 words.sort(key=lambda w: w['s'])
+for w in words: w['w'] = w['w'].replace('malaykat', 'malaikat').replace('muslim,', 'Muslim,')
 
 vo = load(SRC)
 fade = int(0.008 * SR)
@@ -96,16 +107,16 @@ def speech_pieces(a, b):
     out.append((start, b))
     return out
 
-for si, (sid, ranges) in enumerate(SCENES):
+for si, (sid, ranges, squeeze) in enumerate(SCENES):
     if si: pieces.append(np.zeros(int(SCENE_GAP * SR))); cur += SCENE_GAP
     sc_start = cur
     for (a, b) in ranges:
-        for (pa, pb) in speech_pieces(a, b):
+        for (pa, pb) in (speech_pieces(a, b) if squeeze else [(a, b)]):
             for w in words:
                 if pa - 0.2 <= w['s'] < pb - 0.03 and not any(o['src'] == w['s'] for o in out_words):
                     t = w['w']
                     out_words.append({'text': t, 'key': t.strip('.,?!') in KEY, 'start': round(cur + max(0, w['s'] - pa), 3),
-                                      'end': round(cur + min(pb, w['e']) - pa, 3), 'scene': sid, 'src': w['s']})
+                                      'end': round(cur + min(pb, w['e']) - pa, 3), 'scene': sid, 'src': w['s'], 'ar': w.get('ar', False)})
             pieces.append(take(pa, pb)); cur += pb - pa
     scenes.append({'id': sid, 'start': round(sc_start, 3)})
 
@@ -118,13 +129,17 @@ write(f'{OUT}/vo.wav', voc)
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{OUT}/vo.wav', '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11',
                 '-ar', str(SR), '-b:a', '128k', f'{OUT}/vo.mp3'], check=True)
 os.remove(f'{OUT}/vo.wav')
+lat = [w for w in out_words if not w['ar']]
+for w in out_words: w.pop('src', None)
+for w in [w for w in out_words if w['ar']]: w['key'] = False
+out_words_all, out_words = out_words, lat
 for i, w in enumerate(out_words):
-    w.pop('src', None)
     nxt = out_words[i + 1] if i + 1 < len(out_words) else None
-    if (not nxt or nxt['scene'] != w['scene']) and w['text'][-1] not in '.,?!': w['text'] += '.'  # scene ends a sentence
+    if not nxt or nxt['scene'] != w['scene']: w['text'] = w['text'].rstrip(',') + ('' if w['text'][-1] in '.?!' else '.')  # scene ends a sentence
     prev = out_words[i - 1] if i else None
     if not prev or prev['scene'] != w['scene'] or (prev['text'].endswith('.') and prev['text'] != 'r.a.'):
         w['text'] = w['text'][0].upper() + w['text'][1:]
+out_words = out_words_all
 json.dump({'total': round(total, 3), 'voEnd': round(len(voc) / SR, 3), 'scenes': scenes, 'words': out_words},
           open('src/scenes/rahmah-words.json', 'w'), ensure_ascii=False, indent=1)
 print(f'VO {len(voc)/SR:.2f}s  total {total:.2f}s')

@@ -102,6 +102,7 @@ const ICONS: Record<string, string[]> = {
   scale: ['M12 3 v18', 'M7 21 h10', 'M4 7 h16', 'M4 7 l-2.5 6 a2.5 2.5 0 0 0 5 0 z', 'M20 7 l-2.5 6 a2.5 2.5 0 0 0 5 0 z'],
   hand: ['M7 11 V5.5 a1.5 1.5 0 0 1 3 0 V10', 'M10 10 V4 a1.5 1.5 0 0 1 3 0 v6', 'M13 10 V5 a1.5 1.5 0 0 1 3 0 v6', 'M16 11 V8 a1.5 1.5 0 0 1 3 0 v6 a7 7 0 0 1 -7 7 h-1 a6 6 0 0 1 -5 -3 l-3 -5 a1.5 1.5 0 0 1 2.5 -1.5 L7 13'],
   x: ['M12 3 a9 9 0 1 0 0.01 0', 'M8.5 8.5 l7 7', 'M15.5 8.5 l-7 7'],
+  check: ['M12 3 a9 9 0 1 0 0.01 0', 'M8 12.5 l3 3 l5 -6'],
 };
 
 export const LineIcon: React.FC<{name: keyof typeof ICONS | string; at: number; size?: number; color?: string; draw?: number}> =

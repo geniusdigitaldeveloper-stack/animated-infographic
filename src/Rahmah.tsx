@@ -30,7 +30,7 @@ export const sfxEvents = (() => {
   return out;
 })();
 
-const closingAt = wordAt('penutup', 'kesalahan'); // the "moment": music dips under the closing line
+const closingAt = wordAt('rumah', 'kekuatan'); // the "moment": music dips under the closing line
 
 const Backdrop: React.FC<{glow: [number, number]; pattern: string}> = ({glow, pattern}) => {
   const frame = useCurrentFrame();
@@ -77,7 +77,7 @@ const SceneView: React.FC<{i: number; dur: number}> = ({i, dur}) => {
   const exit = last ? 1 : interpolate(t, [dur - OVERLAP, dur], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const c = (w: string, nth = 0) => wordAt(sc.id, w, nth) - seq;
   const s = Math.min(L.graphic.w / 900, L.graphic.h / 860);
-  const sceneWords = words.filter((w) => w.scene === sc.id);
+  const sceneWords = words.filter((w) => w.scene === sc.id && !w.ar); // Arabic is shown in the graphic, not the subtitle
   const text = sceneWords.map((w) => (w.key ? w.text.replace(/^([^.,?!]+)([.,?!]*)$/, '*$1*$2') : w.text)).join(' ');
   return (
     <AbsoluteFill style={{opacity: Math.min(enter, exit)}}>
@@ -92,8 +92,8 @@ const SceneView: React.FC<{i: number; dur: number}> = ({i, dur}) => {
           {sc.graphic(c)}
         </div>
       </div>
-      <Caption text={text} duration={dur} box={L.caption} unit={L.unit}
-        words={sceneWords.map((w) => ({text: w.text, start: w.start - seq, end: w.end - seq}))} />
+      {sceneWords.length > 0 && <Caption text={text} duration={dur} box={L.caption} unit={L.unit}
+        words={sceneWords.map((w) => ({text: w.text, start: w.start - seq, end: w.end - seq}))} />}
     </AbsoluteFill>
   );
 };
